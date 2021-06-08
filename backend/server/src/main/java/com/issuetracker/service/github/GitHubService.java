@@ -1,31 +1,26 @@
-package com.issuetracker.service;
+package com.issuetracker.service.github;
 
 import com.issuetracker.dto.auth.AccessTokenRequest;
 import com.issuetracker.dto.auth.AccessTokenResponse;
 import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.exception.GitHubException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
-public class GitHubService {
+public abstract class GitHubService {
     private static final String GITHUB_ACCESS_TOKEN_URI = "https://github.com/login/oauth/access_token";
     private static final String GITHUB_USER_URI = "https://api.github.com/user";
     private static RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${github.client.id}")
-    private String CLIENT_ID;
+    abstract String getClientId();
 
-    @Value("${github.client.secret}")
-    private String CLIENT_SECRET;
+    abstract String getClientSecret();
 
     public AccessTokenResponse getAccessToken(String code) {
         RequestEntity<AccessTokenRequest> request = RequestEntity
                 .post(GITHUB_ACCESS_TOKEN_URI)
                 .header("Accept", "application/json")
-                .body(new AccessTokenRequest(CLIENT_ID, CLIENT_SECRET, code));
+                .body(new AccessTokenRequest(getClientId(), getClientSecret(), code));
 
         try {
             return restTemplate
@@ -42,7 +37,7 @@ public class GitHubService {
                 .header("Accept", "application/json")
                 .header("Authorization", "token " + accessToken)
                 .build();
-        
+
         try {
             return restTemplate
                     .exchange(request, UserDto.class)

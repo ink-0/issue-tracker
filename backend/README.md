@@ -8,7 +8,11 @@
 
 ```sh
 export GITHUB_CLIENT_ID="02d3c6009c956f409399"
-export GITHUB_CLIENT_SECRET="파이로에게 문의"
+export GITHUB_CLIENT_SECRET="ask_to_pyro"
+export GITHUB_IOS_CLIENT_ID="6cd127b711edc7a10a5c"
+export GITHUB_IOS_CLIENT_SECRET="3dc13a8fb7474e085ec63c3b928d2bdf20f64a89"
+export GITHUB_WEB_CLIENT_ID="ask_to_raccoon"
+export GITHUB_WEB_CLIENT_SECRET="ask_to_raccoon"
 export SPRING_DATASOURCE_URL="jdbc:mysql://localhost:12345/pyrodb?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&serverTimeZone=Asia/Seoul"
 export SPRING_DATASOURCE_USERNAME="pyro"
 export SPRING_DATASOURCE_PASSWORD="pyro1234"
