@@ -6,11 +6,8 @@ import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.exception.GitHubException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Optional;
 
 @Service
 public class GitHubService {
@@ -30,11 +27,13 @@ public class GitHubService {
                 .header("Accept", "application/json")
                 .body(new AccessTokenRequest(CLIENT_ID, CLIENT_SECRET, code));
 
-        ResponseEntity<AccessTokenResponse> response = restTemplate
-                .exchange(request, AccessTokenResponse.class);
-
-        return Optional.ofNullable(response.getBody())
-                .orElseThrow(() -> new GitHubException("Access Token 획득 실패"));
+        try {
+            return restTemplate
+                    .exchange(request, AccessTokenResponse.class)
+                    .getBody();
+        } catch (Exception e) {
+            throw new GitHubException("Access Token 획득 실패");
+        }
     }
 
     public UserDto getUser(String accessToken) {
@@ -43,11 +42,13 @@ public class GitHubService {
                 .header("Accept", "application/json")
                 .header("Authorization", "token " + accessToken)
                 .build();
-
-        ResponseEntity<UserDto> response = restTemplate
-                .exchange(request, UserDto.class);
-
-        return Optional.ofNullable(response.getBody())
-                .orElseThrow(() -> new GitHubException("유저 정보 획득 실패"));
+        
+        try {
+            return restTemplate
+                    .exchange(request, UserDto.class)
+                    .getBody();
+        } catch (Exception e) {
+            throw new GitHubException("유저 정보 획득 실패");
+        }
     }
 }
