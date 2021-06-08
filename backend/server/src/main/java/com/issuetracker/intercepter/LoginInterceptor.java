@@ -11,6 +11,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Optional;
+
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Configuration
@@ -29,10 +31,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     }
 
     private void authenticate(HttpServletRequest request) {
-        String[] splitAuth = request.getHeader(AUTHORIZATION).split(" ");
+        String authorization = Optional.ofNullable(request.getHeader(AUTHORIZATION))
+                .orElseThrow(() -> new AuthenticationException("인증되지 않은 유저입니다."));
+        String[] splitAuth = authorization.split(" ");
         String tokenType = splitAuth[0].toLowerCase();
         if (splitAuth.length < 1 || !tokenType.equals("bearer")) {
-            throw new AuthenticationException("잘못된 Authorization Header 입니다.");
+            throw new AuthenticationException("잘못된 Authorization 타입입니다.");
         }
         UserDto userDto = JwtUtil.decodeJwt(splitAuth[1]);
         request.setAttribute("user", userDto);
