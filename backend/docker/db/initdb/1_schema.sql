@@ -1,4 +1,4 @@
-ALTER DATABASE `pyrodb` DEFAULT CHARACTER SET = utf8;
+ALTER DATABASE `pyrodb` DEFAULT CHARACTER SET = utf8mb4;
 DROP TABLE IF EXISTS `pyrodb`.`reservation` ;
 DROP TABLE IF EXISTS `pyrodb`.`user` ;
 DROP TABLE IF EXISTS `pyrodb`.`room` ;

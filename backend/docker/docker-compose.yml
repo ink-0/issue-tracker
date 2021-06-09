@@ -21,11 +21,11 @@ services:
   redis:
     image: redis
     platform: linux/x86_64
-    container_name: redis6379
-    hostname: redis6379
+    container_name: redis15552
+    hostname: redis15552
     command: redis-server --requirepass redis1234 --port 6379
     labels:
       - "name=redis"
       - "mode=standalone"
     ports:
-      - 6379:6379
+      - 15552:6379
