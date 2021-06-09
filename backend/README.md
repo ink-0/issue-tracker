@@ -17,7 +17,7 @@ export SPRING_DATASOURCE_URL="jdbc:mysql://localhost:12345/pyrodb?autoReconnect=
 export SPRING_DATASOURCE_USERNAME="pyro"
 export SPRING_DATASOURCE_PASSWORD="pyro1234"
 export SPRING_REDIS_HOST="localhost"
-export SPRING_REDIS_PORT="6379"
+export SPRING_REDIS_PORT="15552"
 export SPRING_REDIS_PASSWORD="redis1234"
 ```
 
