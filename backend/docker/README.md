@@ -18,7 +18,7 @@ mysql -h localhost -P 12345 -D pyrodb --protocol=tcp -u pyro -p
 ## Redis 실행법
 
 ```sh
-sbrew install redis
+brew install redis
 
 redis-cli -h localhost -p 15552 -a 'redis1234'
 
