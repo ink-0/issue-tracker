@@ -4,17 +4,17 @@
     <meta charset="utf-8"/>
 </head>
 <body>
-    <div id="token" style="word-wrap:break-word"></div>
-    <h1 id="parsed-token"></h1>
-    <button id="hello-button">Hello World!</button>
-    <script>
+<div id="token" style="word-wrap:break-word"></div>
+<h1 id="parsed-token"></h1>
+<button id="hello-button">Hello World!</button>
+<script>
         const token = localStorage.getItem('token');
-        const parsedToken = decode(token.split('.')[1]);
+<!--        const parsedToken = decode(token.split('.')[1]);-->
 
         const $token = document.querySelector('#token');
-        const $parsedToken = document.querySelector('#parsed-token');
+<!--        const $parsedToken = document.querySelector('#parsed-token');-->
         $token.innerText = token;
-        $parsedToken.innerText = parsedToken;
+<!--        $parsedToken.innerText = parsedToken;-->
 
         const $helloBtn = document.querySelector('#hello-button');
         $helloBtn.addEventListener('click', () => {
@@ -31,6 +31,8 @@
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
         }
-    </script>
+
+
+</script>
 </body>
 </html>

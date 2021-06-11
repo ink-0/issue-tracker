@@ -34,7 +34,7 @@ public class IosAuthController {
     @LoginRequired
     public MessageResponse getHello(@UserAttribute UserDto user) {
         authService.authenticate(user);
-        return new MessageResponse("안녕하세요, " + user.getName() + " 님!\n로그인 한 유저는 언제나 환영합니다!");
+        return new MessageResponse("안녕하세요, " + user.getName() + " 님!\n로그인 한 유저는 언제나 환영합니다!" + "\n이미지: " + user.getAvatarUrl());
     }
 
     @PostMapping("/auth")
