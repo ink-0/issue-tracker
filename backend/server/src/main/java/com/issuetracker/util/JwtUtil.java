@@ -14,6 +14,7 @@ public class JwtUtil {
     private static final String JWT_ISSUER = "jwtIssuer";
     private static final String USER_LOGIN = "login";
     private static final String USER_NAME = "name";
+    private static final String USER_AVATAR_URL = "profileImageUrl";
 
     private JwtUtil() {}
 
@@ -24,6 +25,7 @@ public class JwtUtil {
                     .withIssuer(JWT_ISSUER)
                     .withClaim(USER_LOGIN, user.getLogin())
                     .withClaim(USER_NAME, user.getName())
+                    .withClaim(USER_AVATAR_URL, user.getAvatarUrl())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
             throw new JwtException("JWT 생성 실패");
@@ -39,7 +41,8 @@ public class JwtUtil {
             DecodedJWT jwt = verifier.verify(token);
             String login = jwt.getClaim(USER_LOGIN).asString();
             String name = jwt.getClaim(USER_NAME).asString();
-            return new UserDto(login, name);
+            String profileImageUrl = jwt.getClaim(USER_AVATAR_URL).asString();
+            return new UserDto(login, name, profileImageUrl);
         } catch (JWTVerificationException exception) {
             throw new JwtException("잘못된 jwt 입니다.");
         }
