@@ -21,7 +21,7 @@ public class AuthService {
     }
 
     public void authenticate(UserDto userDto) {
-        authRepository.findById(userDto.getLogin())
+        authRepository.findById(userDto.getEmail())
                 .orElseThrow(() -> new AuthenticationException("로그인하지 않은 유저입니다."));
     }
 }

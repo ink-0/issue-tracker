@@ -6,7 +6,7 @@ import com.issuetracker.domain.auth.User;
 
 public class UserDto {
 
-    private String login;
+    private String email;
 
     private String name;
 
@@ -14,20 +14,25 @@ public class UserDto {
 
     public UserDto() {}
 
-    public UserDto(String login, String name, String avatarUrl) {
-        this.login = login;
+    public UserDto(UserInfoDto userInfoDto, UserEmailDto emailDto) {
+        email = emailDto.getEmail();
+        name = userInfoDto.getName();
+        avatarUrl = userInfoDto.getAvatarUrl();
+    }
+    public UserDto(String email, String name, String avatarUrl) {
+        this.email = email;
         this.name = name;
         this.avatarUrl = avatarUrl;
     }
 
-    @JsonGetter("login")
-    public String getLogin() {
-        return login;
+    @JsonGetter("email")
+    public String getEmail() {
+        return email;
     }
 
-    @JsonSetter("login")
-    public void setLogin(String login) {
-        this.login = login;
+    @JsonSetter("email")
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @JsonGetter("name")
@@ -50,11 +55,13 @@ public class UserDto {
         this.avatarUrl = avatarUrl;
     }
 
-    public User toUser() {
-        return new User(login, name, avatarUrl);
+    public User toUser(){
+        return new User(this);
     }
 
-    public static UserDto from(User user) {
-        return new UserDto(user.getLogin(), user.getName(), user.getAvatarUrl());
+    public static UserDto from(UserInfoDto userInfoDto, UserEmailDto emailDto){
+        return new UserDto(userInfoDto, emailDto);
     }
+
+
 }

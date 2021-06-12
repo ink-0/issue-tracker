@@ -3,10 +3,7 @@ package com.issuetracker.controller.ios;
 import com.issuetracker.annotation.LoginRequired;
 import com.issuetracker.annotation.UserAttribute;
 import com.issuetracker.dto.MessageResponse;
-import com.issuetracker.dto.auth.AccessTokenResponse;
-import com.issuetracker.dto.auth.AuthRequest;
-import com.issuetracker.dto.auth.AuthResponse;
-import com.issuetracker.dto.auth.UserDto;
+import com.issuetracker.dto.auth.*;
 import com.issuetracker.service.AuthService;
 import com.issuetracker.service.UserService;
 import com.issuetracker.service.github.GitHubIosService;
@@ -44,7 +41,11 @@ public class IosAuthController {
         AccessTokenResponse accessTokenResponse = gitHubService.getAccessToken(code);
         String accessToken = accessTokenResponse.getAccessToken();
 
-        UserDto userDto = gitHubService.getUser(accessToken);
+        UserInfoDto userInfoDto = gitHubService.getUser(accessToken);
+        UserEmailDto userEmailDto = gitHubService.getEmail(accessToken);
+
+        UserDto userDto = UserDto.from(userInfoDto,userEmailDto);
+
         userService.save(userDto);
         authService.save(userDto, accessTokenResponse);
 

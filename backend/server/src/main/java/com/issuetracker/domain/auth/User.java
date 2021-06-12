@@ -1,24 +1,25 @@
 package com.issuetracker.domain.auth;
 
+import com.issuetracker.dto.auth.UserDto;
 import org.springframework.data.annotation.Id;
 
 public class User {
 
     @Id
-    private final String login;
+    private final String email;
 
     private String name; //INFO. NULL값 허용
 
     private String avatarUrl; //INFO. NULL값 허용
 
-    public User(String login, String name, String avatarUrl) {
-        this.login = login;
-        this.name = name;
-        this.avatarUrl = avatarUrl;
+    public User(UserDto userDto) {
+        this.email = userDto.getEmail();
+        this.name = userDto.getName();
+        this.avatarUrl = userDto.getAvatarUrl();
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
     public String getName() {
@@ -28,6 +29,5 @@ public class User {
     public String getAvatarUrl() {
         return avatarUrl;
     }
-
 
 }

@@ -10,6 +10,7 @@ public class Auth {
     private final String userLogin;
 
     private final User user;
+
     private final Token token;
 
     public Auth(String userLogin, User user, Token token) {
@@ -19,6 +20,6 @@ public class Auth {
     }
 
     public static Auth from(User user, Token token) {
-        return new Auth(user.getLogin(), user, token);
+        return new Auth(user.getEmail(), user, token);
     }
 }
