@@ -35,14 +35,4 @@ public class UserInfoDto {
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
-
-    /*
-    public User toUser() {
-        return new User(name, avatarUrl);
-    }
-
-    public static UserDto from(User user) {
-        return new UserDto(user.getName(), user.getAvatarUrl());
-    }
-    */
 }

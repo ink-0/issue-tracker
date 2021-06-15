@@ -34,7 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 .orElseThrow(() -> new AuthenticationException("인증되지 않은 유저입니다."));
         String[] splitAuth = authorization.split(" ");
         String tokenType = splitAuth[0].toLowerCase();
-        if (!tokenType.equals("bearer")) {
+        if (splitAuth.length < 2 || !tokenType.equals("bearer")) {
             throw new AuthenticationException("잘못된 Authorization 타입입니다.");
         }
         UserDto userDto = JwtUtil.decodeJwt(splitAuth[1]);

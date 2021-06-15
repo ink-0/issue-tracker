@@ -5,7 +5,6 @@ import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash("auth")
 public class Auth {
-
     @Id
     private final String userEmail;
 
@@ -13,14 +12,13 @@ public class Auth {
 
     private final Token token;
 
-    public Auth(User user, Token token) {
-        this.userEmail = user.getEmail();
+    public Auth(String userEmail, User user, Token token) {
+        this.userEmail = userEmail;
         this.user = user;
         this.token = token;
     }
 
     public static Auth from(User user, Token token) {
-        return new Auth(user, token);
+        return new Auth(user.getEmail(), user, token);
     }
-
 }
