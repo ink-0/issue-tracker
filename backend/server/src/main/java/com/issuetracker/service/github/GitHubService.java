@@ -45,31 +45,27 @@ public abstract class GitHubService {
     }
 
     public UserDto getUser(String accessToken) {
-        Tuple2<UserInfoDto, UserEmailDto[]> response = Mono.zip(getUserInfo(accessToken), getUserEmails(accessToken)).block();
-        UserInfoDto userInfoDto = response.getT1();
-        UserEmailDto userEmailDto = response.getT2()[0];
-        return UserDto.from(userInfoDto, userEmailDto);
+        try {
+            Tuple2<UserInfoDto, UserEmailDto[]> response = Mono.zip(getUserInfo(accessToken), getUserEmails(accessToken)).block();
+            UserInfoDto userInfoDto = response.getT1();
+            UserEmailDto userEmailDto = response.getT2()[0];
+            return UserDto.from(userInfoDto, userEmailDto);
+        } catch (Exception e) {
+            throw new GitHubException("유저 획득 실패");
+        }
     }
 
     private Mono<UserInfoDto> getUserInfo(String accessToken) {
-        try {
-            return userClient.get()
-                    .header(AUTHORIZATION, "token " + accessToken)
-                    .retrieve()
-                    .bodyToMono(UserInfoDto.class);
-        } catch (Exception e) {
-            throw new GitHubException("유저 정보 획득 실패");
-        }
+        return userClient.get()
+                .header(AUTHORIZATION, "token " + accessToken)
+                .retrieve()
+                .bodyToMono(UserInfoDto.class);
     }
 
     private Mono<UserEmailDto[]> getUserEmails(String accessToken) {
-        try {
-            return emailClient.get()
-                    .header(AUTHORIZATION, "token " + accessToken)
-                    .retrieve()
-                    .bodyToMono(UserEmailDto[].class);
-        } catch (Exception e) {
-            throw new GitHubException("유저 이메일 획득 실패");
-        }
+        return emailClient.get()
+                .header(AUTHORIZATION, "token " + accessToken)
+                .retrieve()
+                .bodyToMono(UserEmailDto[].class);
     }
 }
