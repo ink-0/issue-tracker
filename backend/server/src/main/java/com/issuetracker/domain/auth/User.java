@@ -5,20 +5,20 @@ import org.springframework.data.annotation.Id;
 public class User {
 
     @Id
-    private final String login;
+    private final String email;
 
     private String name; //INFO. NULL값 허용
 
     private String avatarUrl; //INFO. NULL값 허용
 
-    public User(String login, String name, String avatarUrl) {
-        this.login = login;
+    public User(String email, String name, String avatarUrl) {
+        this.email = email;
         this.name = name;
         this.avatarUrl = avatarUrl;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
     public String getName() {
@@ -28,6 +28,5 @@ public class User {
     public String getAvatarUrl() {
         return avatarUrl;
     }
-
 
 }
