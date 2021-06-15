@@ -44,6 +44,7 @@ public abstract class GitHubService {
         }
     }
 
+    // NOTE: https://www.baeldung.com/spring-webclient-simultaneous-calls
     public UserDto getUser(String accessToken) {
         try {
             Tuple2<UserInfoDto, UserEmailDto[]> response = Mono.zip(getUserInfo(accessToken), getUserEmails(accessToken)).block();
