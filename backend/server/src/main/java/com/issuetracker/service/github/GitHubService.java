@@ -47,7 +47,7 @@ public abstract class GitHubService {
     // NOTE: https://www.baeldung.com/spring-webclient-simultaneous-calls
     public UserDto getUser(String accessToken) {
         try {
-            Tuple2<UserInfoDto, UserEmailDto[]> response = Mono.zip(getUserInfo(accessToken), getUserEmails(accessToken)).block();
+            Tuple2<UserInfoDto, UserEmailDto[]> response = Mono.zip(requestUserInfo(accessToken), requestUserEmails(accessToken)).block();
             UserInfoDto userInfoDto = response.getT1();
             UserEmailDto userEmailDto = response.getT2()[0];
             return UserDto.from(userInfoDto, userEmailDto);
@@ -56,17 +56,15 @@ public abstract class GitHubService {
         }
     }
 
-    private Mono<UserInfoDto> getUserInfo(String accessToken) {
+    private Mono<UserInfoDto> requestUserInfo(String accessToken) {
         return userClient.get()
                 .header(AUTHORIZATION, "token " + accessToken)
-                .retrieve()
-                .bodyToMono(UserInfoDto.class);
+                .retrieve().bodyToMono(UserInfoDto.class);
     }
 
-    private Mono<UserEmailDto[]> getUserEmails(String accessToken) {
+    private Mono<UserEmailDto[]> requestUserEmails(String accessToken) {
         return emailClient.get()
                 .header(AUTHORIZATION, "token " + accessToken)
-                .retrieve()
-                .bodyToMono(UserEmailDto[].class);
+                .retrieve().bodyToMono(UserEmailDto[].class);
     }
 }
