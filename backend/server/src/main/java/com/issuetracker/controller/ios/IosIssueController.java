@@ -1,15 +1,12 @@
 package com.issuetracker.controller.ios;
 
-import com.issuetracker.annotation.UserAttribute;
 import com.issuetracker.dto.auth.UserDto;
-import com.issuetracker.dto.ios.IosIssueDto;
+import com.issuetracker.dto.ios.IosIssuesDto;
 import com.issuetracker.service.AuthService;
 import com.issuetracker.service.ios.IosIssueService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/ios")
@@ -24,10 +21,7 @@ public class IosIssueController {
     }
 
     @GetMapping("/issues")
-    // @LoginRequired
-    public List<IosIssueDto> getIssues(@UserAttribute UserDto user) {
-        // authService.authenticate(user);
-        // return iosIssueService.getIssues(user);
+    public IosIssuesDto getIssues() {
         return iosIssueService.getIssues(new UserDto("", "", ""));
     }
 }
