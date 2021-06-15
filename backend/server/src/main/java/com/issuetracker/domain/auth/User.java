@@ -1,6 +1,5 @@
 package com.issuetracker.domain.auth;
 
-import com.issuetracker.dto.auth.UserDto;
 import org.springframework.data.annotation.Id;
 
 public class User {
@@ -12,10 +11,10 @@ public class User {
 
     private String avatarUrl; //INFO. NULL값 허용
 
-    public User(UserDto userDto) {
-        this.email = userDto.getEmail();
-        this.name = userDto.getName();
-        this.avatarUrl = userDto.getAvatarUrl();
+    public User(String email, String name, String avatarUrl) {
+        this.email = email;
+        this.name = name;
+        this.avatarUrl = avatarUrl;
     }
 
     public String getEmail() {

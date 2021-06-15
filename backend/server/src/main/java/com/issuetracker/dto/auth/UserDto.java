@@ -10,19 +10,19 @@ public class UserDto {
 
     private String name;
 
-    private String avatarUrl;
+    private String profileImageUrl;
 
     public UserDto() {}
 
     public UserDto(UserInfoDto userInfoDto, UserEmailDto emailDto) {
         email = emailDto.getEmail();
         name = userInfoDto.getName();
-        avatarUrl = userInfoDto.getAvatarUrl();
+        profileImageUrl = userInfoDto.getAvatarUrl();
     }
-    public UserDto(String email, String name, String avatarUrl) {
+    public UserDto(String email, String name, String profileImageUrl) {
         this.email = email;
         this.name = name;
-        this.avatarUrl = avatarUrl;
+        this.profileImageUrl = profileImageUrl;
     }
 
     @JsonGetter("email")
@@ -46,17 +46,17 @@ public class UserDto {
     }
 
     @JsonGetter("avatar_url")
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 
     @JsonSetter("avatar_url")
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     public User toUser(){
-        return new User(this);
+        return new User(email,name,profileImageUrl);
     }
 
     public static UserDto from(UserInfoDto userInfoDto, UserEmailDto emailDto){

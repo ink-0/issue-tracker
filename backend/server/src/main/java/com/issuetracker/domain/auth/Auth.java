@@ -7,19 +7,20 @@ import org.springframework.data.redis.core.RedisHash;
 public class Auth {
 
     @Id
-    private final String userLogin;
+    private final String userEmail;
 
     private final User user;
 
     private final Token token;
 
-    public Auth(String userLogin, User user, Token token) {
-        this.userLogin = userLogin;
+    public Auth(User user, Token token) {
+        this.userEmail = user.getEmail();
         this.user = user;
         this.token = token;
     }
 
     public static Auth from(User user, Token token) {
-        return new Auth(user.getEmail(), user, token);
+        return new Auth(user, token);
     }
+
 }

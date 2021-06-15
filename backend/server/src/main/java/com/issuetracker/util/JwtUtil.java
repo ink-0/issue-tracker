@@ -26,7 +26,7 @@ public class JwtUtil {
                     .withIssuer(JWT_ISSUER)
                     .withClaim(USER_EMAIL, user.getEmail())
                     .withClaim(USER_NAME, user.getName())
-                    .withClaim(USER_PROFILE_IMAGE_URL, user.getAvatarUrl())
+                    .withClaim(USER_PROFILE_IMAGE_URL, user.getProfileImageUrl())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
             throw new JwtException("JWT 생성 실패");
