@@ -1,5 +1,6 @@
 package com.issuetracker.service;
 
+import com.issuetracker.domain.auth.User;
 import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ public class UserService {
     }
 
     public void save(UserDto userDto) {
-        userRepository.save(userDto.toUser());
+        User user = userDto.toUser();
+        userRepository.save(user);
     }
 }

@@ -34,17 +34,16 @@ public class IosAuthController {
     @LoginRequired
     public MessageResponse getHello(@UserAttribute UserDto user) {
         authService.authenticate(user);
-        return new MessageResponse("안녕하세요, " + user.getName() + " 님!\n로그인 한 유저는 언제나 환영합니다!" + "\n이미지: " + user.getAvatarUrl());
+        return new MessageResponse("안녕하세요, " + user.getName() + " 님!\n로그인 한 유저는 언제나 환영합니다!" + "\n이미지: " + user.getProfileImageUrl());
     }
 
     @PostMapping("/auth")
     public ResponseEntity<AuthResponse> auth(@RequestBody AuthRequest authRequest) {
         String code = authRequest.getCode();
-
         AccessTokenResponse accessTokenResponse = gitHubService.getAccessToken(code);
         String accessToken = accessTokenResponse.getAccessToken();
-
         UserDto userDto = gitHubService.getUser(accessToken);
+
         userService.save(userDto);
         authService.save(userDto, accessTokenResponse);
 

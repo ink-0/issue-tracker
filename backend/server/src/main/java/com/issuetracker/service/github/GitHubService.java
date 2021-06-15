@@ -1,49 +1,72 @@
 package com.issuetracker.service.github;
 
-import com.issuetracker.dto.auth.AccessTokenRequest;
-import com.issuetracker.dto.auth.AccessTokenResponse;
-import com.issuetracker.dto.auth.UserDto;
+import com.issuetracker.dto.auth.*;
 import com.issuetracker.exception.GitHubException;
-import org.springframework.http.RequestEntity;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
+
+import static org.springframework.http.HttpHeaders.ACCEPT;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public abstract class GitHubService {
     private static final String GITHUB_ACCESS_TOKEN_URI = "https://github.com/login/oauth/access_token";
     private static final String GITHUB_USER_URI = "https://api.github.com/user";
-    private static RestTemplate restTemplate = new RestTemplate();
+    private static final String GITHUB_EMAIL_URI = "https://api.github.com/user/emails";
+
+    private static final WebClient accessTokenClient = WebClient.builder()
+            .baseUrl(GITHUB_ACCESS_TOKEN_URI)
+            .defaultHeader(ACCEPT, APPLICATION_JSON_VALUE)
+            .build();
+    private static final WebClient userClient = WebClient.builder()
+            .baseUrl(GITHUB_USER_URI)
+            .defaultHeader(ACCEPT, APPLICATION_JSON_VALUE)
+            .build();
+    private static final WebClient emailClient = WebClient.builder()
+            .baseUrl(GITHUB_EMAIL_URI)
+            .defaultHeader(ACCEPT, APPLICATION_JSON_VALUE)
+            .build();
 
     abstract String getClientId();
 
     abstract String getClientSecret();
 
     public AccessTokenResponse getAccessToken(String code) {
-        RequestEntity<AccessTokenRequest> request = RequestEntity
-                .post(GITHUB_ACCESS_TOKEN_URI)
-                .header("Accept", "application/json")
-                .body(new AccessTokenRequest(getClientId(), getClientSecret(), code));
-
         try {
-            return restTemplate
-                    .exchange(request, AccessTokenResponse.class)
-                    .getBody();
+            return accessTokenClient.post()
+                    .bodyValue(new AccessTokenRequest(getClientId(), getClientSecret(), code))
+                    .retrieve()
+                    .bodyToMono(AccessTokenResponse.class)
+                    .block();
         } catch (Exception e) {
             throw new GitHubException("Access Token 획득 실패");
         }
     }
 
+    // NOTE: https://www.baeldung.com/spring-webclient-simultaneous-calls
     public UserDto getUser(String accessToken) {
-        RequestEntity<Void> request = RequestEntity
-                .get(GITHUB_USER_URI)
-                .header("Accept", "application/json")
-                .header("Authorization", "token " + accessToken)
-                .build();
-
         try {
-            return restTemplate
-                    .exchange(request, UserDto.class)
-                    .getBody();
+            Tuple2<UserInfoDto, UserEmailDto[]> response = Mono.zip(getUserInfo(accessToken), getUserEmails(accessToken)).block();
+            UserInfoDto userInfoDto = response.getT1();
+            UserEmailDto userEmailDto = response.getT2()[0];
+            return UserDto.from(userInfoDto, userEmailDto);
         } catch (Exception e) {
-            throw new GitHubException("유저 정보 획득 실패");
+            throw new GitHubException("유저 획득 실패");
         }
+    }
+
+    private Mono<UserInfoDto> getUserInfo(String accessToken) {
+        return userClient.get()
+                .header(AUTHORIZATION, "token " + accessToken)
+                .retrieve()
+                .bodyToMono(UserInfoDto.class);
+    }
+
+    private Mono<UserEmailDto[]> getUserEmails(String accessToken) {
+        return emailClient.get()
+                .header(AUTHORIZATION, "token " + accessToken)
+                .retrieve()
+                .bodyToMono(UserEmailDto[].class);
     }
 }

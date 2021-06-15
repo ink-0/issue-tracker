@@ -6,28 +6,33 @@ import com.issuetracker.domain.auth.User;
 
 public class UserDto {
 
-    private String login;
+    private String email;
 
     private String name;
 
-    private String avatarUrl;
+    private String profileImageUrl;
 
     public UserDto() {}
 
-    public UserDto(String login, String name, String avatarUrl) {
-        this.login = login;
+    public UserDto(UserInfoDto userInfoDto, UserEmailDto emailDto) {
+        email = emailDto.getEmail();
+        name = userInfoDto.getName();
+        profileImageUrl = userInfoDto.getAvatarUrl();
+    }
+    public UserDto(String email, String name, String profileImageUrl) {
+        this.email = email;
         this.name = name;
-        this.avatarUrl = avatarUrl;
+        this.profileImageUrl = profileImageUrl;
     }
 
-    @JsonGetter("login")
-    public String getLogin() {
-        return login;
+    @JsonGetter("email")
+    public String getEmail() {
+        return email;
     }
 
-    @JsonSetter("login")
-    public void setLogin(String login) {
-        this.login = login;
+    @JsonSetter("email")
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @JsonGetter("name")
@@ -41,20 +46,22 @@ public class UserDto {
     }
 
     @JsonGetter("avatar_url")
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 
     @JsonSetter("avatar_url")
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
-    public User toUser() {
-        return new User(login, name, avatarUrl);
+    public User toUser(){
+        return new User(email,name,profileImageUrl);
     }
 
-    public static UserDto from(User user) {
-        return new UserDto(user.getLogin(), user.getName(), user.getAvatarUrl());
+    public static UserDto from(UserInfoDto userInfoDto, UserEmailDto emailDto){
+        return new UserDto(userInfoDto, emailDto);
     }
+
+
 }
