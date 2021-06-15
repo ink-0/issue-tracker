@@ -15,15 +15,15 @@ public abstract class GitHubService {
     private static final String GITHUB_USER_URI = "https://api.github.com/user";
     private static final String GITHUB_EMAIL_URI = "https://api.github.com/user/emails";
 
-    private static WebClient accessTokenClient = WebClient.builder()
+    private static final WebClient accessTokenClient = WebClient.builder()
             .baseUrl(GITHUB_ACCESS_TOKEN_URI)
             .defaultHeader(ACCEPT, APPLICATION_JSON_VALUE)
             .build();
-    private static WebClient userClient = WebClient.builder()
+    private static final WebClient userClient = WebClient.builder()
             .baseUrl(GITHUB_USER_URI)
             .defaultHeader(ACCEPT, APPLICATION_JSON_VALUE)
             .build();
-    private static WebClient emailClient = WebClient.builder()
+    private static final WebClient emailClient = WebClient.builder()
             .baseUrl(GITHUB_EMAIL_URI)
             .defaultHeader(ACCEPT, APPLICATION_JSON_VALUE)
             .build();
