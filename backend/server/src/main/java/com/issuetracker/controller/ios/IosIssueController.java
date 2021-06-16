@@ -6,6 +6,7 @@ import com.issuetracker.service.AuthService;
 import com.issuetracker.service.ios.IosIssueService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,7 +22,8 @@ public class IosIssueController {
     }
 
     @GetMapping("/issues")
-    public IosIssuesDto getIssues() {
-        return iosIssueService.getIssues(new UserDto("", "", ""));
+    public IosIssuesDto getIssues(UserDto user, @RequestParam("status") String issueStatus) {
+        return iosIssueService.getIssues(user, issueStatus);
     }
+
 }

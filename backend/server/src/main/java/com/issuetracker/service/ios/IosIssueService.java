@@ -13,7 +13,12 @@ public class IosIssueService {
         this.issueRepository = issueRepository;
     }
 
-    public IosIssuesDto getIssues(UserDto userDto) {
-        return IosIssuesDto.from(issueRepository.getIssues(userDto.toUser()));
+    public IosIssuesDto getIssues(UserDto userDto, String issueStatus) {
+        final String ISSUE_CLOSE = "close";
+
+        if (issueStatus.equals(ISSUE_CLOSE)) {
+            return IosIssuesDto.from(issueRepository.getClosedIssues(userDto.toUser()));
+        }
+        return IosIssuesDto.from(issueRepository.getOpenIssues(userDto.toUser()));
     }
 }

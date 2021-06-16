@@ -12,13 +12,9 @@ public class UserDto {
 
     private String profileImageUrl;
 
-    public UserDto() {}
-
-    public UserDto(UserInfoDto userInfoDto, UserEmailDto emailDto) {
-        email = emailDto.getEmail();
-        name = userInfoDto.getName();
-        profileImageUrl = userInfoDto.getAvatarUrl();
+    public UserDto() {
     }
+
     public UserDto(String email, String name, String profileImageUrl) {
         this.email = email;
         this.name = name;
@@ -55,13 +51,15 @@ public class UserDto {
         this.profileImageUrl = profileImageUrl;
     }
 
-    public User toUser(){
-        return new User(email,name,profileImageUrl);
+    public User toUser() {
+        return new User(email, name, profileImageUrl);
     }
 
-    public static UserDto from(UserInfoDto userInfoDto, UserEmailDto emailDto){
-        return new UserDto(userInfoDto, emailDto);
+    public static UserDto from(UserInfoDto userInfoDto, UserEmailDto emailDto) {
+        return new UserDto(emailDto.getEmail(), userInfoDto.getName(), userInfoDto.getAvatarUrl());
     }
 
-
+    public static UserDto from(User user) {
+        return new UserDto(user.getEmail(), user.getName(), user.getAvatarUrl());
+    }
 }
