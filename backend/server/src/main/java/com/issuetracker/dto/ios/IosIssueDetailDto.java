@@ -2,7 +2,7 @@ package com.issuetracker.dto.ios;
 
 import com.issuetracker.domain.Comments;
 import com.issuetracker.domain.Issue;
-import com.issuetracker.domain.Milestone;
+import com.issuetracker.domain.MilestoneInfo;
 import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ public class IosIssueDetailDto {
 
     private Long issueId;
 
-    private Milestone milestone;
+    private MilestoneInfo milestoneInfo;
 
     private String title;
 
@@ -29,9 +29,9 @@ public class IosIssueDetailDto {
 
     private IosCommentsDto comments;
 
-    public IosIssueDetailDto(Long issueId, Milestone milestone, String title, String content, boolean status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels, IosCommentsDto comments) {
+    public IosIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, boolean status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels, IosCommentsDto comments) {
         this.issueId = issueId;
-        this.milestone = milestone;
+        this.milestoneInfo = milestoneInfo;
         this.title = title;
         this.content = content;
         this.status = status;
@@ -43,7 +43,7 @@ public class IosIssueDetailDto {
     }
 
     public static IosIssueDetailDto from(Issue issue, Comments comments) {
-        return new IosIssueDetailDto(issue.getIssueId(), issue.getMilestone(), issue.getTitle(), issue.getContent(), issue.isStatus(), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()), IosCommentsDto.from(comments));
+        return new IosIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), issue.isStatus(), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()), IosCommentsDto.from(comments));
     }
 
     public Long getIssueId() {
@@ -110,12 +110,12 @@ public class IosIssueDetailDto {
         this.createdDateTime = createdDateTime;
     }
 
-    public Milestone getMilestone() {
-        return milestone;
+    public MilestoneInfo getMilestoneInfo() {
+        return milestoneInfo;
     }
 
-    public void setMilestone(Milestone milestone) {
-        this.milestone = milestone;
+    public void setMilestoneInfo(MilestoneInfo milestoneInfo) {
+        this.milestoneInfo = milestoneInfo;
     }
 
     public IosCommentsDto getComments() {

@@ -11,7 +11,7 @@ public class Issue {
     @Id
     private final Long issueId;
 
-    private final Milestone milestone;
+    private final MilestoneInfo milestoneInfo;
 
     private final String title;
 
@@ -26,10 +26,10 @@ public class Issue {
     private final Users assignees;
 
     private final Labels labels;
-    
-    public Issue(Long issueId, Milestone milestone, String title, String content, boolean status, User writer, LocalDateTime createdDateTime, Users assignees, Labels labels) {
+
+    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, boolean status, User writer, LocalDateTime createdDateTime, Users assignees, Labels labels) {
         this.issueId = issueId;
-        this.milestone = milestone;
+        this.milestoneInfo = milestoneInfo;
         this.title = title;
         this.content = content;
         this.status = status;
@@ -71,7 +71,7 @@ public class Issue {
         return createdDateTime;
     }
 
-    public Milestone getMilestone() {
-        return milestone;
+    public MilestoneInfo getMilestoneInfo() {
+        return milestoneInfo;
     }
 }

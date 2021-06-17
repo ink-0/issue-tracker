@@ -1,7 +1,7 @@
 package com.issuetracker.dto.ios;
 
 import com.issuetracker.domain.Issue;
-import com.issuetracker.domain.Milestone;
+import com.issuetracker.domain.MilestoneInfo;
 import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ public class IosIssueSummaryDto {
 
     private Long issueId;
 
-    private Milestone milestone;
+    private MilestoneInfo milestoneInfo;
 
     private String title;
 
@@ -26,9 +26,9 @@ public class IosIssueSummaryDto {
 
     private IosLabelsDto labels;
 
-    public IosIssueSummaryDto(Long issueId, Milestone milestone, String title, String content, boolean status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels) {
+    public IosIssueSummaryDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, boolean status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels) {
         this.issueId = issueId;
-        this.milestone = milestone;
+        this.milestoneInfo = milestoneInfo;
         this.title = title;
         this.content = content;
         this.status = status;
@@ -39,7 +39,7 @@ public class IosIssueSummaryDto {
     }
 
     public static IosIssueSummaryDto from(Issue issue) {
-        return new IosIssueSummaryDto(issue.getIssueId(), issue.getMilestone(), issue.getTitle(), issue.getContent(), issue.isStatus(), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()));
+        return new IosIssueSummaryDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), issue.isStatus(), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()));
     }
 
     public Long getIssueId() {
@@ -106,11 +106,11 @@ public class IosIssueSummaryDto {
         this.createdDateTime = createdDateTime;
     }
 
-    public Milestone getMilestone() {
-        return milestone;
+    public MilestoneInfo getMilestoneInfo() {
+        return milestoneInfo;
     }
 
-    public void setMilestone(Milestone milestone) {
-        this.milestone = milestone;
+    public void setMilestoneInfo(MilestoneInfo milestoneInfo) {
+        this.milestoneInfo = milestoneInfo;
     }
 }

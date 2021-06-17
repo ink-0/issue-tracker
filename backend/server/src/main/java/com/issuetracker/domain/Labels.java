@@ -14,4 +14,8 @@ public class Labels {
     public List<Label> toList() {
         return labels;
     }
+
+    public List<Label> getLabels() {
+        return labels;
+    }
 }

@@ -1,28 +1,25 @@
 package com.issuetracker.dto.ios;
 
+import com.issuetracker.domain.Issues;
 import com.issuetracker.domain.Milestone;
-
-import java.time.LocalDateTime;
+import com.issuetracker.domain.MilestoneInfo;
 
 public class IosMilestoneDto {
 
     private Long id;
 
-    private String title;
+    private Issues issues;
 
-    private String description;
+    private MilestoneInfo milestoneInfo;
 
-    private LocalDateTime dueDate;
-
-    public IosMilestoneDto(Long id, String title, String description, LocalDateTime dueDate) {
+    public IosMilestoneDto(Long id, Issues issues, MilestoneInfo milestoneInfo) {
         this.id = id;
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
+        this.issues = issues;
+        this.milestoneInfo = milestoneInfo;
     }
 
     public static IosMilestoneDto from(Milestone milestone) {
-        return new IosMilestoneDto(milestone.getId(), milestone.getTitle(), milestone.getDescription(), milestone.getDueDate());
+        return new IosMilestoneDto(milestone.getId(), milestone.getIssues(), milestone.getMilestoneInfo());
     }
 
     public Long getId() {
@@ -33,27 +30,19 @@ public class IosMilestoneDto {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Issues getIssues() {
+        return issues;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setIssues(Issues issues) {
+        this.issues = issues;
     }
 
-    public String getDescription() {
-        return description;
+    public MilestoneInfo getMilestoneInfo() {
+        return milestoneInfo;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDateTime dueDate) {
-        this.dueDate = dueDate;
+    public void setMilestoneInfo(MilestoneInfo milestoneInfo) {
+        this.milestoneInfo = milestoneInfo;
     }
 }

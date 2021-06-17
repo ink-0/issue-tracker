@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class IssueRepository {
@@ -26,15 +28,12 @@ public class IssueRepository {
         labels.add(new Label(2L, "라벨 타이틀5", "라벨 설명2", "#FF0000", "#000000"));
         labels.add(new Label(3L, "라벨 타이틀6", "라벨 설명3", "#FF0000", "#000000"));
 
-        Milestone milestone = new Milestone(1L, "마일스톤 제목1", "마일스톤 내용", LocalDateTime.now());
-        Milestone milestone2 = new Milestone(2L, "마일스톤 제목2", "마일스톤 내용", LocalDateTime.now());
-        Milestone milestone3 = new Milestone(3L, "마일스톤 제목3", "마일스톤 내용", LocalDateTime.now());
-
+        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", LocalDateTime.now());
+        MilestoneInfo milestoneInfo2 = new MilestoneInfo("마일스톤 제목2", "마일스톤 내용2", LocalDateTime.now());
 
         Issues issues = new Issues();
-        issues.add(new Issue(2L, milestone, "열린 이슈 타이틀1", "열린 이슈 설명1", true, writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(3L, milestone2, "열린 이슈 타이틀2", "열린 이슈 설명2", true, writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(4L, milestone3, "열린 이슈 타이틀3", "열린 이슈 설명3", true, writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(2L, milestoneInfo, "열린 이슈 타이틀1", "열린 이슈 설명1", true, writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(3L, milestoneInfo2, "열린 이슈 타이틀2", "열린 이슈 설명2", true, writer, LocalDateTime.now(), assignees, labels));
 
         return issues;
     }
@@ -51,9 +50,13 @@ public class IssueRepository {
         labels.add(new Label(2L, "라벨 타이틀2", "라벨 설명2", "#FF0000", "#000000"));
         labels.add(new Label(3L, "라벨 타이틀3", "라벨 설명3", "#FF0000", "#000000"));
 
-        Milestone milestone = new Milestone(1L, "마일스톤 제목1", "마일스톤 내용", LocalDateTime.now());
+
+        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", LocalDateTime.now());
+
         Issues issues = new Issues();
-        issues.add(new Issue(1L, milestone, "닫힌 이슈 타이틀1", "닫힌 이슈 설명1", false, writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(1L, milestoneInfo, "닫힌 이슈 타이틀1", "닫힌 이슈 설명1", false, writer, LocalDateTime.now(), assignees, labels));
+
+        Milestone milestone = new Milestone(1L, issues, milestoneInfo);
 
         return issues;
     }
@@ -64,6 +67,7 @@ public class IssueRepository {
     }
 
     public IssueOption findIssueOption() {
+        User writer = new User("test@test.com", "테스터", "http://testProfile.image.url");
 
         Users assignees = new Users();
         assignees.add(new User("noel@test.com", "노을", "http://testProfile.image.url"));
@@ -74,11 +78,14 @@ public class IssueRepository {
         labels.add(new Label(2L, "라벨 타이틀5", "라벨 설명2", "#FF0000", "#000000"));
         labels.add(new Label(3L, "라벨 타이틀6", "라벨 설명3", "#FF0000", "#000000"));
 
+        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", LocalDateTime.now());
+        Issues issues = new Issues();
+        issues.add(new Issue(2L, milestoneInfo, "열린 이슈 타이틀1", "열린 이슈 설명1", true, writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(3L, milestoneInfo, "열린 이슈 타이틀2", "열린 이슈 설명2", true, writer, LocalDateTime.now(), assignees, labels));
+
 
         Milestones milestones = new Milestones();
-        milestones.add(new Milestone(1L, "마일스톤1", "마일스톤 내용", LocalDateTime.now()));
-        milestones.add(new Milestone(2L, "마일스톤2", "마일스톤 내용", LocalDateTime.now()));
-        milestones.add(new Milestone(3L, "마일스톤3", "마일스톤 내용", LocalDateTime.now()));
+        milestones.add(new Milestone(1L, issues, milestoneInfo));
 
         return new IssueOption(assignees, labels, milestones);
     }
@@ -100,9 +107,15 @@ public class IssueRepository {
         labels.add(new Label(2L, "라벨 타이틀2", "라벨 설명2", "#FF0000", "#000000"));
         labels.add(new Label(3L, "라벨 타이틀3", "라벨 설명3", "#FF0000", "#000000"));
 
-        Milestone milestone = new Milestone(1L, "마일스톤 제목1", "마일스톤 내용", LocalDateTime.now());
 
-        Issue issue = new Issue(issueId, milestone, "검색한 이슈 타이틀1", "닫힌 이슈 설명1", false, writer, LocalDateTime.now(), assignees, labels);
+        List<Long> issuesId = new ArrayList<>();
+        issuesId.add(1L);
+        issuesId.add(2L);
+        issuesId.add(3L);
+
+        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", LocalDateTime.now());
+
+        Issue issue = new Issue(issueId, milestoneInfo, "검색한 이슈 타이틀1", "닫힌 이슈 설명1", false, writer, LocalDateTime.now(), assignees, labels);
 
         return issue;
     }
