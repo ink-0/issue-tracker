@@ -19,7 +19,7 @@ public class IosIssueController {
     }
 
     @GetMapping("/issues")
-    public IosIssuesDto getIssues(UserDto user, @RequestParam(value = "status", required = false) String issueStatus, @RequestParam(required = false) String milestone, @RequestParam(required = false) String writer) {
+    public IosIssuesDto getIssues(UserDto user, @RequestParam(value = "status", required = false) String issueStatus, @RequestParam(required = false) String milestone, @RequestParam(required = false) String writer, @RequestParam(required = false) String created) {
         return iosIssueService.getIssues(user, issueStatus);
     }
 

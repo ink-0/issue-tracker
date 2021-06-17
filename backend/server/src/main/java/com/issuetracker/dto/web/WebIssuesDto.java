@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class WebIssuesDto {
-    private final List<WebIssueDto> issues;
+    private final List<WebIssueSummaryDto> issues;
 
-    public WebIssuesDto(List<WebIssueDto> issues) {
+    public WebIssuesDto(List<WebIssueSummaryDto> issues) {
         this.issues = issues;
     }
 
     public static WebIssuesDto from(Issues issues) {
         return new WebIssuesDto(issues.toList().stream()
-                .map(WebIssueDto::from)
+                .map(WebIssueSummaryDto::from)
                 .collect(Collectors.toList()));
     }
 
-    public List<WebIssueDto> getIssues() {
+    public List<WebIssueSummaryDto> getIssues() {
         return issues;
     }
 }
