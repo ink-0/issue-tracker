@@ -11,6 +11,8 @@ public class Issue {
     @Id
     private final Long issueId;
 
+    private final Milestone milestone;
+
     private final String title;
 
     private final String content;
@@ -25,8 +27,10 @@ public class Issue {
 
     private final Labels labels;
 
-    public Issue(Long issueId, String title, String content, boolean status, User writer, LocalDateTime createdDateTime, Users assignees, Labels labels) {
+
+    public Issue(Long issueId, Milestone milestone, String title, String content, boolean status, User writer, LocalDateTime createdDateTime, Users assignees, Labels labels) {
         this.issueId = issueId;
+        this.milestone = milestone;
         this.title = title;
         this.content = content;
         this.status = status;
@@ -66,5 +70,9 @@ public class Issue {
 
     public LocalDateTime getCreatedDateTime() {
         return createdDateTime;
+    }
+
+    public Milestone getMilestone() {
+        return milestone;
     }
 }
