@@ -41,11 +41,15 @@ public class IosIssueService {
         issueRepository.save(issueDto.toNewIssue());
     }
 
-    public IosIssueDetailDto findDetailedIssue(Long issueId) {
+    public IosIssueDetailDto findDetailedIssueId(Long issueId) {
         Issue issue = issueRepository.findById(issueId);
         Comments comments = commentRepository.findByIssueId(issueId);
 
         return IosIssueDetailDto.from(issue, comments);
+    }
+
+    public IosCommentsDto findCommentsByIssueId(Long issueId) {
+        return IosCommentsDto.from(commentRepository.findByIssueId(issueId));
     }
 
 }

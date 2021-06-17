@@ -42,7 +42,11 @@ public class IosIssueController {
 
     @GetMapping("/issues/{issueId}")
     public IosIssueDetailDto detailIssue(@PathVariable Long issueId) {
-        return iosIssueService.findDetailedIssue(issueId);
+        return iosIssueService.findDetailedIssueId(issueId);
     }
 
+    @GetMapping("/issues/{issueId}/comments")
+    public IosCommentsDto commentList(@PathVariable Long issueId) {
+        return iosIssueService.findCommentsByIssueId(issueId);
+    }
 }
