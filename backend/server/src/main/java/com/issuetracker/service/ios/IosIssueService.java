@@ -8,6 +8,8 @@ import com.issuetracker.repository.CommentRepository;
 import com.issuetracker.repository.IssueRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class IosIssueService {
     private final IssueRepository issueRepository;
@@ -19,12 +21,21 @@ public class IosIssueService {
     }
 
     public IosIssuesDto getIssues(UserDto userDto, String issueStatus) {
-        final String ISSUE_CLOSE = "close";
 
-        if (issueStatus.equals(ISSUE_CLOSE)) {
-            return IosIssuesDto.from(issueRepository.getClosedIssues(userDto.toUser()));
+        issueStatus = Objects.toString(issueStatus, "");
+
+        final String ISSUE_STATUS_CLOSE = "close";
+        final String ISSUE_STATUS_OPEN = "open";
+
+        switch (issueStatus) {
+            case ISSUE_STATUS_CLOSE:
+                return IosIssuesDto.from(issueRepository.getClosedIssues(userDto.toUser()));
+            case ISSUE_STATUS_OPEN:
+                return IosIssuesDto.from(issueRepository.getOpenIssues(userDto.toUser()));
+            default:
+                return IosIssuesDto.from(issueRepository.getAllIssues(userDto.toUser()));
         }
-        return IosIssuesDto.from(issueRepository.getOpenIssues(userDto.toUser()));
+
     }
 
     //INFO.  "issueNumbers": [1, 2, 3] 이 들어오면, 해당 번호의 이슈의 상태를 반전

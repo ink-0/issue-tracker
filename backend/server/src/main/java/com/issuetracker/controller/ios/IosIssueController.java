@@ -19,9 +19,10 @@ public class IosIssueController {
     }
 
     @GetMapping("/issues")
-    public IosIssuesDto getIssues(UserDto user, @RequestParam("status") String issueStatus) {
+    public IosIssuesDto getIssues(UserDto user, @RequestParam(value = "status", required = false) String issueStatus, @RequestParam(required = false) String milestone, @RequestParam(required = false) String writer) {
         return iosIssueService.getIssues(user, issueStatus);
     }
+
 
     //TODO. 로직 미구현
     @PatchMapping("/issues")
