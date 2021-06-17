@@ -1,6 +1,12 @@
 package com.issuetracker.domain;
 
+import org.springframework.data.annotation.Id;
+
 public class Label {
+
+    @Id
+    private final Long id;
+
     private final String title;
 
     private final String description;
@@ -9,7 +15,8 @@ public class Label {
 
     private final String textColorHexa;
 
-    public Label(String title, String description, String backgroundColorHexa, String textColorHexa) {
+    public Label(Long id, String title, String description, String backgroundColorHexa, String textColorHexa) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.backgroundColorHexa = backgroundColorHexa;
@@ -30,5 +37,9 @@ public class Label {
 
     public String getTextColorHexa() {
         return textColorHexa;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -1,7 +1,5 @@
 package com.issuetracker.service.web;
 
-import com.issuetracker.dto.auth.UserDto;
-import com.issuetracker.dto.web.WebIssuesDto;
 import com.issuetracker.repository.IssueRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +11,9 @@ public class WebIssueService {
         this.issueRepository = issueRepository;
     }
 
+    /*
     public WebIssuesDto getIssues(UserDto userDto) {
         return WebIssuesDto.from(issueRepository.getIssues(userDto.toUser()));
     }
+    */
 }

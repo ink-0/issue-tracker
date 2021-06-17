@@ -2,11 +2,13 @@ package com.issuetracker.domain;
 
 import com.issuetracker.domain.auth.User;
 import com.issuetracker.domain.auth.Users;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
 public class Issue {
 
+    @Id
     private final Long issueId;
 
     private final String title;
