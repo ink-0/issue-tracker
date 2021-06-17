@@ -26,8 +26,7 @@ public class Issue {
     private final Users assignees;
 
     private final Labels labels;
-
-
+    
     public Issue(Long issueId, Milestone milestone, String title, String content, boolean status, User writer, LocalDateTime createdDateTime, Users assignees, Labels labels) {
         this.issueId = issueId;
         this.milestone = milestone;

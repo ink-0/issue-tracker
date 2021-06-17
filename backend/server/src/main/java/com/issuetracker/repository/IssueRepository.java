@@ -86,4 +86,24 @@ public class IssueRepository {
     public void save(NewIssue issue) {
         logger.debug(issue.toString());
     }
+
+    public Issue findById(Long issueId) {
+
+        User writer = new User("test@test.com", "테스터", "http://testProfile.image.url");
+
+        Users assignees = new Users();
+        assignees.add(new User("assign@test.com", "담당자", "http://testProfile.image.url"));
+        assignees.add(new User("assign2@test.com", "담당자2", "http://testProfile.image.url"));
+
+        Labels labels = new Labels();
+        labels.add(new Label(1L, "라벨 타이틀1", "라벨 설명1", "#FF0000", "#000000"));
+        labels.add(new Label(2L, "라벨 타이틀2", "라벨 설명2", "#FF0000", "#000000"));
+        labels.add(new Label(3L, "라벨 타이틀3", "라벨 설명3", "#FF0000", "#000000"));
+
+        Milestone milestone = new Milestone(1L, "마일스톤 제목1", "마일스톤 내용", LocalDateTime.now());
+
+        Issue issue = new Issue(issueId, milestone, "검색한 이슈 타이틀1", "닫힌 이슈 설명1", false, writer, LocalDateTime.now(), assignees, labels);
+
+        return issue;
+    }
 }

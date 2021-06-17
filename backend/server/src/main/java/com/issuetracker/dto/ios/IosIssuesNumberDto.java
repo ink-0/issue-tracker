@@ -8,6 +8,9 @@ public class IosIssuesNumberDto {
 
     private Long[] issueNumber;
 
+    public IosIssuesNumberDto() {
+    }
+    
     public IosIssuesNumberDto(Long[] issueNumber) {
         this.issueNumber = issueNumber;
     }

@@ -6,7 +6,7 @@ import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
 
-public class IosIssueDto {
+public class IosIssueSummaryDto {
 
     private Long issueId;
 
@@ -26,7 +26,7 @@ public class IosIssueDto {
 
     private IosLabelsDto labels;
 
-    public IosIssueDto(Long issueId, Milestone milestone, String title, String content, boolean status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels) {
+    public IosIssueSummaryDto(Long issueId, Milestone milestone, String title, String content, boolean status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels) {
         this.issueId = issueId;
         this.milestone = milestone;
         this.title = title;
@@ -38,8 +38,8 @@ public class IosIssueDto {
         this.labels = labels;
     }
 
-    public static IosIssueDto from(Issue issue) {
-        return new IosIssueDto(issue.getIssueId(), issue.getMilestone(), issue.getTitle(), issue.getContent(), issue.isStatus(), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()));
+    public static IosIssueSummaryDto from(Issue issue) {
+        return new IosIssueSummaryDto(issue.getIssueId(), issue.getMilestone(), issue.getTitle(), issue.getContent(), issue.isStatus(), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()));
     }
 
     public Long getIssueId() {
