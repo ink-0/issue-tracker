@@ -3,12 +3,16 @@ package com.issuetracker.repository;
 import com.issuetracker.domain.*;
 import com.issuetracker.domain.auth.User;
 import com.issuetracker.domain.auth.Users;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 
 @Repository
 public class IssueRepository {
+
+    Logger logger = LoggerFactory.getLogger(IssueRepository.class.getName());
 
     public Issues getOpenIssues(User writer) {
         writer = new User("neo@test.com", "네오", "http://testProfile.image.url");
@@ -48,10 +52,10 @@ public class IssueRepository {
         return issues;
     }
 
-    public boolean toggle(Integer[] issueNumbers) {
-        return false;
+    // 이슈의 status를 토글하는 기능을 만들고자 했음. on/off
+    // DTO 나중에 없애기
+    public void toggle(IssuesNumber issueNumbers) {
     }
-
 
     public IssueOption findIssueOption() {
 
@@ -73,4 +77,7 @@ public class IssueRepository {
         return new IssueOption(assignees, labels, milestones);
     }
 
+    public void save(NewIssue issue) {
+        logger.debug(issue.toString());
+    }
 }

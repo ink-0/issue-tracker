@@ -3,6 +3,8 @@ package com.issuetracker.service.ios;
 import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.dto.ios.IosIssueOptionDto;
 import com.issuetracker.dto.ios.IosIssuesDto;
+import com.issuetracker.dto.ios.IosIssuesNumberDto;
+import com.issuetracker.dto.ios.IosNewIssueDto;
 import com.issuetracker.repository.IssueRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +27,15 @@ public class IosIssueService {
 
     //INFO.  "issueNumbers": [1, 2, 3] 이 들어오면, 해당 번호의 이슈의 상태를 반전
     //INFO. 아직 repository 완성되지 않음.
-    public void toggleIssue(Integer[] issueNumber) {
-        issueRepository.toggle(issueNumber); //TODO. toggle 네이밍 변경 필요해보임.
+    public void toggleIssue(IosIssuesNumberDto issueNumber) {
+        issueRepository.toggle(issueNumber.toIssueNumber()); //TODO. toggle 네이밍 변경 필요해보임.
     }
 
     public IosIssueOptionDto findIssueOption() {
         return IosIssueOptionDto.from(issueRepository.findIssueOption());
     }
 
+    public void save(IosNewIssueDto issueDto) {
+        issueRepository.save(issueDto.toNewIssue());
+    }
 }
