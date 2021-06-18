@@ -1,8 +1,5 @@
 package com.issuetracker.controller.web;
 
-import com.issuetracker.annotation.LoginRequired;
-import com.issuetracker.annotation.UserAttribute;
-import com.issuetracker.dto.MessageResponse;
 import com.issuetracker.dto.auth.AccessTokenResponse;
 import com.issuetracker.dto.auth.AuthRequest;
 import com.issuetracker.dto.auth.AuthResponse;
@@ -13,7 +10,10 @@ import com.issuetracker.service.github.GitHubService;
 import com.issuetracker.service.github.GitHubWebService;
 import com.issuetracker.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -30,13 +30,6 @@ public class WebAuthController {
         this.authService = authService;
     }
 
-    @GetMapping("/hello")
-    @LoginRequired
-    public MessageResponse getHello(@UserAttribute UserDto user) {
-        authService.authenticate(user);
-        return new MessageResponse("안녕하세요, " + user.getName() + " 님!\n로그인 한 유저는 언제나 환영합니다!" + "\n이미지: " + user.getProfileImageUrl());
-    }
-
     @PostMapping("/auth")
     public ResponseEntity<AuthResponse> auth(@RequestBody AuthRequest authRequest) {
         String code = authRequest.getCode();
@@ -48,6 +41,9 @@ public class WebAuthController {
         authService.save(userDto, accessTokenResponse);
 
         return ResponseEntity.status(CREATED)
-                .body(new AuthResponse(JwtUtil.createJwt(userDto)));
+                .body(new AuthResponse(
+                        JwtUtil.createJwt(userDto),
+                        userDto.getName(),
+                        userDto.getProfileImageUrl()));
     }
 }

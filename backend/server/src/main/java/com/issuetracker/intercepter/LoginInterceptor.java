@@ -1,7 +1,6 @@
 package com.issuetracker.intercepter;
 
 import com.issuetracker.annotation.LoginRequired;
-import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.exception.AuthenticationException;
 import com.issuetracker.util.JwtUtil;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +36,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (splitAuth.length < 2 || !tokenType.equals("bearer")) {
             throw new AuthenticationException("잘못된 Authorization 타입입니다.");
         }
-        UserDto userDto = JwtUtil.decodeJwt(splitAuth[1]);
-        request.setAttribute("user", userDto);
+        String userId = JwtUtil.decodeJwt(splitAuth[1]);
+        request.setAttribute("userId", userId);
     }
 }

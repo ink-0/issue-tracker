@@ -18,6 +18,10 @@ public class Auth {
         this.token = token;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public static Auth from(User user, Token token) {
         return new Auth(user.getEmail(), user, token);
     }
