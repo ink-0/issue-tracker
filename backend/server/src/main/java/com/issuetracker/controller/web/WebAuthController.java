@@ -1,5 +1,6 @@
 package com.issuetracker.controller.web;
 
+import com.issuetracker.annotation.LoginRequired;
 import com.issuetracker.dto.auth.AccessTokenResponse;
 import com.issuetracker.dto.auth.AuthRequest;
 import com.issuetracker.dto.auth.AuthResponse;
@@ -10,10 +11,9 @@ import com.issuetracker.service.github.GitHubService;
 import com.issuetracker.service.github.GitHubWebService;
 import com.issuetracker.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -28,6 +28,13 @@ public class WebAuthController {
         this.gitHubService = gitHubService;
         this.userService = userService;
         this.authService = authService;
+    }
+
+    @GetMapping("/userInfo")
+    @LoginRequired
+    public UserDto getUser(HttpServletRequest request) {
+        String userId = (String) request.getAttribute("userId");
+        return authService.getUser(userId);
     }
 
     @PostMapping("/auth")
