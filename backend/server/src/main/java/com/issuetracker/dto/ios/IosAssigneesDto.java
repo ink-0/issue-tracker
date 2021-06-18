@@ -20,6 +20,16 @@ public class IosAssigneesDto {
                 .collect(Collectors.toList()));
     }
 
+    public List<UserDto> toList() {
+        return users;
+    }
+
+    public Users toUsers() {
+        return new Users(users.stream()
+                .map(UserDto::toUser)
+                .collect(Collectors.toList()));
+    }
+
     public List<UserDto> getUsers() {
         return users;
     }

@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Users {
-    private final List<User> users = new ArrayList<>();
+    private final List<User> users;
+
+    public Users() {
+        this(new ArrayList<>());
+    }
+
+    public Users(List<User> users) {
+        this.users = users;
+    }
 
     public void add(User user) {
         users.add(user);
@@ -13,5 +21,5 @@ public class Users {
     public List<User> toList() {
         return users;
     }
-    
+
 }

@@ -66,4 +66,8 @@ public class IosLabelDto {
         return new IosLabelDto(label.getId(), label.getTitle(), label.getDescription(), label.getBackgroundColorHexa(), label.getTextColorHexa());
     }
 
+    public Label toLabel() {
+        return new Label(id, title, description, backgroundColorHexa, textColorHexa);
+    }
+
 }

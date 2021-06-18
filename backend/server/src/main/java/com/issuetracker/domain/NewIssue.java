@@ -1,6 +1,6 @@
 package com.issuetracker.domain;
 
-import java.util.Arrays;
+import com.issuetracker.domain.auth.Users;
 
 public class NewIssue {
 
@@ -8,17 +8,17 @@ public class NewIssue {
 
     private final String comment;
 
-    private final Long[] assigneesId;
+    private final Users assignees;
 
-    private final Long[] labelsId;
+    private final Labels labels;
 
     private final Long milestoneId;
 
-    public NewIssue(String title, String comment, Long[] assigneesId, Long[] labelsId, Long milestoneId) {
+    public NewIssue(String title, String comment, Users assignees, Labels labels, Long milestoneId) {
         this.title = title;
         this.comment = comment;
-        this.assigneesId = assigneesId;
-        this.labelsId = labelsId;
+        this.assignees = assignees;
+        this.labels = labels;
         this.milestoneId = milestoneId;
     }
 
@@ -30,26 +30,15 @@ public class NewIssue {
         return comment;
     }
 
-    public Long[] getAssigneesId() {
-        return assigneesId;
+    public Users getAssignees() {
+        return assignees;
     }
 
-    public Long[] getLabelsId() {
-        return labelsId;
+    public Labels getLabels() {
+        return labels;
     }
 
     public Long getMilestoneId() {
         return milestoneId;
-    }
-
-    @Override
-    public String toString() {
-        return "NewIssueDto{" +
-                "title='" + title + '\'' +
-                ", comment='" + comment + '\'' +
-                ", assigneesId=" + Arrays.toString(assigneesId) +
-                ", labelsId=" + Arrays.toString(labelsId) +
-                ", milestoneId=" + milestoneId +
-                '}';
     }
 }

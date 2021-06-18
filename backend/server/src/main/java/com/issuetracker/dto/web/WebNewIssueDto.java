@@ -1,6 +1,9 @@
 package com.issuetracker.dto.web;
 
 import com.issuetracker.domain.NewIssue;
+import com.issuetracker.dto.auth.UserDto;
+
+import java.util.List;
 
 public class WebNewIssueDto {
 
@@ -8,61 +11,45 @@ public class WebNewIssueDto {
 
     private String comment;
 
-    private Long[] assigneesId;
+    private WebAssigneesDto assignees;
 
-    private Long[] labelsId;
+    private WebLabelsDto labels;
 
     private Long milestoneId;
 
-    public WebNewIssueDto(String title, String comment, Long[] assigneesId, Long[] labelsId, Long milestoneId) {
+    public WebNewIssueDto(String title, String comment, WebAssigneesDto assignees, WebLabelsDto labels, Long milestoneId) {
         this.title = title;
         this.comment = comment;
-        this.assigneesId = assigneesId;
-        this.labelsId = labelsId;
+        this.assignees = assignees;
+        this.labels = labels;
         this.milestoneId = milestoneId;
     }
 
+    public static WebNewIssueDto from(NewIssue newIssue) {
+        return new WebNewIssueDto(newIssue.getTitle(), newIssue.getComment(), WebAssigneesDto.from(newIssue.getAssignees()), WebLabelsDto.from(newIssue.getLabels()), newIssue.getMilestoneId());
+    }
+
     public NewIssue toNewIssue() {
-        return new NewIssue(title, comment, assigneesId, labelsId, milestoneId);
+        return new NewIssue(title, comment, assignees.toUsers(), labels.toLabels(), milestoneId);
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public List<UserDto> getAssignees() {
+        return assignees.toList();
     }
 
-    public Long[] getAssigneesId() {
-        return assigneesId;
-    }
-
-    public void setAssigneesId(Long[] assigneesId) {
-        this.assigneesId = assigneesId;
-    }
-
-    public Long[] getLabelsId() {
-        return labelsId;
-    }
-
-    public void setLabelsId(Long[] labelsId) {
-        this.labelsId = labelsId;
+    public List<WebLabelDto> getLabels() {
+        return labels.toList();
     }
 
     public Long getMilestoneId() {
         return milestoneId;
-    }
-
-    public void setMilestoneId(Long milestoneId) {
-        this.milestoneId = milestoneId;
     }
 }

@@ -17,7 +17,13 @@ public class WebLabelsDto {
         return new WebLabelsDto(labels.toList().stream().map(WebLabelDto::from).collect(Collectors.toList()));
     }
 
-    public List<WebLabelDto> getLabels() {
+    public List<WebLabelDto> toList() {
         return labels;
+    }
+
+    public Labels toLabels() {
+        return new Labels(labels.stream()
+                .map(WebLabelDto::toLabel)
+                .collect(Collectors.toList()));
     }
 }

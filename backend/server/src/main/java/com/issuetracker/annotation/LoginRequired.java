@@ -11,4 +11,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Documented
-public @interface LoginRequired {}
+public @interface LoginRequired {
+}

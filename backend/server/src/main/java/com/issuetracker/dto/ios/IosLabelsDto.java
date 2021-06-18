@@ -17,6 +17,16 @@ public class IosLabelsDto {
         return new IosLabelsDto(labels.toList().stream().map(IosLabelDto::from).collect(Collectors.toList()));
     }
 
+    public List<IosLabelDto> toList() {
+        return labels;
+    }
+
+    public Labels toLabels() {
+        return new Labels(labels.stream()
+                .map(IosLabelDto::toLabel)
+                .collect(Collectors.toList()));
+    }
+
     public List<IosLabelDto> getLabels() {
         return labels;
     }

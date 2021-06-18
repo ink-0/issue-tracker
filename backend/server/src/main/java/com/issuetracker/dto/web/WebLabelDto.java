@@ -66,4 +66,8 @@ public class WebLabelDto {
         return new WebLabelDto(label.getId(), label.getTitle(), label.getDescription(), label.getBackgroundColorHexa(), label.getTextColorHexa());
     }
 
+    public Label toLabel() {
+        return new Label(id, title, description, backgroundColorHexa, textColorHexa);
+    }
+
 }

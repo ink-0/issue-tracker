@@ -1,6 +1,9 @@
 package com.issuetracker.dto.ios;
 
 import com.issuetracker.domain.NewIssue;
+import com.issuetracker.dto.auth.UserDto;
+
+import java.util.List;
 
 public class IosNewIssueDto {
 
@@ -8,61 +11,45 @@ public class IosNewIssueDto {
 
     private String comment;
 
-    private Long[] assigneesId;
+    private IosAssigneesDto assignees;
 
-    private Long[] labelsId;
+    private IosLabelsDto labels;
 
     private Long milestoneId;
 
-    public IosNewIssueDto(String title, String comment, Long[] assigneesId, Long[] labelsId, Long milestoneId) {
+    public IosNewIssueDto(String title, String comment, IosAssigneesDto assignees, IosLabelsDto labels, Long milestoneId) {
         this.title = title;
         this.comment = comment;
-        this.assigneesId = assigneesId;
-        this.labelsId = labelsId;
+        this.assignees = assignees;
+        this.labels = labels;
         this.milestoneId = milestoneId;
     }
 
+    public static IosNewIssueDto from(NewIssue newIssue) {
+        return new IosNewIssueDto(newIssue.getTitle(), newIssue.getComment(), IosAssigneesDto.from(newIssue.getAssignees()), IosLabelsDto.from(newIssue.getLabels()), newIssue.getMilestoneId());
+    }
+
     public NewIssue toNewIssue() {
-        return new NewIssue(title, comment, assigneesId, labelsId, milestoneId);
+        return new NewIssue(title, comment, assignees.toUsers(), labels.toLabels(), milestoneId);
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public List<UserDto> getAssignees() {
+        return assignees.toList();
     }
 
-    public Long[] getAssigneesId() {
-        return assigneesId;
-    }
-
-    public void setAssigneesId(Long[] assigneesId) {
-        this.assigneesId = assigneesId;
-    }
-
-    public Long[] getLabelsId() {
-        return labelsId;
-    }
-
-    public void setLabelsId(Long[] labelsId) {
-        this.labelsId = labelsId;
+    public List<IosLabelDto> getLabels() {
+        return labels.toList();
     }
 
     public Long getMilestoneId() {
         return milestoneId;
-    }
-
-    public void setMilestoneId(Long milestoneId) {
-        this.milestoneId = milestoneId;
     }
 }

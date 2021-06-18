@@ -20,7 +20,13 @@ public class WebAssigneesDto {
                 .collect(Collectors.toList()));
     }
 
-    public List<UserDto> getUsers() {
+    public List<UserDto> toList() {
         return users;
+    }
+
+    public Users toUsers() {
+        return new Users(users.stream()
+                .map(UserDto::toUser)
+                .collect(Collectors.toList()));
     }
 }
