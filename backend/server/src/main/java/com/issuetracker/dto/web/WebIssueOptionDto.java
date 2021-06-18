@@ -25,23 +25,11 @@ public class WebIssueOptionDto {
         return assigneesDto;
     }
 
-    public void setAssigneesDto(WebAssigneesDto assigneesDto) {
-        this.assigneesDto = assigneesDto;
-    }
-
     public WebLabelsDto getLabelsDto() {
         return labelsDto;
     }
 
-    public void setLabelsDto(WebLabelsDto labelsDto) {
-        this.labelsDto = labelsDto;
-    }
-
     public WebMilestonesDto getMilestonesDto() {
         return milestonesDto;
-    }
-
-    public void setMilestonesDto(WebMilestonesDto milestonesDto) {
-        this.milestonesDto = milestonesDto;
     }
 }

@@ -17,7 +17,7 @@ public class Issue {
 
     private final String content;
 
-    private final boolean status;
+    private final IssueStatus status;
 
     private final User writer;
 
@@ -27,7 +27,7 @@ public class Issue {
 
     private final Labels labels;
 
-    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, boolean status, User writer, LocalDateTime createdDateTime, Users assignees, Labels labels) {
+    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatus status, User writer, LocalDateTime createdDateTime, Users assignees, Labels labels) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -51,7 +51,7 @@ public class Issue {
         return content;
     }
 
-    public boolean isStatus() {
+    public IssueStatus getStatus() {
         return status;
     }
 

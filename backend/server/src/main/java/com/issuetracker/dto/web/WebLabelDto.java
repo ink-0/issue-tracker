@@ -22,46 +22,6 @@ public class WebLabelDto {
         this.textColorHexa = textColorHexa;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getBackgroundColorHexa() {
-        return backgroundColorHexa;
-    }
-
-    public void setBackgroundColorHexa(String backgroundColorHexa) {
-        this.backgroundColorHexa = backgroundColorHexa;
-    }
-
-    public String getTextColorHexa() {
-        return textColorHexa;
-    }
-
-    public void setTextColorHexa(String textColorHexa) {
-        this.textColorHexa = textColorHexa;
-    }
-
     public static WebLabelDto from(Label label) {
         return new WebLabelDto(label.getId(), label.getTitle(), label.getDescription(), label.getBackgroundColorHexa(), label.getTextColorHexa());
     }
@@ -70,4 +30,23 @@ public class WebLabelDto {
         return new Label(id, title, description, backgroundColorHexa, textColorHexa);
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getBackgroundColorHexa() {
+        return backgroundColorHexa;
+    }
+
+    public String getTextColorHexa() {
+        return textColorHexa;
+    }
 }

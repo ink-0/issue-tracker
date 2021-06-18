@@ -29,4 +29,8 @@ public class WebAssigneesDto {
                 .map(UserDto::toUser)
                 .collect(Collectors.toList()));
     }
+
+    public List<UserDto> getUsers() {
+        return users;
+    }
 }

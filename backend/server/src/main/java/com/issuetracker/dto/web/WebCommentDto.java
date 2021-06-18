@@ -26,36 +26,19 @@ public class WebCommentDto {
         return new WebCommentDto(comment.getId(), comment.getWrite(), comment.getContent(), comment.getDateTime());
     }
 
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getWrite() {
         return write;
     }
 
-    public void setWrite(User write) {
-        this.write = write;
-    }
-
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public LocalDateTime getDateTime() {
         return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
     }
 }

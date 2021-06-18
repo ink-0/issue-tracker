@@ -24,23 +24,11 @@ public class WebMilestoneDto {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public WebIssuesDto getIssues() {
         return issues;
     }
 
-    public void setIssues(WebIssuesDto issues) {
-        this.issues = issues;
-    }
-
     public WebMilestoneInfo getMilestoneInfo() {
         return milestoneInfo;
-    }
-
-    public void setMilestoneInfo(WebMilestoneInfo milestoneInfo) {
-        this.milestoneInfo = milestoneInfo;
     }
 }

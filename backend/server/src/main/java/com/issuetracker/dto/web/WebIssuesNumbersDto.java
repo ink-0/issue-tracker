@@ -22,8 +22,4 @@ public class WebIssuesNumbersDto {
     public Long[] getIssueNumbers() {
         return issueNumbers;
     }
-
-    public void setIssueNumbers(Long[] issueNumbers) {
-        this.issueNumbers = issueNumbers;
-    }
 }

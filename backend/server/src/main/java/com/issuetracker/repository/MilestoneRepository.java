@@ -27,10 +27,10 @@ public class MilestoneRepository {
         labels.add(new Label(3L, "라벨 타이틀6", "라벨 설명3", "#FF0000", "#000000"));
 
         Issues issues = new Issues();
-        issues.add(new Issue(2L, milestoneInfo, "열린 이슈 타이틀1", "열린 이슈 설명1", true, writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(5L, milestoneInfo, "열린 이슈 타이틀2", "열린 이슈 설명1", true, writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(6L, milestoneInfo, "열린 이슈 타이틀3", "열린 이슈 설명1", true, writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(7L, milestoneInfo2, "열린 이슈 타이틀4", "열린 이슈 설명2", true, writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(2L, milestoneInfo, "열린 이슈 타이틀1", "열린 이슈 설명1", IssueStatus.from("open"), writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(5L, milestoneInfo, "열린 이슈 타이틀2", "열린 이슈 설명1", IssueStatus.from("open"), writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(6L, milestoneInfo, "열린 이슈 타이틀3", "열린 이슈 설명1", IssueStatus.from("open"), writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(7L, milestoneInfo2, "열린 이슈 타이틀4", "열린 이슈 설명2", IssueStatus.from("open"), writer, LocalDateTime.now(), assignees, labels));
 
         Milestones milestones = new Milestones();
         milestones.add(new Milestone(1L, issues, milestoneInfo));

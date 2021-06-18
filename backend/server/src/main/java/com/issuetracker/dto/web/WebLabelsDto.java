@@ -26,4 +26,8 @@ public class WebLabelsDto {
                 .map(WebLabelDto::toLabel)
                 .collect(Collectors.toList()));
     }
+
+    public List<WebLabelDto> getLabels() {
+        return labels;
+    }
 }
