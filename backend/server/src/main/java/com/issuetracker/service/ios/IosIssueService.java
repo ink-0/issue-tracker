@@ -40,7 +40,7 @@ public class IosIssueService {
 
     //INFO.  "issueNumbers": [1, 2, 3] 이 들어오면, 해당 번호의 이슈의 상태를 반전
     //INFO. 아직 repository 완성되지 않음.
-    public void toggleIssue(IosIssuesNumberDto issueNumber) {
+    public void toggleIssue(IosIssuesNumbersDto issueNumber) {
         issueRepository.toggle(issueNumber.toIssueNumber()); //TODO. toggle 네이밍 변경 필요해보임.
     }
 

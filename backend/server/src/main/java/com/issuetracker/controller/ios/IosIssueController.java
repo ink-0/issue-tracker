@@ -26,7 +26,7 @@ public class IosIssueController {
 
     //TODO. 로직 미구현
     @PatchMapping("/issues")
-    public void closeIssue(@RequestBody IosIssuesNumberDto issueNumber) {
+    public void closeIssue(@RequestBody IosIssuesNumbersDto issueNumber) {
         iosIssueService.toggleIssue(issueNumber); //TODO. toggle 네이밍 변경 필요해보임.
     }
 

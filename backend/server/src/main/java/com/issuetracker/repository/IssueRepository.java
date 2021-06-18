@@ -89,7 +89,7 @@ public class IssueRepository {
 
     // 이슈의 status를 토글하는 기능을 만들고자 했음. on/off
     // DTO 나중에 없애기
-    public void toggle(IssuesNumber issueNumbers) {
+    public void toggle(IssuesNumbers issueNumbers) {
     }
 
     public IssueOption findIssueOption() {

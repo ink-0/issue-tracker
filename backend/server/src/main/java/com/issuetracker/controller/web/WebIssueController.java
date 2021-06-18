@@ -26,7 +26,7 @@ public class WebIssueController {
 
     //TODO. 로직 미구현
     @PatchMapping("/issues")
-    public void closeIssue(@RequestBody WebIssuesNumberDto issueNumber) {
+    public void closeIssue(@RequestBody WebIssuesNumbersDto issueNumber) {
         webIssueService.toggleIssue(issueNumber); //TODO. toggle 네이밍 변경 필요해보임.
     }
 
