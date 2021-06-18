@@ -8,7 +8,7 @@ public class IssuesNumbers {
         this.issueNumbers = issueNumbers;
     }
 
-    public Long[] getIssueNumbers() {
+    public Long[] toList() {
         return issueNumbers;
     }
 }
