@@ -13,8 +13,5 @@ public class Issues {
     public List<Issue> toList() {
         return issues;
     }
-
-    public List<Issue> getIssues() {
-        return issues;
-    }
+    
 }

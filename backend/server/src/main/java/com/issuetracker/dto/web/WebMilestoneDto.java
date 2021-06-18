@@ -1,25 +1,23 @@
 package com.issuetracker.dto.web;
 
-import com.issuetracker.domain.Issues;
 import com.issuetracker.domain.Milestone;
-import com.issuetracker.domain.MilestoneInfo;
 
 public class WebMilestoneDto {
 
     private Long id;
 
-    private Issues issues;
+    private WebIssuesDto issues;
 
-    private MilestoneInfo milestoneInfo;
+    private WebMilestoneInfo milestoneInfo;
 
-    public WebMilestoneDto(Long id, Issues issues, MilestoneInfo milestoneInfo) {
+    public WebMilestoneDto(Long id, WebIssuesDto issues, WebMilestoneInfo milestoneInfo) {
         this.id = id;
         this.issues = issues;
         this.milestoneInfo = milestoneInfo;
     }
 
     public static WebMilestoneDto from(Milestone milestone) {
-        return new WebMilestoneDto(milestone.getId(), milestone.getIssues(), milestone.getMilestoneInfo());
+        return new WebMilestoneDto(milestone.getId(), WebIssuesDto.from(milestone.getIssues()), WebMilestoneInfo.from(milestone.getMilestoneInfo()));
     }
 
     public Long getId() {
@@ -30,19 +28,19 @@ public class WebMilestoneDto {
         this.id = id;
     }
 
-    public Issues getIssues() {
+    public WebIssuesDto getIssues() {
         return issues;
     }
 
-    public void setIssues(Issues issues) {
+    public void setIssues(WebIssuesDto issues) {
         this.issues = issues;
     }
 
-    public MilestoneInfo getMilestoneInfo() {
+    public WebMilestoneInfo getMilestoneInfo() {
         return milestoneInfo;
     }
 
-    public void setMilestoneInfo(MilestoneInfo milestoneInfo) {
+    public void setMilestoneInfo(WebMilestoneInfo milestoneInfo) {
         this.milestoneInfo = milestoneInfo;
     }
 }

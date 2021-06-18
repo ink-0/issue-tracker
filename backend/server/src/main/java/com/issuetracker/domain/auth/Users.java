@@ -13,8 +13,5 @@ public class Users {
     public List<User> toList() {
         return users;
     }
-
-    public List<User> getUsers() {
-        return users;
-    }
+    
 }
