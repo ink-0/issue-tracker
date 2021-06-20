@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
 
 @Repository
 public class UserRepository {
@@ -34,7 +33,7 @@ public class UserRepository {
         String sql = "INSERT INTO `email` (`email`, `userId`) values (?, ?) "
                 + "ON DUPLICATE KEY UPDATE `userId` = ?";
         jdbcTemplate.batchUpdate(sql, user.getEmails(), batchSize,
-                (PreparedStatement ps, String email) -> {
+                (ps, email) -> {
                     ps.setString(1, email);
                     ps.setString(2, userId);
                     ps.setString(3, userId);
