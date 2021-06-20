@@ -1,18 +1,15 @@
 package com.issuetracker.dto.auth;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
-
 public class AuthRequest {
     private String code;
 
-    @JsonGetter("code")
-    public String getCode() {
-        return code;
+    protected AuthRequest() {}
+
+    public AuthRequest(String code) {
+        this.code = code;
     }
 
-    @JsonSetter("code")
-    public void setCode(String code) {
-        this.code = code;
+    public String getCode() {
+        return code;
     }
 }

@@ -4,23 +4,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class UserEmailDto {
-
     private String email;
-
     private Boolean primary;
-
     private Boolean verified;
-
     private String visibility;
-
-    public UserEmailDto(){}
-
-    public UserEmailDto(String email, Boolean primary, Boolean verified, String visibility) {
-        this.email = email;
-        this.primary = primary;
-        this.verified = verified;
-        this.visibility = visibility;
-    }
 
     @JsonGetter("email")
     public String getEmail() {

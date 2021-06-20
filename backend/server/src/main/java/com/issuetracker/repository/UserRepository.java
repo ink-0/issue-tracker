@@ -15,8 +15,8 @@ public class UserRepository {
     }
 
     public void save(User user) {
-        String sql = "INSERT INTO `user` (`email`, `name`, `avatarUrl`) values (?, ?, ?) "
-                + "ON DUPLICATE KEY UPDATE `name` = ?, `avatarUrl` = ?";
-        jdbcTemplate.update(sql, user.getEmail(), user.getName(), user.getAvatarUrl(), user.getName(), user.getAvatarUrl());
+        String sql = "INSERT INTO `user` (`id`, `name`, `profileImageUrl`) values (?, ?, ?) "
+                + "ON DUPLICATE KEY UPDATE `name` = ?, `profileImageUrl` = ?";
+        jdbcTemplate.update(sql, user.getId(), user.getName(), user.getProfileImageUrl(), user.getName(), user.getProfileImageUrl());
     }
 }
