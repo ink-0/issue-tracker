@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `pyrodb`.`email`;
 CREATE TABLE `pyrodb`.`email` (
     `email` VARCHAR(50) NOT NULL PRIMARY KEY,
     `userId` VARCHAR(300) NOT NULL,
-    FOREIGN KEY(`userId`) REFERENCES `pyrodb`.`user`(`id`),
+    FOREIGN KEY(`userId`) REFERENCES `pyrodb`.`user`(`id`)
 );
 
 DROP TABLE IF EXISTS `pyrodb`.`status`;
