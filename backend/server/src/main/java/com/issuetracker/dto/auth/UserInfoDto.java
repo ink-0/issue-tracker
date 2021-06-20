@@ -7,13 +7,13 @@ public class UserInfoDto {
     private String login;
     private String name;
     private String avatarUrl;
-    
+
     @JsonGetter("login")
     public String getLogin() {
         return login;
     }
 
-    @JsonGetter("login")
+    @JsonSetter("login")
     public void setLogin(String login) {
         this.login = login;
     }

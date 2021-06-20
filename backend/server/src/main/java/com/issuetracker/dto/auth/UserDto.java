@@ -7,15 +7,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserDto {
-    private String id;
+    private final String id;
 
-    private String name;
+    private final String name;
 
-    private String profileImageUrl;
+    private final String profileImageUrl;
 
-    private List<String> emails;
-
-    protected UserDto() {}
+    private final List<String> emails;
 
     public UserDto(String id, String name, String profileImageUrl, List<String> emails) {
         this.id = id;
