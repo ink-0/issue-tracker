@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -17,11 +18,9 @@ public class IssueRepository {
     Logger logger = LoggerFactory.getLogger(IssueRepository.class.getName());
 
     public Issues getOpenIssues(User writer) {
-        writer = new User("neo@test.com", "네오", "http://testProfile.image.url");
-
         Users assignees = new Users();
-        assignees.add(new User("noel@test.com", "노을", "http://testProfile.image.url"));
-        assignees.add(new User("pyro@test.com", "파이로", "http://testProfile.image.url"));
+        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
+        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));
@@ -39,11 +38,9 @@ public class IssueRepository {
     }
 
     public Issues getClosedIssues(User writer) {
-        writer = new User("test@test.com", "테스터", "http://testProfile.image.url");
-
         Users assignees = new Users();
-        assignees.add(new User("assign@test.com", "담당자", "http://testProfile.image.url"));
-        assignees.add(new User("assign2@test.com", "담당자2", "http://testProfile.image.url"));
+        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
+        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀1", "라벨 설명1", "#FF0000", "#000000"));
@@ -62,11 +59,9 @@ public class IssueRepository {
     }
 
     public Issues getAllIssues(User writer) {
-        writer = new User("honux@test.com", "호눅스", "http://testProfile.image.url");
-
         Users assignees = new Users();
-        assignees.add(new User("k@test.com", "K", "http://testProfile.image.url"));
-        assignees.add(new User("pyro@test.com", "파이로", "http://testProfile.image.url"));
+        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
+        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));
@@ -93,11 +88,11 @@ public class IssueRepository {
     }
 
     public IssueOption findIssueOption() {
-        User writer = new User("test@test.com", "테스터", "http://testProfile.image.url");
+        User writer = new User("neo", "네오", "http://testProfile.image.url", Arrays.asList("a@neo.com", "b@neo.com"));
 
         Users assignees = new Users();
-        assignees.add(new User("noel@test.com", "노을", "http://testProfile.image.url"));
-        assignees.add(new User("pyro@test.com", "파이로", "http://testProfile.image.url"));
+        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
+        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));
@@ -121,12 +116,11 @@ public class IssueRepository {
     }
 
     public Issue findById(Long issueId) {
-
-        User writer = new User("test@test.com", "테스터", "http://testProfile.image.url");
+        User writer = new User("neo", "네오", "http://testProfile.image.url", Arrays.asList("a@neo.com", "b@neo.com"));
 
         Users assignees = new Users();
-        assignees.add(new User("assign@test.com", "담당자", "http://testProfile.image.url"));
-        assignees.add(new User("assign2@test.com", "담당자2", "http://testProfile.image.url"));
+        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
+        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀1", "라벨 설명1", "#FF0000", "#000000"));

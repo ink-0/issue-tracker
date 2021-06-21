@@ -2,9 +2,16 @@ ALTER DATABASE `pyrodb` DEFAULT CHARACTER SET = utf8mb4;
 
 DROP TABLE IF EXISTS `pyrodb`.`user`;
 CREATE TABLE `pyrodb`.`user` (
-    `email` VARCHAR(50) NOT NULL PRIMARY KEY,
+    `id` VARCHAR(50) NOT NULL PRIMARY KEY,
     `name` VARCHAR(50),
-    `avatarUrl` VARCHAR(300)
+    `profileImageUrl` VARCHAR(300)
+);
+
+DROP TABLE IF EXISTS `pyrodb`.`email`;
+CREATE TABLE `pyrodb`.`email` (
+    `email` VARCHAR(50) NOT NULL PRIMARY KEY,
+    `userId` VARCHAR(300) NOT NULL,
+    FOREIGN KEY(`userId`) REFERENCES `pyrodb`.`user`(`id`)
 );
 
 DROP TABLE IF EXISTS `pyrodb`.`status`;
@@ -28,9 +35,9 @@ CREATE TABLE `pyrodb`.`issue` (
     `writerId` VARCHAR(300) NOT NULL,
     `statusId` VARCHAR(50) NOT NULL,
     `milestoneId` INT,
-    CONSTRAINT `issue_writer_foreignkey` FOREIGN KEY(`writerId`) REFERENCES `pyrodb`.`user`(`email`),
-    CONSTRAINT `issue_status_foreignkey` FOREIGN KEY(`statusId`) REFERENCES `pyrodb`.`status`(`id`),
-    CONSTRAINT `issue_milestone_foreignkey` FOREIGN KEY(`milestoneId`) REFERENCES `pyrodb`.`milestone`(`id`)
+    FOREIGN KEY(`writerId`) REFERENCES `pyrodb`.`user`(`id`),
+    FOREIGN KEY(`statusId`) REFERENCES `pyrodb`.`status`(`id`),
+    FOREIGN KEY(`milestoneId`) REFERENCES `pyrodb`.`milestone`(`id`)
 );
 
 DROP TABLE IF EXISTS `pyrodb`.`comment`;
@@ -40,8 +47,8 @@ CREATE TABLE `pyrodb`.`comment` (
     `dateTime` TIMESTAMP,
     `writerId` VARCHAR(300) NOT NULL,
     `issueId` INT,
-    CONSTRAINT `comment_writer_foreignkey` FOREIGN KEY(`writerId`) REFERENCES `pyrodb`.`user`(`email`),
-    CONSTRAINT `comment_issue_foreignkey` FOREIGN KEY(`issueId`) REFERENCES `pyrodb`.`issue`(`id`)
+    FOREIGN KEY(`writerId`) REFERENCES `pyrodb`.`user`(`id`),
+    FOREIGN KEY(`issueId`) REFERENCES `pyrodb`.`issue`(`id`)
 );
 
 DROP TABLE IF EXISTS `pyrodb`.`label`;
@@ -56,7 +63,7 @@ DROP TABLE IF EXISTS `pyrodb`.`issueLabel`;
 CREATE TABLE `pyrodb`.`issueLabel` (
     `issueId` INT,
     `labelId` INT,
-    CONSTRAINT `issueLabel_issue_foreignkey` FOREIGN KEY(`issueId`) REFERENCES `pyrodb`.`issue`(`id`),
-    CONSTRAINT `issueLabel_label_foreignkey` FOREIGN KEY(`labelId`) REFERENCES `pyrodb`.`label`(`id`),
-    CONSTRAINT `issueLabel_primarykey` PRIMARY KEY(`issueId`, `labelId`)
+    FOREIGN KEY(`issueId`) REFERENCES `pyrodb`.`issue`(`id`),
+    FOREIGN KEY(`labelId`) REFERENCES `pyrodb`.`label`(`id`),
+    PRIMARY KEY(`issueId`, `labelId`)
 );

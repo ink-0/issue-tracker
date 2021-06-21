@@ -48,9 +48,7 @@ public abstract class GitHubService {
     public UserDto getUser(String accessToken) {
         try {
             Tuple2<UserInfoDto, UserEmailDto[]> response = Mono.zip(requestUserInfo(accessToken), requestUserEmails(accessToken)).block();
-            UserInfoDto userInfoDto = response.getT1();
-            UserEmailDto userEmailDto = response.getT2()[0];
-            return UserDto.from(userInfoDto, userEmailDto);
+            return UserDto.from(response.getT1(), response.getT2());
         } catch (Exception e) {
             throw new GitHubException("유저 획득 실패");
         }

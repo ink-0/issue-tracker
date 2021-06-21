@@ -1,8 +1,6 @@
 package com.issuetracker.controller.ios;
 
 import com.issuetracker.annotation.LoginRequired;
-import com.issuetracker.annotation.UserAttribute;
-import com.issuetracker.dto.MessageResponse;
 import com.issuetracker.dto.auth.AccessTokenResponse;
 import com.issuetracker.dto.auth.AuthRequest;
 import com.issuetracker.dto.auth.AuthResponse;
@@ -14,6 +12,8 @@ import com.issuetracker.service.github.GitHubService;
 import com.issuetracker.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -30,11 +30,11 @@ public class IosAuthController {
         this.authService = authService;
     }
 
-    @GetMapping("/hello")
+    @GetMapping("/userInfo")
     @LoginRequired
-    public MessageResponse getHello(@UserAttribute UserDto user) {
-        authService.authenticate(user);
-        return new MessageResponse("안녕하세요, " + user.getName() + " 님!\n로그인 한 유저는 언제나 환영합니다!" + "\n이미지: " + user.getProfileImageUrl());
+    public UserDto getUser(HttpServletRequest request) {
+        String userId = (String) request.getAttribute("userId");
+        return authService.getUser(userId);
     }
 
     @PostMapping("/auth")
@@ -48,6 +48,9 @@ public class IosAuthController {
         authService.save(userDto, accessTokenResponse);
 
         return ResponseEntity.status(CREATED)
-                .body(new AuthResponse(JwtUtil.createJwt(userDto)));
+                .body(new AuthResponse(
+                        JwtUtil.createJwt(userDto),
+                        userDto.getName(),
+                        userDto.getProfileImageUrl()));
     }
 }

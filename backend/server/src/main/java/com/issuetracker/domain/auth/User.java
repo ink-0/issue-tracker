@@ -2,31 +2,39 @@ package com.issuetracker.domain.auth;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 public class User {
 
     @Id
-    private final String email;
+    private final String id;
 
-    private String name; //INFO. NULL값 허용
+    private String name;
 
-    private String avatarUrl; //INFO. NULL값 허용
+    private String profileImageUrl;
 
-    public User(String email, String name, String avatarUrl) {
-        this.email = email;
+    private List<String> emails;
+
+    public User(String id, String name, String profileImageUrl, List<String> emails) {
+        this.id = id;
         this.name = name;
-        this.avatarUrl = avatarUrl;
+        this.profileImageUrl = profileImageUrl;
+        this.emails = emails;
     }
 
-    public String getEmail() {
-        return email;
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 
+    public List<String> getEmails() {
+        return emails;
+    }
 }

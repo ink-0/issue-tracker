@@ -1,65 +1,55 @@
 package com.issuetracker.dto.auth;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.issuetracker.domain.auth.User;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class UserDto {
+    private final String id;
 
-    private String email;
+    private final String name;
 
-    private String name;
+    private final String profileImageUrl;
 
-    private String profileImageUrl;
+    private final List<String> emails;
 
-    public UserDto() {
-    }
-
-    public UserDto(String email, String name, String profileImageUrl) {
-        this.email = email;
+    public UserDto(String id, String name, String profileImageUrl, List<String> emails) {
+        this.id = id;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
+        this.emails = emails;
     }
 
-    @JsonGetter("email")
-    public String getEmail() {
-        return email;
+    public User toUser() {
+        return new User(id, name, profileImageUrl, emails);
     }
 
-    @JsonSetter("email")
-    public void setEmail(String email) {
-        this.email = email;
+    public static UserDto from(UserInfoDto userInfoDto, UserEmailDto[] emails) {
+        return new UserDto(userInfoDto.getLogin(),
+                userInfoDto.getName(),
+                userInfoDto.getAvatarUrl(),
+                Arrays.stream(emails).map(dto -> dto.getEmail()).collect(Collectors.toList()));
     }
 
-    @JsonGetter("name")
+    public static UserDto from(User user) {
+        return new UserDto(user.getId(), user.getName(), user.getProfileImageUrl(), user.getEmails());
+    }
+
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
-    @JsonSetter("name")
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @JsonGetter("avatar_url")
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
 
-    @JsonSetter("avatar_url")
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
-
-    public User toUser() {
-        return new User(email, name, profileImageUrl);
-    }
-
-    public static UserDto from(UserInfoDto userInfoDto, UserEmailDto emailDto) {
-        return new UserDto(emailDto.getEmail(), userInfoDto.getName(), userInfoDto.getAvatarUrl());
-    }
-
-    public static UserDto from(User user) {
-        return new UserDto(user.getEmail(), user.getName(), user.getAvatarUrl());
+    public List<String> getEmails() {
+        return emails;
     }
 }

@@ -20,8 +20,9 @@ public class AuthService {
         authRepository.save(auth);
     }
 
-    public void authenticate(UserDto userDto) {
-        authRepository.findById(userDto.getEmail())
-                .orElseThrow(() -> new AuthenticationException("로그인하지 않은 유저입니다."));
+    public UserDto getUser(String userId) {
+        return UserDto.from(authRepository.findById(userId)
+                .orElseThrow(() -> new AuthenticationException("로그인하지 않은 유저입니다."))
+                .getUser());
     }
 }

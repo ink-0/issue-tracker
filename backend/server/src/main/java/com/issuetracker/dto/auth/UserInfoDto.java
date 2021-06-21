@@ -4,16 +4,18 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class UserInfoDto {
-
+    private String login;
     private String name;
-
     private String avatarUrl;
 
-    public UserInfoDto() {}
+    @JsonGetter("login")
+    public String getLogin() {
+        return login;
+    }
 
-    public UserInfoDto(String name, String avatarUrl) {
-        this.name = name;
-        this.avatarUrl = avatarUrl;
+    @JsonSetter("login")
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @JsonGetter("name")

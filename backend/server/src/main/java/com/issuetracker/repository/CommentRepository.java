@@ -6,12 +6,13 @@ import com.issuetracker.domain.auth.User;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Repository
 public class CommentRepository {
     public Comments findByIssueId(Long issueId) {
-        User writer = new User("test@test.com", "테스터", "http://testProfile.image.url");
-        User writer2 = new User("test2@test.com", "테스터2", "http://testProfile.image.url");
+        User writer = new User("test1", "테스터1", "http://testProfile.image.url", Arrays.asList("a@test1.com", "b@test1.com"));
+        User writer2 = new User("test2", "테스터2", "http://testProfile.image.url", Arrays.asList("a@test2.com", "b@test2.com"));
         Comments comments = new Comments();
 
         comments.add(new Comment(1L, 1L, writer, "댓글내용1", LocalDateTime.now()));
