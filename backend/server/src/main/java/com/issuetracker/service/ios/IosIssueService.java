@@ -22,7 +22,7 @@ public class IosIssueService {
     public IosIssuesDto getIssues(UserDto userDto, String issueStatus) {
 
         if (issueStatus == null) {
-            issueStatus = "ALL";
+            issueStatus = IssueStatusDto.ALL.name();
         }
 
         IssueStatusDto status = IssueStatusDto.valueOf(issueStatus);
