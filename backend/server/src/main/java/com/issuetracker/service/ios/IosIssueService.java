@@ -9,8 +9,6 @@ import com.issuetracker.repository.CommentRepository;
 import com.issuetracker.repository.IssueRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public class IosIssueService {
     private final IssueRepository issueRepository;
@@ -23,8 +21,11 @@ public class IosIssueService {
 
     public IosIssuesDto getIssues(UserDto userDto, String issueStatus) {
 
-        IssueStatusDto status = IssueStatusDto.valueOf(Objects.toString(issueStatus.toUpperCase(), ""));
+        if (issueStatus == null) {
+            issueStatus = IssueStatusDto.ALL.name();
+        }
 
+        IssueStatusDto status = IssueStatusDto.valueOf(issueStatus);
 
         switch (status) {
             case CLOSED:
