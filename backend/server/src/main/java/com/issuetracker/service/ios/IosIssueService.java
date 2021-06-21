@@ -24,7 +24,8 @@ public class IosIssueService {
         if (issueStatus == null) {
             issueStatus = IssueStatusDto.ALL.name();
         }
-
+        issueStatus = issueStatus.toUpperCase();
+        
         IssueStatusDto status = IssueStatusDto.valueOf(issueStatus);
 
         switch (status) {

@@ -24,6 +24,7 @@ public class WebIssueService {
         if (issueStatus == null) {
             issueStatus = IssueStatusDto.ALL.name();
         }
+        issueStatus = issueStatus.toUpperCase();
 
         IssueStatusDto status = IssueStatusDto.valueOf(issueStatus);
 
