@@ -2,6 +2,8 @@ package com.issuetracker.dto.ios;
 
 import com.issuetracker.domain.Milestone;
 
+import java.util.List;
+
 public class IosMilestoneDto {
 
     private Long id;
@@ -24,8 +26,8 @@ public class IosMilestoneDto {
         return id;
     }
 
-    public IosIssuesDto getIssues() {
-        return issues;
+    public List<IosIssueSummaryDto> getIssues() {
+        return issues.getIssues();
     }
 
     public IosMilestoneInfo getMilestoneInfo() {

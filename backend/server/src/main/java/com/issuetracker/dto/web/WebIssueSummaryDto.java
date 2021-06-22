@@ -6,6 +6,7 @@ import com.issuetracker.dto.IssueStatusDto;
 import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class WebIssueSummaryDto {
 
@@ -71,11 +72,11 @@ public class WebIssueSummaryDto {
         return createdDateTime;
     }
 
-    public WebAssigneesDto getAssignees() {
-        return assignees;
+    public List<UserDto> getAssignees() {
+        return assignees.getUsers();
     }
 
-    public WebLabelsDto getLabels() {
-        return labels;
+    public List<WebLabelDto> getLabels() {
+        return labels.getLabels();
     }
 }
