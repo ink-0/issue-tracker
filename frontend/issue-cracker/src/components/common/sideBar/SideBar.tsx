@@ -6,10 +6,10 @@ import { TYPE as T } from '../../../utils/const';
 import TextGroup from '../group/TextGroup';
 import AddIcon from '@material-ui/icons/Add';
 import jwtDecode from 'jwt-decode';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import {
   decodedToken,
-  dropAsigneeState,
+  dropAssigneeState,
   dropLabelState,
   dropMilestoneState,
 } from '../../../store/Recoil';
@@ -22,7 +22,7 @@ import MilestoneData from './data/MilestoneData';
 import AssigneeContent from './content/AssigneeContent';
 import LabelContent from './content/LabelContent';
 import MilestoneContent from './content/MilestoneContent';
-
+import { issueForm } from '../../../store/Recoil';
 interface TokenProps {
   name: string;
   profileImageUrl: string;
@@ -32,7 +32,7 @@ const SideBar = (): JSX.Element => {
   const token = localStorage.getItem('token');
   const decoded = token && jwtDecode<TokenProps>(token);
   const setDecodedToken = useSetRecoilState(decodedToken);
-  const [isDropAsignee, setIsDropAsignee] = useRecoilState(dropAsigneeState);
+  const [isDropAssignee, setIsDropAssignee] = useRecoilState(dropAssigneeState);
   const [isDropLabel, setIsDropLabel] = useRecoilState(dropLabelState);
   const [isDropMilestone, setIsDropMilestone] =
     useRecoilState(dropMilestoneState);
@@ -41,8 +41,10 @@ const SideBar = (): JSX.Element => {
   const dropLabelElement = useRef<HTMLDivElement>(null);
   const dropMilestoneElement = useRef<HTMLDivElement>(null);
 
-  const dropAsigneeHandler = () => {
-    setIsDropAsignee(!isDropAsignee);
+  const issueFormData = useRecoilValue(issueForm);
+  console.log('가져왓는지 확인', issueFormData);
+  const dropAssigneeHandler = () => {
+    setIsDropAssignee(!isDropAssignee);
   };
   const dropLabelHandler = () => {
     setIsDropLabel(!isDropLabel);
@@ -65,16 +67,16 @@ const SideBar = (): JSX.Element => {
         return;
       }
       if (dropLabelElement.current?.contains(e.target as Node)) {
-        setIsDropAsignee(false);
+        setIsDropAssignee(false);
         setIsDropMilestone(false);
         return;
       }
       if (dropMilestoneElement.current?.contains(e.target as Node)) {
-        setIsDropAsignee(false);
+        setIsDropAssignee(false);
         setIsDropLabel(false);
         return;
       }
-      setIsDropAsignee(false);
+      setIsDropAssignee(false);
       setIsDropLabel(false);
       setIsDropMilestone(false);
     };
@@ -98,9 +100,9 @@ const SideBar = (): JSX.Element => {
       <SideBarCell>
         <SideBarTitle>
           <TextGroup type={T.SMALL} content={'담당자'} color="#6E7191" />
-          <CustomAddIcon onClick={() => dropAsigneeHandler()} />
+          <CustomAddIcon onClick={() => dropAssigneeHandler()} />
           <SideBarDropDiv ref={dropAssigneeElement}>
-            {isDropAsignee && (
+            {isDropAssignee && (
               <SideBarDrop
                 type={'담당자'}
                 dataComponent={<AssigneeData {...{ userList }} />}

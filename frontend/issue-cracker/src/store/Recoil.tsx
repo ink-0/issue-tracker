@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 export const addState = atom({
   key: 'addState',
@@ -18,8 +18,8 @@ export const decodedToken = atom({
   },
 });
 
-export const dropAsigneeState = atom({
-  key: 'dropAsigneeState',
+export const dropAssigneeState = atom({
+  key: 'dropAssigneeState',
   default: false,
 });
 export const dropLabelState = atom({
@@ -29,6 +29,17 @@ export const dropLabelState = atom({
 export const dropMilestoneState = atom({
   key: 'dropMilestoneState',
   default: false,
+});
+
+//get: 상태값 사용
+//set: 새로운 값으로 상태값 변경
+export const issueForm = selector({
+  key: 'issueForm',
+  get: async () => {
+    const response = await fetch('http://localhost:8080/api/web/issues/form');
+    const data = await response.json();
+    return data;
+  },
 });
 
 // export const DecodedToken = selector({
