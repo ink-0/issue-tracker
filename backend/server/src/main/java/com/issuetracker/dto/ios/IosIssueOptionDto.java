@@ -4,6 +4,7 @@ import com.issuetracker.domain.IssueOption;
 import com.issuetracker.dto.auth.UserDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //INFO, 새로운 이슈 작성할 때, [담당자, 레이블, 마일스톤] 보여주는 건대, 네이밍 변경이 필요해보임.
 public class IosIssueOptionDto {
@@ -32,7 +33,9 @@ public class IosIssueOptionDto {
         return labelsDto.getLabels();
     }
 
-    public List<IosMilestoneDto> getMilestones() {
-        return milestonesDto.getMilestones();
+    public List<IosMilestoneSummaryDto> getMilestones() {
+        return milestonesDto.getMilestones()
+                .stream().map(IosMilestoneSummaryDto::from)
+                .collect(Collectors.toList());
     }
 }
