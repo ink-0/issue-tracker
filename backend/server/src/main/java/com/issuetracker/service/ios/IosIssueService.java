@@ -1,7 +1,5 @@
 package com.issuetracker.service.ios;
 
-import com.issuetracker.domain.Comments;
-import com.issuetracker.domain.Issue;
 import com.issuetracker.dto.IssueStatusDto;
 import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.dto.ios.*;
@@ -25,7 +23,7 @@ public class IosIssueService {
             issueStatus = IssueStatusDto.ALL.name();
         }
         issueStatus = issueStatus.toUpperCase();
-        
+
         IssueStatusDto status = IssueStatusDto.valueOf(issueStatus);
 
         switch (status) {
@@ -53,15 +51,17 @@ public class IosIssueService {
         issueRepository.save(issueDto.toNewIssue());
     }
 
+    /*
     public IosIssueDetailDto findDetailedIssueId(Long issueId) {
         Issue issue = issueRepository.findById(issueId);
         Comments comments = commentRepository.findByIssueId(issueId);
 
         return IosIssueDetailDto.from(issue, comments);
     }
+   */
 
-    public IosCommentsDto findCommentsByIssueId(Long issueId) {
-        return IosCommentsDto.from(commentRepository.findByIssueId(issueId));
+    public IosCommentsDto findAllCommentByIssueId(Long issueId) {
+        return IosCommentsDto.from(commentRepository.findAllCommentByIssueId(issueId));
     }
 
 }

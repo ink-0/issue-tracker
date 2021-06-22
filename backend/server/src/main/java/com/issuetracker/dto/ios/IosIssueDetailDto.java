@@ -1,12 +1,13 @@
 package com.issuetracker.dto.ios;
 
-import com.issuetracker.domain.Comments;
+import com.issuetracker.domain.DetailedComment;
 import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
 import com.issuetracker.dto.IssueStatusDto;
 import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class IosIssueDetailDto {
 
@@ -43,7 +44,7 @@ public class IosIssueDetailDto {
         this.comments = comments;
     }
 
-    public static IosIssueDetailDto from(Issue issue, Comments comments) {
+    public static IosIssueDetailDto from(Issue issue, List<DetailedComment> comments) {
         return new IosIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()), IosCommentsDto.from(comments));
     }
 

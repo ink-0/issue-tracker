@@ -1,37 +1,32 @@
 package com.issuetracker.dto.web;
 
-import com.issuetracker.domain.Comment;
-import com.issuetracker.domain.auth.User;
+import com.issuetracker.domain.DetailedComment;
 
 import java.time.LocalDateTime;
 
 public class WebCommentDto {
 
-    private Long id;
+    private final String writerId;
 
-    private User write;
+    private final String content;
 
-    private String content;
+    private final LocalDateTime dateTime;
 
-    private LocalDateTime dateTime;
+    private final String profileImageUrl;
 
-    public WebCommentDto(Long id, User write, String content, LocalDateTime dateTime) {
-        this.id = id;
-        this.write = write;
+    public WebCommentDto(String writerId, String content, LocalDateTime dateTime, String profileImageUrl) {
+        this.writerId = writerId;
         this.content = content;
         this.dateTime = dateTime;
+        this.profileImageUrl = profileImageUrl;
     }
 
-    public static WebCommentDto from(Comment comment) {
-        return new WebCommentDto(comment.getId(), comment.getWrite(), comment.getContent(), comment.getDateTime());
+    public static WebCommentDto from(DetailedComment comment) {
+        return new WebCommentDto(comment.getWriterId(), comment.getContent(), comment.getDateTime(), comment.getProfileImageUrl());
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public User getWrite() {
-        return write;
+    public String getWriterId() {
+        return writerId;
     }
 
     public String getContent() {
@@ -40,5 +35,9 @@ public class WebCommentDto {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 }

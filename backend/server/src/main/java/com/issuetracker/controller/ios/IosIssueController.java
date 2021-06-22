@@ -41,13 +41,16 @@ public class IosIssueController {
         iosIssueService.save(issue); // console print
     }
 
+    /*
     @GetMapping("/issues/{issueId}")
     public IosIssueDetailDto detailIssue(@PathVariable Long issueId) {
         return iosIssueService.findDetailedIssueId(issueId);
     }
+     */
 
     @GetMapping("/issues/{issueId}/comments")
     public IosCommentsDto commentList(@PathVariable Long issueId) {
-        return iosIssueService.findCommentsByIssueId(issueId);
+        return iosIssueService.findAllCommentByIssueId(issueId);
     }
+
 }

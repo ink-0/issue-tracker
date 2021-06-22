@@ -1,7 +1,5 @@
 package com.issuetracker.service.web;
 
-import com.issuetracker.domain.Comments;
-import com.issuetracker.domain.Issue;
 import com.issuetracker.dto.IssueStatusDto;
 import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.dto.web.*;
@@ -52,15 +50,17 @@ public class WebIssueService {
         issueRepository.save(issueDto.toNewIssue());
     }
 
+    /*
     public WebIssueDetailDto findDetailedIssueId(Long issueId) {
         Issue issue = issueRepository.findById(issueId);
         Comments comments = commentRepository.findByIssueId(issueId);
 
         return WebIssueDetailDto.from(issue, comments);
     }
+    */
 
-    public WebCommentsDto findCommentsByIssueId(Long issueId) {
-        return WebCommentsDto.from(commentRepository.findByIssueId(issueId));
+    public WebCommentsDto findAllCommentByIssueId(Long issueId) {
+        return WebCommentsDto.from(commentRepository.findAllCommentByIssueId(issueId));
     }
 
 }

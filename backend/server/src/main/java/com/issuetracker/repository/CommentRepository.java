@@ -1,24 +1,40 @@
 package com.issuetracker.repository;
 
-import com.issuetracker.domain.Comment;
-import com.issuetracker.domain.Comments;
-import com.issuetracker.domain.auth.User;
+import com.issuetracker.domain.DetailedComment;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CommentRepository {
-    public Comments findByIssueId(Long issueId) {
-        User writer = new User("test1", "테스터1", "http://testProfile.image.url", Arrays.asList("a@test1.com", "b@test1.com"));
-        User writer2 = new User("test2", "테스터2", "http://testProfile.image.url", Arrays.asList("a@test2.com", "b@test2.com"));
-        Comments comments = new Comments();
 
-        comments.add(new Comment(1L, 1L, writer, "댓글내용1", LocalDateTime.now()));
-        comments.add(new Comment(2L, 1L, writer2, "댓글내용3", LocalDateTime.now()));
-        comments.add(new Comment(3L, 1L, writer2, "댓글내용4", LocalDateTime.now()));
+    private NamedParameterJdbcTemplate jdbc;
+    private RowMapper<DetailedComment> rowMapper = BeanPropertyRowMapper.newInstance(DetailedComment.class);
 
-        return comments;
+    public CommentRepository(NamedParameterJdbcTemplate jdbc) {
+        this.jdbc = jdbc;
     }
+
+    public List<DetailedComment> findAllCommentByIssueId(Long issueId) {
+
+        String sql = "SELECT dateTime, comment.writerId, comment.content, name, email, profileImageUrl\n" +
+                "FROM comment\n" +
+                "         INNER JOIN user ON comment.writerId = user.id\n" +
+                "         INNER JOIN email ON user.id = email.userId\n" +
+                "         INNER JOIN issue ON comment.issueId = issue.id\n" +
+                "WHERE comment.issueId = :issueId;";
+
+        Map<String, Long> paramter = Collections.singletonMap("issueId", issueId);
+
+        List<DetailedComment> commentList = jdbc.query(sql, paramter, rowMapper);
+
+
+        return commentList;
+    }
+
 }

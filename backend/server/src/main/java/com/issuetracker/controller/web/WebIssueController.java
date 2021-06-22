@@ -41,13 +41,16 @@ public class WebIssueController {
         webIssueService.save(issue); // console print
     }
 
+    /*
     @GetMapping("/issues/{issueId}")
     public WebIssueDetailDto detailIssue(@PathVariable Long issueId) {
         return webIssueService.findDetailedIssueId(issueId);
     }
+    */
 
     @GetMapping("/issues/{issueId}/comments")
     public WebCommentsDto commentList(@PathVariable Long issueId) {
-        return webIssueService.findCommentsByIssueId(issueId);
+        return webIssueService.findAllCommentByIssueId(issueId);
     }
+
 }
