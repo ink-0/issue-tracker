@@ -6,6 +6,7 @@ import com.issuetracker.dto.IssueStatusDto;
 import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class IosIssueSummaryDto {
 
@@ -71,11 +72,11 @@ public class IosIssueSummaryDto {
         return createdDateTime;
     }
 
-    public IosAssigneesDto getAssignees() {
-        return assignees;
+    public List<UserDto> getAssignees() {
+        return assignees.getUsers();
     }
 
-    public IosLabelsDto getLabels() {
-        return labels;
+    public List<IosLabelDto> getLabels() {
+        return labels.getLabels();
     }
 }
