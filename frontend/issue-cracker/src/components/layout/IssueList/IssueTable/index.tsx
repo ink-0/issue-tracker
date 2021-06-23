@@ -13,7 +13,7 @@ const IssueTable = (): JSX.Element => {
   return (
     <IssueTableContainer>
       <IssueTableHeader {...{ issues }} />
-      <IssueCell />
+      <IssueCell {...{ issues }} />
     </IssueTableContainer>
   );
 };

@@ -10,7 +10,7 @@ export interface IssueDataProps {
   title: string;
   content: string;
   status: string;
-  writer: AssigneeProps[];
+  writer: AssigneeProps;
   createdDateTime: string;
   assignees: AssigneeProps[];
   labels: LabelProps[];

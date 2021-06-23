@@ -10,7 +10,7 @@ interface LocationStateProps {
   title: string;
   content: string;
   isOpen: boolean;
-  writer: string;
+  writer: string | null;
   date: string;
 }
 

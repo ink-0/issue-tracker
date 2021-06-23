@@ -11,57 +11,98 @@ import LabelSmallGroup from '../../../common/group/LabelSmallGroup';
 import { Link } from 'react-router-dom';
 import { decodedToken } from '../../../../store/Recoil';
 import { useRecoilValue } from 'recoil';
+import { IssueDataProps } from '../../../../utils/types/IssueDataType';
+import IssueDetail from '../../IssueDetail';
+import { v4 as uuidv4 } from 'uuid';
 
-const IssueCell = (): JSX.Element => {
+const IssueCell = ({ issues }: { issues: IssueDataProps[] }): JSX.Element => {
   const decoded = decodedToken && useRecoilValue(decodedToken);
   const profileURL = decoded && decoded.profileImageUrl;
+  console.log('이슈셀데이터', issues);
+
+  const getIssue = (list: IssueDataProps[], str: string): IssueDataProps[] =>
+    list.filter((el) => el.status === str);
+
+  const getElapsedTime = (date: string): string => {
+    const createdTime = new Date(2021, 5, 24, 4, 13, 0);
+    const current = new Date();
+    const gapMin = Math.floor((+current - +createdTime) / 1000 / 60);
+
+    if (gapMin < 1) return '방금 전';
+
+    if (gapMin < 60) return `${gapMin}분 전`;
+
+    const gapHour = Math.floor(gapMin / 60);
+    if (gapHour < 24) return `${gapHour}시간 전`;
+
+    const gapDay = Math.floor(gapHour / 24);
+    if (gapDay < 30) return `${gapDay}일 전`;
+
+    const gapMonth = Math.floor(gapDay / 12);
+    if (gapMonth < 12) return `${gapMonth}달 전`;
+
+    return '몇 년 전';
+  };
+
+  // console.log(getElapsedTime(issues[0].createdDateTime));
+  const openIssue = getIssue(issues, 'OPEN');
+  const closedIssue = getIssue(issues, 'CLOSED');
 
   return (
-    <S.IssueCell>
-      <LeftBox>
-        <CheckBoxes />
-        <IssueCellContent>
-          <Link
-            to={{
-              pathname: '/main/issue-detail/1',
-              state: {
-                issueNumber: 1,
-                title: '맛있는 저녁 메뉴 선정',
-                content: '뭘 먹을까?! 피그 인 더 가든?!',
-                isOpen: true,
-                writer: 'ink-O',
-                date: '',
-              },
-            }}
-          >
-            <IssueUpper>
-              <IssueOpenIcon
-                color="#3f51b5"
-                style={{ width: 24, height: 24 }}
-              />
-              <IssueTitle>맛있는 저녁 메뉴 선정</IssueTitle>
-              <LabelSmallGroup
-                color={'#fff'}
-                backgroundColor={'#1E4174'}
-                label="밥에 관한 것"
-              ></LabelSmallGroup>
-            </IssueUpper>
-          </Link>
-          <T.TextSmall color="#6E7191">
-            <IssueLower>
-              <IssueID>#1</IssueID>
-              <IssueContent>
-                이 이슈가8분전 ,ink-0님에 의해 작성되었습니다
-              </IssueContent>
-              <IssueMileStone>마스터즈 코스</IssueMileStone>
-            </IssueLower>
-          </T.TextSmall>
-        </IssueCellContent>
-      </LeftBox>
-      <RightBox>
-        {profileURL && <P.ProfileImgSmall src={profileURL} />}
-      </RightBox>
-    </S.IssueCell>
+    <>
+      {openIssue.map((issue) => (
+        <S.IssueCell key={uuidv4()}>
+          <>
+            <LeftBox>
+              <CheckBoxes />
+              <IssueCellContent>
+                <Link
+                  to={{
+                    pathname: '/main/issue-detail/1',
+                    state: {
+                      issueNumber: `${issue.issueId}`,
+                      title: `${issue.title}`,
+                      content: `${issue.content}`,
+                      isOpen: `${issue.content}`,
+                      writer: `${issue.writer.id}`,
+                      date: `${issue.createdDateTime}`,
+                    },
+                  }}
+                >
+                  <IssueUpper>
+                    <IssueOpenIcon
+                      color="#3f51b5"
+                      style={{ width: 24, height: 24 }}
+                    />
+                    <IssueTitle>{issue.title}</IssueTitle>
+                    {issue.labels.map((label) => {
+                      <LabelSmallGroup
+                        color={label.textColorHexa}
+                        backgroundColor={label.backgroundColorHexa}
+                        label={label.title}
+                      ></LabelSmallGroup>;
+                    })}
+                  </IssueUpper>
+                </Link>
+                <T.TextSmall color="#6E7191">
+                  <IssueLower>
+                    <IssueID>#{issue.issueId}</IssueID>
+                    <IssueContent>
+                      이 이슈가 {getElapsedTime(issue.createdDateTime)},
+                      ink-0님에 의해 작성되었습니다.
+                    </IssueContent>
+                    <IssueMileStone>{issue.milestoneInfo.title}</IssueMileStone>
+                  </IssueLower>
+                </T.TextSmall>
+              </IssueCellContent>
+            </LeftBox>
+            <RightBox>
+              {profileURL && <P.ProfileImgSmall src={profileURL} />}
+            </RightBox>
+          </>
+        </S.IssueCell>
+      ))}
+    </>
   );
 };
 
