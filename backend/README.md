@@ -34,7 +34,7 @@ sh ./start.sh
 
 depoloy.sh 를 실행한다.
 
-### Nginx 배포하는 법
+### Nginx 설정하는 법
 
 [출처: Dong 의 블로그](https://velog.io/@d-h-k/NGINX)
 
