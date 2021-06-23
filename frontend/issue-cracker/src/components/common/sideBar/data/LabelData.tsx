@@ -3,21 +3,12 @@ import styled from 'styled-components';
 import { Issue as S } from '../../../styles/CommonStyles';
 import { v4 as uuidv4 } from 'uuid';
 import SideBarDropLabel from '../SideBarDropLabel';
+import { LabelDataProps } from '../../../../utils/types/sideBarType';
 
-interface LabelDataProps {
-  labelList: {
-    id: number;
-    title: string;
-    description: string;
-    background_color_hexa: string;
-    text_color_hexa: string;
-  }[];
-}
-
-const LabelData = ({ labelList }: LabelDataProps): JSX.Element => {
+const LabelData = ({ labelData }: LabelDataProps): JSX.Element => {
   return (
     <>
-      {labelList?.map((label) => (
+      {labelData?.map((label) => (
         <DropDownContent key={uuidv4()}>
           <SideBarDropLabel data={label} />
         </DropDownContent>

@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 import LabelSmallGroup from '../../group/LabelSmallGroup';
 import { LabelDataProps } from '../../../../utils/types/sideBarType';
 
-const LabelContent = ({ labelList }: LabelDataProps): JSX.Element => {
+const LabelContent = ({ checkedLabel }: LabelDataProps): JSX.Element => {
   return (
     <>
-      {labelList?.map((label) => (
+      {checkedLabel?.map((label) => (
         <LabelSmallGroup
           key={uuidv4()}
           color={label.text_color_hexa}

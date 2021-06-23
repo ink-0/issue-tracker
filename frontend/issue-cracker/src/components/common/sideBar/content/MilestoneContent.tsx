@@ -4,12 +4,14 @@ import { Text as S } from '../../../styles/CommonStyles';
 import { MilestoneDataProps } from '../../../../utils/types/sideBarType';
 
 const MilestoneContent = ({
-  milestoneList,
+  checkedMilestone,
 }: MilestoneDataProps): JSX.Element => {
   return (
     <>
-      {milestoneList && <ProgressBar />}
-      <S.TextSmall>{milestoneList[0]?.title}</S.TextSmall>
+      {checkedMilestone?.length !== 0 && <ProgressBar />}
+      <S.TextSmall>
+        {checkedMilestone && checkedMilestone[0]?.title}
+      </S.TextSmall>
     </>
   );
 };

@@ -4,10 +4,12 @@ import { ProfileImg as P } from '../../../styles/CommonStyles';
 import { v4 as uuidv4 } from 'uuid';
 import { AssigneeDataProps } from '../../../../utils/types/sideBarType';
 
-const AssigneeContent = ({ userList }: AssigneeDataProps): JSX.Element => {
+const AssigneeContent = ({
+  checkedAssignee,
+}: AssigneeDataProps): JSX.Element => {
   return (
     <>
-      {userList?.map((assignee) => (
+      {checkedAssignee?.map((assignee) => (
         <div key={uuidv4()}>
           <P.ProfileImgLarge src={assignee.profile_image_url} />
           <AccountName>{assignee.name}</AccountName>

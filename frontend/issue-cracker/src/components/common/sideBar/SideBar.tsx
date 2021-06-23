@@ -10,6 +10,7 @@ import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import {
   decodedToken,
   dropAssigneeState,
+  dropCheckState,
   dropLabelState,
   dropMilestoneState,
 } from '../../../store/Recoil';
@@ -89,12 +90,24 @@ const SideBar = (): JSX.Element => {
   const profileURL = decoded && decoded.profileImageUrl;
   const profileName = decoded && decoded.name;
 
-  const [userList, labelList, milestoneList] = [
-    userData.assignees,
-    userData.labels,
-    userData.milestones,
+  const [userData, labelData, milestoneData] = [
+    issueFormData.assignees,
+    issueFormData.labels,
+    issueFormData.milestones,
   ];
 
+  const checkedData = useRecoilValue(dropCheckState);
+
+  const [checkedAssignee, checkedLabel, checkedMilestone] = [
+    checkedData.assignee,
+    checkedData.label,
+    checkedData.milestone,
+  ];
+
+  console.log('제발....확인', checkedMilestone);
+  // console.log('assignee', userList);
+  // const [assignee, label, milestone] = useRecoilValue(dropCheckState);
+  console.log(checkedAssignee);
   return (
     <SideBarStyle>
       <SideBarCell>
@@ -105,28 +118,13 @@ const SideBar = (): JSX.Element => {
             {isDropAssignee && (
               <SideBarDrop
                 type={'담당자'}
-                dataComponent={<AssigneeData {...{ userList }} />}
+                dataComponent={<AssigneeData {...{ userData }} />}
               />
             )}
           </SideBarDropDiv>
         </SideBarTitle>
         <SideBarContent>
-          <AssigneeContent
-            userList={[
-              {
-                id: 'tami',
-                name: 'tami',
-                profile_image_url: 'url',
-                emails: ['tami@naver.com'],
-              },
-              {
-                id: 'tami',
-                name: 'tami',
-                profile_image_url: 'url',
-                emails: ['tami@naver.com'],
-              },
-            ]}
-          />
+          <AssigneeContent {...{ checkedAssignee }} />
         </SideBarContent>
       </SideBarCell>
       <SideBarCell>
@@ -137,24 +135,14 @@ const SideBar = (): JSX.Element => {
             {isDropLabel && (
               <SideBarDrop
                 type={'레이블'}
-                dataComponent={<LabelData {...{ labelList }} />}
+                dataComponent={<LabelData {...{ labelData }} />}
               />
             )}
           </SideBarDropDiv>
         </SideBarTitle>
 
         <SideBarContent>
-          <LabelContent
-            labelList={[
-              {
-                id: 1,
-                title: '밥먹기',
-                description: '타미짱',
-                background_color_hexa: '#DDA94B',
-                text_color_hexa: '#fff',
-              },
-            ]}
-          />
+          <LabelContent {...{ checkedLabel }} />
         </SideBarContent>
       </SideBarCell>
       <SideBarCell>
@@ -165,13 +153,13 @@ const SideBar = (): JSX.Element => {
             {isDropMilestone && (
               <SideBarDrop
                 type={'마일스톤'}
-                dataComponent={<MilestoneData {...{ milestoneList }} />}
+                dataComponent={<MilestoneData {...{ milestoneData }} />}
               />
             )}
           </SideBarDropDiv>
         </SideBarTitle>
         <SideBarContent>
-          <MilestoneContent milestoneList={[]} />
+          <MilestoneContent {...{ checkedMilestone }} />
         </SideBarContent>
       </SideBarCell>
     </SideBarStyle>

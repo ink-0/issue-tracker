@@ -20,12 +20,15 @@ export interface MilestoneProps {
 }
 
 export interface AssigneeDataProps {
-  userList: AssigneeProps[];
+  checkedAssignee?: AssigneeProps[];
+  userData?: AssigneeProps[];
 }
 export interface LabelDataProps {
-  labelList: LabelProps[];
+  checkedLabel?: LabelProps[];
+  labelData?: LabelProps[];
 }
 
 export interface MilestoneDataProps {
-  milestoneList: MilestoneProps[];
+  checkedMilestone?: MilestoneProps[];
+  milestoneData?: MilestoneProps[];
 }

@@ -5,10 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 import SideBarDropAssignee from '../SideBarDropAssignee';
 import { AssigneeDataProps } from '../../../../utils/types/sideBarType';
 
-const AssigneeData = ({ userList }: AssigneeDataProps): JSX.Element => {
+const AssigneeData = ({ userData }: AssigneeDataProps): JSX.Element => {
   return (
     <>
-      {userList?.map((user) => (
+      {userData?.map((user) => (
         <DropDownContent key={uuidv4()}>
           <SideBarDropAssignee data={user} />
         </DropDownContent>

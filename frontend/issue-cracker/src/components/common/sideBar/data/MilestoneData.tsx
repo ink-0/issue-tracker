@@ -5,10 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 import SideBarDropMilestone from '../SideBarDropMileStone';
 import { MilestoneDataProps } from '../../../../utils/types/sideBarType';
 
-const MilestoneData = ({ milestoneList }: MilestoneDataProps): JSX.Element => {
+const MilestoneData = ({ milestoneData }: MilestoneDataProps): JSX.Element => {
   return (
     <>
-      {milestoneList?.map((milestone) => (
+      {milestoneData?.map((milestone) => (
         <DropDownContent key={uuidv4()}>
           <SideBarDropMilestone data={milestone} />
         </DropDownContent>
