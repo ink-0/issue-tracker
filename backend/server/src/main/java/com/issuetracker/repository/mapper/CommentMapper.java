@@ -1,18 +1,21 @@
 package com.issuetracker.repository.mapper;
 
-import com.issuetracker.domain.Comment;
+import com.issuetracker.domain.DetailedComment;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CommentMapper implements RowMapper {
+public class CommentMapper implements RowMapper<DetailedComment> {
     @Override
-    public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Comment(rs.getLong("id"),
-                rs.getLong("issueId"),
-                null,
+    public DetailedComment mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new DetailedComment(
+                rs.getTimestamp("dateTime").toLocalDateTime(),
+                rs.getString("writerId"),
                 rs.getString("content"),
-                rs.getTimestamp("dateTime").toLocalDateTime());
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("profileImageUrl")
+        );
     }
 }
