@@ -215,11 +215,6 @@ const CustomAddIcon = styled(AddIcon)`
   cursor: pointer;
 `;
 
-const AccountName = styled.div`
-  margin: 4px 4px;
-  color: ${({ theme }) => theme.colors.gray2};
-  font-family: 'Montserrat', sans-serif;
-`;
 const SideBarTitle = styled.div`
   position: relative;
   display: flex;
@@ -236,8 +231,6 @@ const SideBarContent = styled.div`
 
   div {
     display: flex;
-    margin-top: 4px;
-    margin-bottom: 4px;
   }
 `;
 
