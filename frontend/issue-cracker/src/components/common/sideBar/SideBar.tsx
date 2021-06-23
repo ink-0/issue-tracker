@@ -6,15 +6,15 @@ import { TYPE as T } from '../../../utils/const';
 import TextGroup from '../group/TextGroup';
 import AddIcon from '@material-ui/icons/Add';
 import jwtDecode from 'jwt-decode';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import {
   decodedToken,
-  dropAsigneeState,
+  dropAssigneeState,
+  dropCheckState,
   dropLabelState,
   dropMilestoneState,
 } from '../../../store/Recoil';
 import SideBarDrop from './SideBarDrop';
-import { userData } from '../../../utils/mock/userData';
 import AssigneeData from './data/AssigneeData';
 import LabelData from './data/LabelData';
 import MilestoneData from './data/MilestoneData';
@@ -22,7 +22,7 @@ import MilestoneData from './data/MilestoneData';
 import AssigneeContent from './content/AssigneeContent';
 import LabelContent from './content/LabelContent';
 import MilestoneContent from './content/MilestoneContent';
-
+import { issueForm } from '../../../store/Recoil';
 interface TokenProps {
   name: string;
   profileImageUrl: string;
@@ -32,7 +32,7 @@ const SideBar = (): JSX.Element => {
   const token = localStorage.getItem('token');
   const decoded = token && jwtDecode<TokenProps>(token);
   const setDecodedToken = useSetRecoilState(decodedToken);
-  const [isDropAsignee, setIsDropAsignee] = useRecoilState(dropAsigneeState);
+  const [isDropAssignee, setIsDropAssignee] = useRecoilState(dropAssigneeState);
   const [isDropLabel, setIsDropLabel] = useRecoilState(dropLabelState);
   const [isDropMilestone, setIsDropMilestone] =
     useRecoilState(dropMilestoneState);
@@ -41,8 +41,10 @@ const SideBar = (): JSX.Element => {
   const dropLabelElement = useRef<HTMLDivElement>(null);
   const dropMilestoneElement = useRef<HTMLDivElement>(null);
 
-  const dropAsigneeHandler = () => {
-    setIsDropAsignee(!isDropAsignee);
+  const issueFormData = useRecoilValue(issueForm);
+
+  const dropAssigneeHandler = () => {
+    setIsDropAssignee(!isDropAssignee);
   };
   const dropLabelHandler = () => {
     setIsDropLabel(!isDropLabel);
@@ -65,16 +67,16 @@ const SideBar = (): JSX.Element => {
         return;
       }
       if (dropLabelElement.current?.contains(e.target as Node)) {
-        setIsDropAsignee(false);
+        setIsDropAssignee(false);
         setIsDropMilestone(false);
         return;
       }
       if (dropMilestoneElement.current?.contains(e.target as Node)) {
-        setIsDropAsignee(false);
+        setIsDropAssignee(false);
         setIsDropLabel(false);
         return;
       }
-      setIsDropAsignee(false);
+      setIsDropAssignee(false);
       setIsDropLabel(false);
       setIsDropMilestone(false);
     };
@@ -84,13 +86,18 @@ const SideBar = (): JSX.Element => {
     };
   }, []);
 
-  const profileURL = decoded && decoded.profileImageUrl;
-  const profileName = decoded && decoded.name;
+  const [userData, labelData, milestoneData] = [
+    issueFormData.assignees,
+    issueFormData.labels,
+    issueFormData.milestones,
+  ];
 
-  const [userList, labelList, milestoneList] = [
-    userData.assignees,
-    userData.labels,
-    userData.milestones,
+  const checkedData = useRecoilValue(dropCheckState);
+
+  const [checkedAssignee, checkedLabel, checkedMilestone] = [
+    checkedData.assignee,
+    checkedData.label,
+    checkedData.milestone,
   ];
 
   return (
@@ -98,31 +105,18 @@ const SideBar = (): JSX.Element => {
       <SideBarCell>
         <SideBarTitle>
           <TextGroup type={T.SMALL} content={'담당자'} color="#6E7191" />
-          <CustomAddIcon onClick={() => dropAsigneeHandler()} />
+          <CustomAddIcon onClick={() => dropAssigneeHandler()} />
           <SideBarDropDiv ref={dropAssigneeElement}>
-            {isDropAsignee && (
+            {isDropAssignee && (
               <SideBarDrop
                 type={'담당자'}
-                dataComponent={<AssigneeData {...{ userList }} />}
+                dataComponent={<AssigneeData {...{ userData }} />}
               />
             )}
           </SideBarDropDiv>
         </SideBarTitle>
         <SideBarContent>
-          <AssigneeContent
-            userList={[
-              {
-                email: 'tami@naver.com',
-                name: 'tami',
-                avatar_url: 'url',
-              },
-              {
-                email: 'tami@naver.com',
-                name: 'tami',
-                avatar_url: 'url',
-              },
-            ]}
-          />
+          <AssigneeContent {...{ checkedAssignee }} />
         </SideBarContent>
       </SideBarCell>
       <SideBarCell>
@@ -133,23 +127,14 @@ const SideBar = (): JSX.Element => {
             {isDropLabel && (
               <SideBarDrop
                 type={'레이블'}
-                dataComponent={<LabelData {...{ labelList }} />}
+                dataComponent={<LabelData {...{ labelData }} />}
               />
             )}
           </SideBarDropDiv>
         </SideBarTitle>
 
         <SideBarContent>
-          <LabelContent
-            labelList={[
-              {
-                id: 1,
-                title: '밥먹기',
-                background_color_hexa: '#DDA94B',
-                text_color_hexa: '#fff',
-              },
-            ]}
-          />
+          <LabelContent {...{ checkedLabel }} />
         </SideBarContent>
       </SideBarCell>
       <SideBarCell>
@@ -160,30 +145,14 @@ const SideBar = (): JSX.Element => {
             {isDropMilestone && (
               <SideBarDrop
                 type={'마일스톤'}
-                dataComponent={<MilestoneData {...{ milestoneList }} />}
+                dataComponent={<MilestoneData {...{ milestoneData }} />}
               />
             )}
           </SideBarDropDiv>
         </SideBarTitle>
-        <SideBarContent>
-          <MilestoneContent
-            milestoneList={[
-              {
-                id: 1,
-
-                title: '1',
-                description: 'tami',
-                due_date: '2021-06-22',
-              },
-              {
-                id: 2,
-                title: '2',
-                description: 'raccoon',
-                due_date: '2021-06-22',
-              },
-            ]}
-          />
-        </SideBarContent>
+        <SideBarMilestoneContent>
+          <MilestoneContent {...{ checkedMilestone }} />
+        </SideBarMilestoneContent>
       </SideBarCell>
     </SideBarStyle>
   );
@@ -213,11 +182,6 @@ const CustomAddIcon = styled(AddIcon)`
   cursor: pointer;
 `;
 
-const AccountName = styled.div`
-  margin: 4px 4px;
-  color: ${({ theme }) => theme.colors.gray2};
-  font-family: 'Montserrat', sans-serif;
-`;
 const SideBarTitle = styled.div`
   position: relative;
   display: flex;
@@ -234,9 +198,15 @@ const SideBarContent = styled.div`
 
   div {
     display: flex;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin: 4px 0px;
   }
+`;
+
+const SideBarMilestoneContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
 `;
 
 const SideBarDropDiv = styled.div`

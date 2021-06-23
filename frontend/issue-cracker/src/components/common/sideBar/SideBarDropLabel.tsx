@@ -1,28 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Text as S } from '../../styles/CommonStyles';
+import { useRecoilState } from 'recoil';
+import { dropCheckState } from '../../../store/Recoil';
 import CheckOffIcon from '../../styles/svg/CheckOffIcon';
 import LabelColorIcon from '../../styles/svg/LabelColorIcon';
-import { Text as S } from '../../styles/CommonStyles';
+import CheckOnIcon from '../../styles/svg/CheckOnIcon';
+import { LabelProps } from '../../../utils/types/sideBarType';
 
-interface SideBarDropLabelProps {
-  data: {
-    id: number;
-    title: string;
-    description: string;
-    background_color_hexa: string;
-    text_color_hexa: string;
+const SideBarDropLabel = ({ data }: { data: LabelProps }): JSX.Element => {
+  const [isCheck, setIsCheck] = useState(false);
+  const [dropCheck, setDropCheck] = useRecoilState(dropCheckState);
+
+  const handleClickLabel = () => {
+    setIsCheck(!isCheck);
+
+    if (!isCheck) {
+      setDropCheck({
+        ...dropCheck,
+        label: [...dropCheck.label, data],
+      });
+    } else {
+      setDropCheck({
+        ...dropCheck,
+        label: dropCheck.label.filter((el: LabelProps) => el.id !== data.id),
+      });
+    }
   };
-}
-const SideBarDropLabel = ({ data }: SideBarDropLabelProps): JSX.Element => {
+
+  useEffect(() => {
+    const idList = dropCheck.label?.map((el: LabelProps) => el.id);
+    if (idList.includes(data.id)) {
+      setIsCheck(true);
+    }
+  }, []);
+
   return (
-    <SideBarDropLabelStyle>
+    <SideBarDropLabelStyle onClick={() => handleClickLabel()}>
       <DropLeft>
         <LabelColorIcon color="#DDA94B" />
         <LabelName>{data.title}</LabelName>
       </DropLeft>
-      <DropRight>
-        <CheckOffIcon />
-      </DropRight>
+      <DropRight>{isCheck ? <CheckOnIcon /> : <CheckOffIcon />}</DropRight>
     </SideBarDropLabelStyle>
   );
 };
@@ -34,6 +53,7 @@ const SideBarDropLabelStyle = styled.div`
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  cursor: pointer;
 `;
 const LabelName = styled(S.TextSmall)`
   margin-left: 8px;

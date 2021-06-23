@@ -5,7 +5,9 @@ import SideBar from '../../../../common/sideBar/SideBar';
 const IssueAddSidebar = (): JSX.Element => {
   return (
     <IssueAddSidebarStyle>
-      <SideBar />
+      <React.Suspense fallback={null}>
+        <SideBar />
+      </React.Suspense>
     </IssueAddSidebarStyle>
   );
 };

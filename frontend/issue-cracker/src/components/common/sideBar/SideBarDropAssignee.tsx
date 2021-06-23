@@ -1,34 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ProfileImg as S, Text as T } from '../../styles/CommonStyles';
-import { useRecoilValue } from 'recoil';
-import { decodedToken } from '../../../store/Recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { decodedToken, dropCheckState } from '../../../store/Recoil';
 import CheckOffIcon from '../../styles/svg/CheckOffIcon';
+import CheckOnIcon from '../../styles/svg/CheckOnIcon';
+import { AssigneeProps } from '../../../utils/types/sideBarType';
 
-interface SideBarDropAssigneeProps {
-  data: {
-    id: string;
-    name: string;
-    profile_image_url: string;
-    emails: string[];
-  };
-}
 const SideBarDropAssignee = ({
   data,
-}: SideBarDropAssigneeProps): JSX.Element => {
+}: {
+  data: AssigneeProps;
+}): JSX.Element => {
   const decoded = decodedToken && useRecoilValue(decodedToken);
   const profileURL = decoded && decoded.profileImageUrl;
-  // const profileName = decoded && decoded.name;
+  const [isCheck, setIsCheck] = useState(false);
+  const [dropCheck, setDropCheck] = useRecoilState(dropCheckState);
+
+  const handleClickAssignee = () => {
+    setIsCheck(!isCheck);
+
+    if (!isCheck) {
+      setDropCheck({
+        ...dropCheck,
+        assignee: [...dropCheck.assignee, data],
+      });
+    } else {
+      setDropCheck({
+        ...dropCheck,
+        assignee: dropCheck.assignee.filter(
+          (el: AssigneeProps) => el.id !== data.id
+        ),
+      });
+    }
+  };
+
+  useEffect(() => {
+    const idList = dropCheck.assignee?.map((el: AssigneeProps) => el.id);
+    if (idList.includes(data.id)) {
+      setIsCheck(true);
+    }
+  }, []);
 
   return (
-    <SideBarDropAssigneeStyle>
+    <SideBarDropAssigneeStyle
+      onClick={() => {
+        handleClickAssignee();
+      }}
+    >
       <DropLeft>
         <S.ProfileImgSmall src={profileURL}></S.ProfileImgSmall>
         <ProfileName>{data.name}</ProfileName>
       </DropLeft>
-      <DropRight>
-        <CheckOffIcon />
-      </DropRight>
+      <DropRight>{isCheck ? <CheckOnIcon /> : <CheckOffIcon />}</DropRight>
     </SideBarDropAssigneeStyle>
   );
 };
@@ -39,6 +63,7 @@ const SideBarDropAssigneeStyle = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  cursor: pointer;
 `;
 const ProfileName = styled(T.TextSmall)`
   margin-left: 8px;
