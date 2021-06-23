@@ -1,5 +1,6 @@
 package com.issuetracker.dto.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.issuetracker.domain.auth.User;
 
 import java.util.Arrays;
@@ -13,6 +14,7 @@ public class UserDto {
 
     private final String profileImageUrl;
 
+    @JsonIgnore
     private final List<String> emails;
 
     public UserDto(String id, String name, String profileImageUrl, List<String> emails) {
