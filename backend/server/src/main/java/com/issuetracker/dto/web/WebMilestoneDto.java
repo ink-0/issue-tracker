@@ -2,13 +2,15 @@ package com.issuetracker.dto.web;
 
 import com.issuetracker.domain.Milestone;
 
+import java.util.List;
+
 public class WebMilestoneDto {
 
-    private Long id;
+    private final Long id;
 
-    private WebIssuesDto issues;
+    private final WebIssuesDto issues;
 
-    private WebMilestoneInfo milestoneInfo;
+    private final WebMilestoneInfo milestoneInfo;
 
     public WebMilestoneDto(Long id, WebIssuesDto issues, WebMilestoneInfo milestoneInfo) {
         this.id = id;
@@ -24,8 +26,8 @@ public class WebMilestoneDto {
         return id;
     }
 
-    public WebIssuesDto getIssues() {
-        return issues;
+    public List<WebIssueSummaryDto> getIssues() {
+        return issues.getIssues();
     }
 
     public WebMilestoneInfo getMilestoneInfo() {
