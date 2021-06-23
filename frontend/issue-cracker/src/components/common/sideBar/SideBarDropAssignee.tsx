@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ProfileImg as S, Text as T } from '../../styles/CommonStyles';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { decodedToken, dropCheckState } from '../../../store/Recoil';
 import CheckOffIcon from '../../styles/svg/CheckOffIcon';
 import CheckOnIcon from '../../styles/svg/CheckOnIcon';
@@ -41,7 +41,7 @@ const SideBarDropAssignee = ({
       setIsCheck(true);
     }
   }, []);
-  console.log('제발 확인', dropCheck);
+
   return (
     <SideBarDropAssigneeStyle
       onClick={() => {

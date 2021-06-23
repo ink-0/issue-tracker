@@ -1,5 +1,10 @@
 import { atom, selector } from 'recoil';
-// import { AssigneeProps, LabelProps, MilestoneProps } from '../store/Recoil';
+
+import {
+  AssigneeProps,
+  LabelProps,
+  MilestoneProps,
+} from '../utils/types/sideBarType';
 export const addState = atom({
   key: 'addState',
   default: false,
@@ -31,8 +36,6 @@ export const dropMilestoneState = atom({
   default: false,
 });
 
-//get: 상태값 사용
-//set: 새로운 값으로 상태값 변경
 export const issueForm = selector({
   key: 'issueForm',
   get: async () => {
@@ -56,40 +59,12 @@ export const selectedMilestone = atom({
   key: 'selectedMilestone',
   default: [],
 });
-//selector로 한다? is check를 ?
-// atom 3개를 보관하고
-//selecotr - > setIs(ftruie)
-//
 
 export const dropCheckState = atom({
-  key: 'selectedAssignee',
+  key: 'dropCheckState',
   default: {
-    assignee: [] as any,
-    label: [] as any,
-    milestone: [] as any,
+    assignee: [] as AssigneeProps[],
+    label: [] as LabelProps[],
+    milestone: [] as MilestoneProps[],
   },
 });
-
-export const dropCheck = selector({
-  key: 'dropCheck',
-  get: ({ get }) => {
-    return get(dropCheckState);
-  },
-  set: ({ set }, type) => {
-    set(dropCheckState, (prevState) => ({
-      ...prevState,
-      type: true,
-    }));
-  },
-});
-
-// const [isCheck, setIsCheck] = useRecoilState;
-// const asigneeHandler = (e) => setIsCheck('asignee');
-// export const DecodedToken = selector({
-//   key: 'setToken',
-//   get: ({get}) => {
-//     const token = get(token)
-//     const decoded = jwtDecoded(token)
-//     return decoded
-//   }
-// })

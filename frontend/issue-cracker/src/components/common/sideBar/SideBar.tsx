@@ -15,7 +15,6 @@ import {
   dropMilestoneState,
 } from '../../../store/Recoil';
 import SideBarDrop from './SideBarDrop';
-import { userData } from '../../../utils/mock/userData';
 import AssigneeData from './data/AssigneeData';
 import LabelData from './data/LabelData';
 import MilestoneData from './data/MilestoneData';
@@ -87,9 +86,6 @@ const SideBar = (): JSX.Element => {
     };
   }, []);
 
-  const profileURL = decoded && decoded.profileImageUrl;
-  const profileName = decoded && decoded.name;
-
   const [userData, labelData, milestoneData] = [
     issueFormData.assignees,
     issueFormData.labels,
@@ -104,10 +100,6 @@ const SideBar = (): JSX.Element => {
     checkedData.milestone,
   ];
 
-  console.log('제발....확인', checkedMilestone);
-  // console.log('assignee', userList);
-  // const [assignee, label, milestone] = useRecoilValue(dropCheckState);
-  console.log(checkedAssignee);
   return (
     <SideBarStyle>
       <SideBarCell>
@@ -158,9 +150,9 @@ const SideBar = (): JSX.Element => {
             )}
           </SideBarDropDiv>
         </SideBarTitle>
-        <SideBarContent>
+        <SideBarMilestoneContent>
           <MilestoneContent {...{ checkedMilestone }} />
-        </SideBarContent>
+        </SideBarMilestoneContent>
       </SideBarCell>
     </SideBarStyle>
   );
@@ -206,7 +198,15 @@ const SideBarContent = styled.div`
 
   div {
     display: flex;
+    margin: 4px 0px;
   }
+`;
+
+const SideBarMilestoneContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
 `;
 
 const SideBarDropDiv = styled.div`
