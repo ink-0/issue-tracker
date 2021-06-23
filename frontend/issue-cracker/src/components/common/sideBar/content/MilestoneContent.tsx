@@ -16,9 +16,8 @@ const MilestoneContent = ({
 }: MilestoneDataProps): JSX.Element => {
   return (
     <>
-      <ProgressBar />
-
-      <S.TextSmall>{milestoneList[0].title}</S.TextSmall>
+      {milestoneList && <ProgressBar />}
+      <S.TextSmall>{milestoneList[0]?.title}</S.TextSmall>
     </>
   );
 };

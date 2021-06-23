@@ -42,7 +42,7 @@ const SideBar = (): JSX.Element => {
   const dropMilestoneElement = useRef<HTMLDivElement>(null);
 
   const issueFormData = useRecoilValue(issueForm);
-  console.log('가져왓는지 확인', issueFormData);
+  // console.log('가져왓는지 확인', issueFormData);
   const dropAssigneeHandler = () => {
     setIsDropAssignee(!isDropAssignee);
   };
@@ -168,23 +168,7 @@ const SideBar = (): JSX.Element => {
           </SideBarDropDiv>
         </SideBarTitle>
         <SideBarContent>
-          <MilestoneContent
-            milestoneList={[
-              {
-                id: 1,
-
-                title: '1',
-                description: 'tami',
-                due_date: '2021-06-22',
-              },
-              {
-                id: 2,
-                title: '2',
-                description: 'raccoon',
-                due_date: '2021-06-22',
-              },
-            ]}
-          />
+          <MilestoneContent milestoneList={[]} />
         </SideBarContent>
       </SideBarCell>
     </SideBarStyle>

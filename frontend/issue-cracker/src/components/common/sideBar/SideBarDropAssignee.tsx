@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ProfileImg as S, Text as T } from '../../styles/CommonStyles';
-import { useRecoilValue } from 'recoil';
-import { decodedToken } from '../../../store/Recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { decodedToken, dropCheckState } from '../../../store/Recoil';
 import CheckOffIcon from '../../styles/svg/CheckOffIcon';
 import CheckOnIcon from '../../styles/svg/CheckOnIcon';
 
@@ -21,10 +21,30 @@ const SideBarDropAssignee = ({
   const decoded = decodedToken && useRecoilValue(decodedToken);
   const profileURL = decoded && decoded.profileImageUrl;
   const [isCheck, setIsCheck] = useState(false);
-  // const profileName = decoded && decoded.name;
+  const [dropCheck, setDropCheck] = useRecoilState(dropCheckState);
+
   const handleClickAssignee = () => {
     setIsCheck(!isCheck);
+
+    if (!isCheck) {
+      setDropCheck({
+        ...dropCheck,
+        assignee: [...dropCheck.assignee, data.id],
+      });
+    } else {
+      setDropCheck({
+        ...dropCheck,
+        assignee: dropCheck.assignee.filter((el) => el !== data.id),
+      });
+    }
   };
+
+  useEffect(() => {
+    if (dropCheck.assignee.includes(data.id)) {
+      setIsCheck(true);
+    }
+  }, []);
+
   return (
     <SideBarDropAssigneeStyle
       onClick={() => {

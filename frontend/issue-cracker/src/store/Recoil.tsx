@@ -64,9 +64,9 @@ export const selectedMilestone = atom({
 export const dropCheckState = atom({
   key: 'selectedAssignee',
   default: {
-    assignee: false,
-    label: false,
-    milestone: false,
+    assignee: [] as string[],
+    label: [] as number[],
+    milestone: [] as number[],
   },
 });
 export const dropCheck = selector({
@@ -82,8 +82,8 @@ export const dropCheck = selector({
   },
 });
 
-const [isCheck, setIsCheck] = useRecoilState;
-const asigneeHandler = (e) => setIsCheck('asignee');
+// const [isCheck, setIsCheck] = useRecoilState;
+// const asigneeHandler = (e) => setIsCheck('asignee');
 // export const DecodedToken = selector({
 //   key: 'setToken',
 //   get: ({get}) => {
