@@ -1,15 +1,7 @@
 import React from 'react';
 import ProgressBar from '../../../common/ProgressBar';
 import { Text as S } from '../../../styles/CommonStyles';
-
-interface MilestoneDataProps {
-  milestoneList: {
-    id: number;
-    title: string;
-    description: string;
-    due_date: string;
-  }[];
-}
+import { MilestoneDataProps } from '../../../../utils/types/sideBarType';
 
 const MilestoneContent = ({
   milestoneList,

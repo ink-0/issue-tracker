@@ -3,15 +3,7 @@ import styled from 'styled-components';
 import { Issue as S } from '../../../styles/CommonStyles';
 import { v4 as uuidv4 } from 'uuid';
 import SideBarDropAssignee from '../SideBarDropAssignee';
-
-interface AssigneeDataProps {
-  userList: {
-    id: string;
-    name: string;
-    profile_image_url: string;
-    emails: string[];
-  }[];
-}
+import { AssigneeDataProps } from '../../../../utils/types/sideBarType';
 
 const AssigneeData = ({ userList }: AssigneeDataProps): JSX.Element => {
   return (

@@ -3,15 +3,7 @@ import styled from 'styled-components';
 import { Issue as S } from '../../../styles/CommonStyles';
 import { v4 as uuidv4 } from 'uuid';
 import SideBarDropMilestone from '../SideBarDropMileStone';
-
-interface MilestoneDataProps {
-  milestoneList: {
-    id: number;
-    title: string;
-    description: string;
-    due_date: string;
-  }[];
-}
+import { MilestoneDataProps } from '../../../../utils/types/sideBarType';
 
 const MilestoneData = ({ milestoneList }: MilestoneDataProps): JSX.Element => {
   return (

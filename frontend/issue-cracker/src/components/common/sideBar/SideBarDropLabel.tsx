@@ -6,18 +6,9 @@ import { dropCheckState } from '../../../store/Recoil';
 import CheckOffIcon from '../../styles/svg/CheckOffIcon';
 import LabelColorIcon from '../../styles/svg/LabelColorIcon';
 import CheckOnIcon from '../../styles/svg/CheckOnIcon';
+import { LabelProps } from '../../../utils/types/sideBarType';
 
-interface SideBarDropLabelProps {
-  data: {
-    id: number;
-    title: string;
-    description: string;
-    background_color_hexa: string;
-    text_color_hexa: string;
-  };
-}
-
-const SideBarDropLabel = ({ data }: SideBarDropLabelProps): JSX.Element => {
+const SideBarDropLabel = ({ data }: { data: LabelProps }): JSX.Element => {
   const [isCheck, setIsCheck] = useState(false);
   const [dropCheck, setDropCheck] = useRecoilState(dropCheckState);
 

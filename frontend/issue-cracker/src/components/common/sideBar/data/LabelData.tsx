@@ -4,7 +4,7 @@ import { Issue as S } from '../../../styles/CommonStyles';
 import { v4 as uuidv4 } from 'uuid';
 import SideBarDropLabel from '../SideBarDropLabel';
 
-interface LabelData {
+interface LabelDataProps {
   labelList: {
     id: number;
     title: string;
@@ -14,7 +14,7 @@ interface LabelData {
   }[];
 }
 
-const LabelData = ({ labelList }: LabelData): JSX.Element => {
+const LabelData = ({ labelList }: LabelDataProps): JSX.Element => {
   return (
     <>
       {labelList?.map((label) => (

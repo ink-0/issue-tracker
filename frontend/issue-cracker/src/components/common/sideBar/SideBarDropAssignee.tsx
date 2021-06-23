@@ -5,19 +5,13 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { decodedToken, dropCheckState } from '../../../store/Recoil';
 import CheckOffIcon from '../../styles/svg/CheckOffIcon';
 import CheckOnIcon from '../../styles/svg/CheckOnIcon';
-
-interface SideBarDropAssigneeProps {
-  data: {
-    id: string;
-    name: string;
-    profile_image_url: string;
-    emails: string[];
-  };
-}
+import { AssigneeProps } from '../../../utils/types/sideBarType';
 
 const SideBarDropAssignee = ({
   data,
-}: SideBarDropAssigneeProps): JSX.Element => {
+}: {
+  data: AssigneeProps;
+}): JSX.Element => {
   const decoded = decodedToken && useRecoilValue(decodedToken);
   const profileURL = decoded && decoded.profileImageUrl;
   const [isCheck, setIsCheck] = useState(false);

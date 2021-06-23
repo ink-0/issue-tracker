@@ -42,7 +42,7 @@ const SideBar = (): JSX.Element => {
   const dropMilestoneElement = useRef<HTMLDivElement>(null);
 
   const issueFormData = useRecoilValue(issueForm);
-  // console.log('가져왓는지 확인', issueFormData);
+
   const dropAssigneeHandler = () => {
     setIsDropAssignee(!isDropAssignee);
   };
@@ -114,14 +114,16 @@ const SideBar = (): JSX.Element => {
           <AssigneeContent
             userList={[
               {
-                email: 'tami@naver.com',
+                id: 'tami',
                 name: 'tami',
-                avatar_url: 'url',
+                profile_image_url: 'url',
+                emails: ['tami@naver.com'],
               },
               {
-                email: 'tami@naver.com',
+                id: 'tami',
                 name: 'tami',
-                avatar_url: 'url',
+                profile_image_url: 'url',
+                emails: ['tami@naver.com'],
               },
             ]}
           />
@@ -147,6 +149,7 @@ const SideBar = (): JSX.Element => {
               {
                 id: 1,
                 title: '밥먹기',
+                description: '타미짱',
                 background_color_hexa: '#DDA94B',
                 text_color_hexa: '#fff',
               },

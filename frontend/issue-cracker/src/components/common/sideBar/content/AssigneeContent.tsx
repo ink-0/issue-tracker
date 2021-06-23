@@ -2,21 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { ProfileImg as P } from '../../../styles/CommonStyles';
 import { v4 as uuidv4 } from 'uuid';
-
-interface AssigneeDataProps {
-  userList: {
-    email: string;
-    name: string;
-    avatar_url: string;
-  }[];
-}
+import { useRecoilValue } from 'recoil';
+import { issueForm } from '../../../../store/Recoil';
+import { AssigneeDataProps } from '../../../../utils/types/sideBarType';
 
 const AssigneeContent = ({ userList }: AssigneeDataProps): JSX.Element => {
+  const dropTotalState = useRecoilValue(issueForm);
+
+  console.log('어사이니컨텐트안 데이터', dropTotalState);
   return (
     <>
       {userList?.map((assignee) => (
         <div key={uuidv4()}>
-          <P.ProfileImgLarge src={assignee.avatar_url} />
+          <P.ProfileImgLarge src={assignee.profile_image_url} />
           <AccountName>{assignee.name}</AccountName>
         </div>
       ))}
