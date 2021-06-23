@@ -1,6 +1,6 @@
 package com.issuetracker.dto.ios;
 
-import com.issuetracker.domain.DetailedComment;
+import com.issuetracker.domain.Comments;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +13,8 @@ public class IosCommentsDto {
         this.comments = comments;
     }
 
-    public static IosCommentsDto from(List<DetailedComment> comments) {
-        return new IosCommentsDto(comments.stream()
+    public static IosCommentsDto from(Comments comments) {
+        return new IosCommentsDto(comments.toList().stream()
                 .map(IosCommentDto::from)
                 .collect(Collectors.toList()));
     }

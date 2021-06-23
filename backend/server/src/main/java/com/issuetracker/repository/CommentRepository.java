@@ -1,7 +1,8 @@
 package com.issuetracker.repository;
 
-import com.issuetracker.domain.DetailedComment;
-import com.issuetracker.repository.mapper.CommentMapper;
+import com.issuetracker.domain.Comment;
+import com.issuetracker.domain.CommentWriter;
+import com.issuetracker.domain.Comments;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,13 +21,21 @@ public class CommentRepository {
         this.jdbc = jdbc;
     }
 
-    public List<DetailedComment> findAllCommentByIssueId(Long issueId) {
+    public Comments findAllCommentByIssueId(Long issueId) {
 
         Map<String, Long> paramter = Collections.singletonMap("issueId", issueId);
 
-        List<DetailedComment> commentList = jdbc.query(FIND_ALL_COMMENT_BY_ISSUE_ID, paramter, new CommentMapper());
-        
-        return commentList;
+        List<Comment> commentList = jdbc.query(FIND_ALL_COMMENT_BY_ISSUE_ID, paramter, (rs, rowNum) -> {
+            CommentWriter commentWriter = new CommentWriter(rs.getString("name"), rs.getString("profileImageUrl"));
+
+            return new Comment(rs.getLong("id"),
+                    rs.getLong("issueId"),
+                    commentWriter,
+                    rs.getString("content"),
+                    rs.getTimestamp("datetime").toLocalDateTime());
+        });
+
+        return new Comments(commentList);
     }
 
 }

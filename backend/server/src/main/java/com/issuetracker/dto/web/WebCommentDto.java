@@ -1,6 +1,7 @@
 package com.issuetracker.dto.web;
 
-import com.issuetracker.domain.DetailedComment;
+import com.issuetracker.domain.Comment;
+import com.issuetracker.domain.CommentWriter;
 
 import java.time.LocalDateTime;
 
@@ -21,8 +22,9 @@ public class WebCommentDto {
         this.profileImageUrl = profileImageUrl;
     }
 
-    public static WebCommentDto from(DetailedComment comment) {
-        return new WebCommentDto(comment.getWriterId(), comment.getContent(), comment.getDateTime(), comment.getProfileImageUrl());
+    public static WebCommentDto from(Comment comment) {
+        CommentWriter commentWriter = comment.getWriter();
+        return new WebCommentDto(commentWriter.getName(), comment.getContent(), comment.getDateTime(), commentWriter.getProfileImageUrl());
     }
 
     public String getWriterId() {

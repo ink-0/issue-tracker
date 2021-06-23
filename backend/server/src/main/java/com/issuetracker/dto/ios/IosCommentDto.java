@@ -1,6 +1,7 @@
 package com.issuetracker.dto.ios;
 
-import com.issuetracker.domain.DetailedComment;
+import com.issuetracker.domain.Comment;
+import com.issuetracker.domain.CommentWriter;
 
 import java.time.LocalDateTime;
 
@@ -21,8 +22,9 @@ public class IosCommentDto {
         this.profileImageUrl = profileImageUrl;
     }
 
-    public static IosCommentDto from(DetailedComment comment) {
-        return new IosCommentDto(comment.getWriterId(), comment.getContent(), comment.getDateTime(), comment.getProfileImageUrl());
+    public static IosCommentDto from(Comment comment) {
+        CommentWriter commentWriter = comment.getWriter();
+        return new IosCommentDto(commentWriter.getName(), comment.getContent(), comment.getDateTime(), commentWriter.getProfileImageUrl());
     }
 
     public String getWriterId() {

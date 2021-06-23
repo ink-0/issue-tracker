@@ -1,13 +1,12 @@
 package com.issuetracker.dto.web;
 
-import com.issuetracker.domain.DetailedComment;
+import com.issuetracker.domain.Comments;
 import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
 import com.issuetracker.dto.IssueStatusDto;
 import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class WebIssueDetailDto {
 
@@ -31,7 +30,7 @@ public class WebIssueDetailDto {
 
     private WebCommentsDto comments;
 
-    public static WebIssueDetailDto from(Issue issue, List<DetailedComment> comments) {
+    public static WebIssueDetailDto from(Issue issue, Comments comments) {
         return new WebIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), WebAssigneesDto.from(issue.getAssignees()), WebLabelsDto.from(issue.getLabels()), WebCommentsDto.from(comments));
     }
 

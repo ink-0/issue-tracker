@@ -1,6 +1,6 @@
 package com.issuetracker.dto.web;
 
-import com.issuetracker.domain.DetailedComment;
+import com.issuetracker.domain.Comments;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +13,8 @@ public class WebCommentsDto {
         this.comments = comments;
     }
 
-    public static WebCommentsDto from(List<DetailedComment> comments) {
-        return new WebCommentsDto(comments.stream()
+    public static WebCommentsDto from(Comments comments) {
+        return new WebCommentsDto(comments.toList().stream()
                 .map(WebCommentDto::from)
                 .collect(Collectors.toList()));
     }
