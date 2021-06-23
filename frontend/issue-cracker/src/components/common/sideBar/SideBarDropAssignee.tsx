@@ -23,22 +23,25 @@ const SideBarDropAssignee = ({
     if (!isCheck) {
       setDropCheck({
         ...dropCheck,
-        assignee: [...dropCheck.assignee, data.id],
+        assignee: [...dropCheck.assignee, data],
       });
     } else {
       setDropCheck({
         ...dropCheck,
-        assignee: dropCheck.assignee.filter((el) => el !== data.id),
+        assignee: dropCheck.assignee.filter(
+          (el: AssigneeProps) => el.id !== data.id
+        ),
       });
     }
   };
 
   useEffect(() => {
-    if (dropCheck.assignee.includes(data.id)) {
+    const idList = dropCheck.assignee?.map((el: AssigneeProps) => el.id);
+    if (idList.includes(data.id)) {
       setIsCheck(true);
     }
   }, []);
-
+  console.log('제발 확인', dropCheck);
   return (
     <SideBarDropAssigneeStyle
       onClick={() => {

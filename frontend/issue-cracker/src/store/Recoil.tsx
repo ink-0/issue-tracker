@@ -1,5 +1,5 @@
 import { atom, selector } from 'recoil';
-
+// import { AssigneeProps, LabelProps, MilestoneProps } from '../store/Recoil';
 export const addState = atom({
   key: 'addState',
   default: false,
@@ -64,9 +64,9 @@ export const selectedMilestone = atom({
 export const dropCheckState = atom({
   key: 'selectedAssignee',
   default: {
-    assignee: [] as string[],
-    label: [] as number[],
-    milestone: [] as number[],
+    assignee: [] as any,
+    label: [] as any,
+    milestone: [] as any,
   },
 });
 

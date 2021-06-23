@@ -21,18 +21,23 @@ const SideBarDropMilestone = ({
     if (!isCheck) {
       setDropCheck({
         ...dropCheck,
-        milestone: [...dropCheck.milestone, data.id],
+        milestone: [...dropCheck.milestone, data],
       });
     } else {
       setDropCheck({
         ...dropCheck,
-        milestone: dropCheck.milestone.filter((el) => el !== data.id),
+        milestone: dropCheck.milestone.filter(
+          (el: MilestoneProps) => el.id !== data.id
+        ),
       });
     }
   };
 
   useEffect(() => {
-    if (dropCheck.milestone.includes(data.id)) {
+    const milestoneList = dropCheck.milestone?.map(
+      (el: MilestoneProps) => el.id
+    );
+    if (milestoneList.includes(data.id)) {
       setIsCheck(true);
     }
   }, []);
@@ -53,6 +58,7 @@ const SideBarDropMileStoneStyle = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  cursor: pointer;
 `;
 const MileStoneName = styled(S.TextSmall)`
   margin-left: 8px;

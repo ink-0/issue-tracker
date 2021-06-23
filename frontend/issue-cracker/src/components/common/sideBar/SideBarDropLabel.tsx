@@ -18,18 +18,19 @@ const SideBarDropLabel = ({ data }: { data: LabelProps }): JSX.Element => {
     if (!isCheck) {
       setDropCheck({
         ...dropCheck,
-        label: [...dropCheck.label, data.id],
+        label: [...dropCheck.label, data],
       });
     } else {
       setDropCheck({
         ...dropCheck,
-        label: dropCheck.label.filter((el) => el !== data.id),
+        label: dropCheck.label.filter((el: LabelProps) => el.id !== data.id),
       });
     }
   };
 
   useEffect(() => {
-    if (dropCheck.label.includes(data.id)) {
+    const idList = dropCheck.label?.map((el: LabelProps) => el.id);
+    if (idList.includes(data.id)) {
       setIsCheck(true);
     }
   }, []);
@@ -52,6 +53,7 @@ const SideBarDropLabelStyle = styled.div`
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  cursor: pointer;
 `;
 const LabelName = styled(S.TextSmall)`
   margin-left: 8px;

@@ -2,14 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { ProfileImg as P } from '../../../styles/CommonStyles';
 import { v4 as uuidv4 } from 'uuid';
-import { useRecoilValue } from 'recoil';
-import { issueForm } from '../../../../store/Recoil';
 import { AssigneeDataProps } from '../../../../utils/types/sideBarType';
 
 const AssigneeContent = ({ userList }: AssigneeDataProps): JSX.Element => {
-  const dropTotalState = useRecoilValue(issueForm);
-
-  console.log('어사이니컨텐트안 데이터', dropTotalState);
   return (
     <>
       {userList?.map((assignee) => (
