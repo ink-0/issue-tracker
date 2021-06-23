@@ -42,6 +42,48 @@ export const issueForm = selector({
   },
 });
 
+export const selectedAssignee = atom({
+  key: 'selectedAssignee',
+  default: [],
+});
+
+export const selectedLabel = atom({
+  key: 'selectedLabel',
+  default: [],
+});
+
+export const selectedMilestone = atom({
+  key: 'selectedMilestone',
+  default: [],
+});
+//selector로 한다? is check를 ?
+// atom 3개를 보관하고
+//selecotr - > setIs(ftruie)
+//
+
+export const dropCheckState = atom({
+  key: 'selectedAssignee',
+  default: {
+    assignee: false,
+    label: false,
+    milestone: false,
+  },
+});
+export const dropCheck = selector({
+  key: 'dropCheck',
+  get: ({ get }) => {
+    return get(dropCheckState);
+  },
+  set: ({ set }, type) => {
+    set(dropCheckState, (prevState) => ({
+      ...prevState,
+      type: true,
+    }));
+  },
+});
+
+const [isCheck, setIsCheck] = useRecoilState;
+const asigneeHandler = (e) => setIsCheck('asignee');
 // export const DecodedToken = selector({
 //   key: 'setToken',
 //   get: ({get}) => {
