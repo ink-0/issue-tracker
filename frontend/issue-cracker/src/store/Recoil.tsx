@@ -1,10 +1,13 @@
 import { atom, selector } from 'recoil';
-
 import {
   AssigneeProps,
   LabelProps,
   MilestoneProps,
 } from '../utils/types/sideBarType';
+import { URL as U } from '../utils/const';
+
+// Login
+
 export const addState = atom({
   key: 'addState',
   default: false,
@@ -23,6 +26,16 @@ export const decodedToken = atom({
   },
 });
 
+//SideBar
+export const issueForm = selector({
+  key: 'issueForm',
+  get: async () => {
+    const response = await fetch(U.FORM);
+    const data = await response.json();
+    return data;
+  },
+});
+
 export const dropAssigneeState = atom({
   key: 'dropAssigneeState',
   default: false,
@@ -36,35 +49,22 @@ export const dropMilestoneState = atom({
   default: false,
 });
 
-export const issueForm = selector({
-  key: 'issueForm',
-  get: async () => {
-    const response = await fetch('http://localhost:8080/api/web/issues/form');
-    const data = await response.json();
-    return data;
-  },
-});
-
-export const selectedAssignee = atom({
-  key: 'selectedAssignee',
-  default: [],
-});
-
-export const selectedLabel = atom({
-  key: 'selectedLabel',
-  default: [],
-});
-
-export const selectedMilestone = atom({
-  key: 'selectedMilestone',
-  default: [],
-});
-
 export const dropCheckState = atom({
   key: 'dropCheckState',
   default: {
     assignee: [] as AssigneeProps[],
     label: [] as LabelProps[],
     milestone: [] as MilestoneProps[],
+  },
+});
+
+//IssueList
+
+export const issueListData = selector({
+  key: 'issueListData',
+  get: async () => {
+    const response = await fetch(U.ISSUES);
+    const data = await response.json();
+    return data;
   },
 });

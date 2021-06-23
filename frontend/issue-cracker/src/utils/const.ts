@@ -5,6 +5,8 @@ export const URL = {
   AUTH: 'http://localhost:8080/api/web/auth',
   LOGIN:
     'https://github.com/login/oauth/authorize?client_id=2a42dd1b1e2aad1238e9&scope=read:user,user:email&redirect_uri=http://localhost:3000/authentication',
+  FORM: 'http://localhost:8080/api/web/issues/form',
+  ISSUES: 'http://issue-tracker.pyro-squad.com/api/web/issues',
 };
 //path
 export const PATH = {
@@ -58,7 +60,7 @@ export const TEXT = {
   CLOSED_MILESTONE: '닫힌 마일스톤',
 };
 export const SIDEBAR_TYPE = {
-  ASIGNEE: '담당자',
+  ASSIGNEE: '담당자',
   LABEL: '레이블',
   MILESTONE: '마일스톤',
 };
@@ -98,6 +100,8 @@ export const TYPE = {
   MEDIUM: 'medium',
   LARGE: 'large',
 };
+
+export const TOKEN = 'token';
 
 // temp
 export const FILTER_DROPDOWN = ['Tami', 'Raccoon', 'Noel', 'Neo', 'Pyro'];

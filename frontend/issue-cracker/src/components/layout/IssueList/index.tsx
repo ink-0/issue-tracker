@@ -7,7 +7,9 @@ const IssueList = (): JSX.Element => {
   return (
     <IssueListDiv>
       <IssueNav />
-      <IssueTable />
+      <React.Suspense fallback={null}>
+        <IssueTable />
+      </React.Suspense>
     </IssueListDiv>
   );
 };

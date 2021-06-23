@@ -11,10 +11,10 @@ import IssueAdd from './components/layout/IssueAdd';
 import IssueDetail from './components/layout/IssueDetail';
 import LabelList from './components/layout/LabelList';
 import Milestone from './components/layout/Milestone';
-import { PATH as P } from './utils/const';
+import { PATH as P, TOKEN } from './utils/const';
 
 function App(): JSX.Element {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(TOKEN);
 
   return (
     <BrowserRouter>

@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { BUTTON_SIZE as BS, BUTTON_NAME as BN } from '../../../../utils/const';
+import {
+  BUTTON_SIZE as BS,
+  BUTTON_NAME as BN,
+  PATH as P,
+} from '../../../../utils/const';
 import ButtonGroup from '../../../common/group/ButtonGroup';
 import IssueFilter from './IssueFilter';
 import TapGroup from '../../../common/group/TabGroup';
@@ -19,7 +23,7 @@ const IssueNav: FC = () => {
           <TabBox>
             <TapGroup />
           </TabBox>
-          <Link to="/main/issue-add">
+          <Link to={P.ISSUE_ADD}>
             <Box>
               <ButtonGroup
                 type={BS.SMALL_FILL}
