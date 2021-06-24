@@ -7,7 +7,7 @@ interface InputGroupProps {
   type: string;
   name: string;
   variant: 'filled' | 'outlined';
-  value?: any;
+  value?: string;
   onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 type IInputType = ClassNameMap<
@@ -18,7 +18,7 @@ interface IInput {
   classes: IInputType;
   name: string;
   variant: 'filled' | 'outlined';
-  value?: any;
+  value?: string;
   onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 
