@@ -35,7 +35,6 @@ public class IssueRepository {
 
         String sql = ISSUE_SQL + "WHERE issue.statusId = :statusId ";
         Map<String, String> params = Collections.singletonMap("statusId", status.name());
-        System.out.println(status.name());
 
         return new Issues(jdbc.query(sql, params, issueMapper));
     }
