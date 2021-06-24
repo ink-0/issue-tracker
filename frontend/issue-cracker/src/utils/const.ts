@@ -36,6 +36,8 @@ export const BUTTON_NAME = {
   ADD: '추가',
   DELETE: '삭제',
   COMPLETE: '완료',
+  CLOSE: '닫기',
+  EDIT: '편집',
   WRITING_ISSUE: '이슈작성',
 };
 
@@ -90,10 +92,12 @@ export const LABEL = {
 };
 
 export const MILESTONE = {
+  TITLE: '마일스톤 제목',
   ADD: '새로운 마일스톤 추가',
   NAME: '마일스톤 이름',
   DESC: '설명(선택)',
   DUE: '완료일(선택) ex. YYYY-MM-DD',
+  COMPLETE: '완료일 일정',
 };
 
 export const TYPE = {

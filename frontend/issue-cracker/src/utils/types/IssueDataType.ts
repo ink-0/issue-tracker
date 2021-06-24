@@ -1,12 +1,9 @@
+import { MilestoneInfo } from './milestoneDataType';
 import { AssigneeProps, LabelProps } from './sideBarType';
 
 export interface IssueDataProps {
   issueId: number;
-  milestoneInfo: {
-    description: string;
-    dueDate: string;
-    title: string;
-  };
+  milestoneInfo: MilestoneInfo;
   title: string;
   content: string;
   status: string;

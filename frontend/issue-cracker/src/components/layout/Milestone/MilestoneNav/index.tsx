@@ -17,7 +17,9 @@ const MilestoneNav: FC = () => {
     <MilestoneNavDiv>
       <MilestoneNavContainer>
         <TabBox>
-          <TapGroup />
+          <React.Suspense fallback={null}>
+            <TapGroup />
+          </React.Suspense>
         </TabBox>
         {issueAddState ? (
           <ButtonBox onClick={handleClickbutton}>

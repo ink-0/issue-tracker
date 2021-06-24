@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Issue as S } from '../../../styles/CommonStyles';
 import CheckBoxes from '../../../common/CheckBoxes';
 import OpenIconGroup from '../../../common/group/OpenIconGroup';
@@ -13,7 +14,6 @@ import TextGroup from '../../../common/group/TextGroup';
 import CountGroup from '../../../common/group/CountGroup';
 import IssueHeaderButton from '../../../common/IssueHeaderButton';
 import FilterMenu from '../../../common/FilterMenu';
-import { v4 as uuidv4 } from 'uuid';
 import { IssueDataProps } from '../../../../utils/types/IssueDataType';
 
 const IssueTableHeader = ({
