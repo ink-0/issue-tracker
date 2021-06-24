@@ -8,7 +8,9 @@ const IssueDetailBox = ({ state }: { state: IssueDataProps }): JSX.Element => {
   return (
     <IssueDetailBoxStyle>
       <IssueDetailInput {...{ state }} />
-      <IssueDetailSidebar {...{ state }} />
+      <React.Suspense fallback={null}>
+        <IssueDetailSidebar {...{ state }} />
+      </React.Suspense>
     </IssueDetailBoxStyle>
   );
 };

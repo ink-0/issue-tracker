@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Issue as S } from '../../styles/CommonStyles';
 import { TYPE as T, SIDEBAR_TYPE as ST, TOKEN } from '../../../utils/const';
-
 import TextGroup from '../group/TextGroup';
 import AddIcon from '@material-ui/icons/Add';
 import jwtDecode from 'jwt-decode';
@@ -18,7 +17,6 @@ import SideBarDrop from './SideBarDrop';
 import AssigneeData from './data/AssigneeData';
 import LabelData from './data/LabelData';
 import MilestoneData from './data/MilestoneData';
-
 import AssigneeContent from './content/AssigneeContent';
 import LabelContent from './content/LabelContent';
 import MilestoneContent from './content/MilestoneContent';

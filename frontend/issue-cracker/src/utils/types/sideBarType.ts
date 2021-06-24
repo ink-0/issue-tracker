@@ -21,6 +21,7 @@ export interface MilestoneProps {
 
 export interface AssigneeDataProps {
   checkedAssignee?: AssigneeProps[];
+  assignees?: AssigneeProps[];
   userData?: AssigneeProps[];
 }
 export interface LabelDataProps {
