@@ -5,7 +5,9 @@ import com.issuetracker.domain.auth.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.issuetracker.repository.sql.AssigneeQueriesKt.FIND_ALL_ASSIGNEE_BY_USER_ID;
+import static com.issuetracker.repository.sql.IssueQueriesKt.INSERT_ISSUE;
 import static com.issuetracker.repository.sql.LabelQueriesKt.FIND_ALL_LABEL;
 import static com.issuetracker.repository.sql.LabelQueriesKt.FIND_ALL_LABEL_BY_ISSUE_ID;
 import static com.issuetracker.repository.sql.MilestoneQueriesKt.FIND_ALL_MILESTONE;
@@ -151,8 +154,14 @@ public class IssueRepository {
         return new IssueOption(assignees, labels, milestones);
     }
 
-    public void save(NewIssue issue) {
-        logger.debug(issue.toString());
+    public void save(User loginUser, NewIssue issue) {
+        SqlParameterSource parameter = new MapSqlParameterSource()
+                .addValue("title", issue.getTitle())
+                .addValue("content", issue.getComment())
+                .addValue("writerId", loginUser.getId())
+                .addValue("statusId", "OPEN")
+                .addValue("milestoneId", issue.getMilestoneId());
+        jdbc.update(INSERT_ISSUE, parameter);
     }
 
     public Issue findById(Long issueId) {

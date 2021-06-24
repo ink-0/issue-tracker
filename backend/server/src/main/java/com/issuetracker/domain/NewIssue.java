@@ -39,4 +39,15 @@ public class NewIssue {
     public Long getMilestoneId() {
         return milestoneId;
     }
+
+    @Override
+    public String toString() {
+        return "NewIssue{" +
+                "title='" + title + '\'' +
+                ", comment='" + comment + '\'' +
+                ", assignees=" + assignees +
+                ", labels=" + labels +
+                ", milestoneId=" + milestoneId +
+                '}';
+    }
 }

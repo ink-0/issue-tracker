@@ -1,10 +1,13 @@
 package com.issuetracker.controller.ios;
 
+import com.issuetracker.annotation.LoginRequired;
 import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.dto.ios.*;
 import com.issuetracker.service.AuthService;
 import com.issuetracker.service.ios.IosIssueService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/ios")
@@ -37,8 +40,11 @@ public class IosIssueController {
     }
 
     @PostMapping("/issues")
-    public void createIssue(@RequestBody IosNewIssueDto issue) {
-        iosIssueService.save(issue); // console print
+    @LoginRequired
+    public void createIssue(HttpServletRequest request, @RequestBody IosNewIssueDto issue) {
+        String userId = (String) request.getAttribute("userId");
+        UserDto loginUser = authService.getUser(userId);
+        iosIssueService.save(loginUser, issue);
     }
 
     @GetMapping("/issues/{issueId}")
