@@ -1,5 +1,6 @@
 package com.issuetracker.dto.ios;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.issuetracker.domain.Assignees;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class IosAssigneesDto {
 
+    @JsonProperty
     private final List<IosAssigneeDto> assignees;
 
     public IosAssigneesDto(List<IosAssigneeDto> assignees) {
