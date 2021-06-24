@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.issuetracker.repository.sql.CommentQueriesKt.FIND_ALL_COMMENT_BY_ISSUE_ID;
+
 @Repository
 public class CommentRepository {
     private final NamedParameterJdbcTemplate jdbc;
@@ -19,15 +21,10 @@ public class CommentRepository {
     }
 
     public Comments findByIssueId(Long issueId) {
-        String sql = "SELECT comment.id, comment.issueId, dateTime, comment.writerId, comment.content, user.name, user.profileImageUrl "
-                + "FROM comment "
-                + "INNER JOIN user ON comment.writerId = user.id "
-                + "INNER JOIN issue ON comment.issueId = issue.id "
-                + "WHERE comment.issueId = :issueId";
 
         Map<String, Long> params = Collections.singletonMap("issueId", issueId);
 
-        List<Comment> commentList = jdbc.query(sql, params, (rs, rowNum) -> {
+        List<Comment> commentList = jdbc.query(FIND_ALL_COMMENT_BY_ISSUE_ID, params, (rs, rowNum) -> {
             Writer writer = new Writer(rs.getString("name"), rs.getString("profileImageUrl"));
 
             return new Comment(rs.getLong("id"),

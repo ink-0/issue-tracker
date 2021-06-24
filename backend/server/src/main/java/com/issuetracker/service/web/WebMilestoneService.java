@@ -14,7 +14,7 @@ public class WebMilestoneService {
     }
 
     public WebMilestonesDto findAll() {
-        return WebMilestonesDto.from(milestoneRepository.findAll());
+        return WebMilestonesDto.from(milestoneRepository.findAllMilestoneInfo());
     }
 
 }

@@ -14,7 +14,7 @@ public class IosMilestoneService {
     }
 
     public IosMilestonesDto findAll() {
-        return IosMilestonesDto.from(milestoneRepository.findAll());
+        return IosMilestonesDto.from(milestoneRepository.findAllMilestoneInfo());
     }
 
 }
