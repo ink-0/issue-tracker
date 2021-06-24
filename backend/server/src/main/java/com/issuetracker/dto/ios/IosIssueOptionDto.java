@@ -1,7 +1,6 @@
 package com.issuetracker.dto.ios;
 
 import com.issuetracker.domain.IssueOption;
-import com.issuetracker.dto.auth.UserDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,8 +24,8 @@ public class IosIssueOptionDto {
         this.milestonesDto = milestonesDto;
     }
 
-    public List<UserDto> getAssignees() {
-        return assigneesDto.getUsers();
+    public List<IosAssigneeDto> getAssignees() {
+        return assigneesDto.toList();
     }
 
     public List<IosLabelDto> getLabels() {

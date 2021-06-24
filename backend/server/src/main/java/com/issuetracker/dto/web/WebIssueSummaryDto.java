@@ -72,8 +72,8 @@ public class WebIssueSummaryDto {
         return createdDateTime;
     }
 
-    public List<UserDto> getAssignees() {
-        return assignees.getUsers();
+    public List<WebAssigneeDto> getAssignees() {
+        return assignees.toList();
     }
 
     public List<WebLabelDto> getLabels() {

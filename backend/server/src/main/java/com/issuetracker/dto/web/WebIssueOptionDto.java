@@ -1,7 +1,6 @@
 package com.issuetracker.dto.web;
 
 import com.issuetracker.domain.IssueOption;
-import com.issuetracker.dto.auth.UserDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,8 +24,8 @@ public class WebIssueOptionDto {
         this.milestonesDto = milestonesDto;
     }
 
-    public List<UserDto> getAssignees() {
-        return assigneesDto.getUsers();
+    public List<WebAssigneeDto> getAssignees() {
+        return assigneesDto.toList();
     }
 
     public List<WebLabelDto> getLabels() {

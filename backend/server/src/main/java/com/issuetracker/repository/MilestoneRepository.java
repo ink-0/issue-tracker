@@ -2,7 +2,6 @@ package com.issuetracker.repository;
 
 import com.issuetracker.domain.*;
 import com.issuetracker.domain.auth.User;
-import com.issuetracker.domain.auth.Users;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -18,9 +17,10 @@ public class MilestoneRepository {
 
         User writer = new User("neo", "네오", "http://testProfile.image.url", Arrays.asList("a@neo.com", "b@neo.com"));
 
-        Users assignees = new Users();
-        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
-        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
+        Assignees assignees = new Assignees(Arrays.asList(
+                new Assignee("noel", "노을", "http://testProfile.image.url"),
+                new Assignee("pyro", "파이로", "http://testProfile.image.url")
+        ));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));

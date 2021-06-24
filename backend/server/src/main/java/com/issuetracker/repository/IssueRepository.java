@@ -2,7 +2,6 @@ package com.issuetracker.repository;
 
 import com.issuetracker.domain.*;
 import com.issuetracker.domain.auth.User;
-import com.issuetracker.domain.auth.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -18,9 +17,10 @@ public class IssueRepository {
     Logger logger = LoggerFactory.getLogger(IssueRepository.class.getName());
 
     public Issues getOpenIssues(User writer) {
-        Users assignees = new Users();
-        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
-        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
+        Assignees assignees = new Assignees(Arrays.asList(
+                new Assignee("noel", "노을", "http://testProfile.image.url"),
+                new Assignee("pyro", "파이로", "http://testProfile.image.url")
+        ));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));
@@ -38,9 +38,10 @@ public class IssueRepository {
     }
 
     public Issues getClosedIssues(User writer) {
-        Users assignees = new Users();
-        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
-        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
+        Assignees assignees = new Assignees(Arrays.asList(
+                new Assignee("noel", "노을", "http://testProfile.image.url"),
+                new Assignee("pyro", "파이로", "http://testProfile.image.url")
+        ));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀1", "라벨 설명1", "#FF0000", "#000000"));
@@ -59,9 +60,10 @@ public class IssueRepository {
     }
 
     public Issues getAllIssues(User writer) {
-        Users assignees = new Users();
-        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
-        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
+        Assignees assignees = new Assignees(Arrays.asList(
+                new Assignee("noel", "노을", "http://testProfile.image.url"),
+                new Assignee("pyro", "파이로", "http://testProfile.image.url")
+        ));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));
@@ -90,9 +92,10 @@ public class IssueRepository {
     public IssueOption findIssueOption() {
         User writer = new User("neo", "네오", "http://testProfile.image.url", Arrays.asList("a@neo.com", "b@neo.com"));
 
-        Users assignees = new Users();
-        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
-        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
+        Assignees assignees = new Assignees(Arrays.asList(
+                new Assignee("noel", "노을", "http://testProfile.image.url"),
+                new Assignee("pyro", "파이로", "http://testProfile.image.url")
+        ));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));
@@ -118,9 +121,10 @@ public class IssueRepository {
     public Issue findById(Long issueId) {
         User writer = new User("neo", "네오", "http://testProfile.image.url", Arrays.asList("a@neo.com", "b@neo.com"));
 
-        Users assignees = new Users();
-        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
-        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
+        Assignees assignees = new Assignees(Arrays.asList(
+                new Assignee("noel", "노을", "http://testProfile.image.url"),
+                new Assignee("pyro", "파이로", "http://testProfile.image.url")
+        ));
 
         Labels labels = new Labels();
         labels.add(new Label(1L, "라벨 타이틀1", "라벨 설명1", "#FF0000", "#000000"));

@@ -72,8 +72,8 @@ public class IosIssueSummaryDto {
         return createdDateTime;
     }
 
-    public List<UserDto> getAssignees() {
-        return assignees.getUsers();
+    public List<IosAssigneeDto> getAssignees() {
+        return assignees.toList();
     }
 
     public List<IosLabelDto> getLabels() {
