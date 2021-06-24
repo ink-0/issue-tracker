@@ -28,14 +28,7 @@ public class WebIssueService {
 
         IssueStatusDto status = IssueStatusDto.valueOf(issueStatus);
 
-        switch (status) {
-            case CLOSED:
-                return WebIssuesDto.from(issueRepository.getClosedIssues(userDto.toUser()));
-            case OPEN:
-                return WebIssuesDto.from(issueRepository.getOpenIssues(userDto.toUser()));
-            default:
-                return WebIssuesDto.from(issueRepository.getAllIssues(userDto.toUser()));
-        }
+        return WebIssuesDto.from(issueRepository.getIssues(userDto.toUser(), status.toIssueStatus()));
     }
 
     //INFO.  "issueNumbers": [1, 2, 3] 이 들어오면, 해당 번호의 이슈의 상태를 반전

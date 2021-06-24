@@ -3,7 +3,6 @@ package com.issuetracker.dto.web;
 import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
 import com.issuetracker.dto.IssueStatusDto;
-import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +19,7 @@ public class WebIssueSummaryDto {
 
     private IssueStatusDto status;
 
-    private UserDto writer;
+    private WebWriterDto writer;
 
     private LocalDateTime createdDateTime;
 
@@ -29,10 +28,10 @@ public class WebIssueSummaryDto {
     private WebLabelsDto labels;
 
     public static WebIssueSummaryDto from(Issue issue) {
-        return new WebIssueSummaryDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), WebAssigneesDto.from(issue.getAssignees()), WebLabelsDto.from(issue.getLabels()));
+        return new WebIssueSummaryDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), WebWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), WebAssigneesDto.from(issue.getAssignees()), WebLabelsDto.from(issue.getLabels()));
     }
 
-    public WebIssueSummaryDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, UserDto writer, LocalDateTime createdDateTime, WebAssigneesDto assignees, WebLabelsDto labels) {
+    public WebIssueSummaryDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, WebWriterDto writer, LocalDateTime createdDateTime, WebAssigneesDto assignees, WebLabelsDto labels) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -64,7 +63,7 @@ public class WebIssueSummaryDto {
         return status;
     }
 
-    public UserDto getWriter() {
+    public WebWriterDto getWriter() {
         return writer;
     }
 

@@ -3,7 +3,6 @@ package com.issuetracker.dto.ios;
 import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
 import com.issuetracker.dto.IssueStatusDto;
-import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +19,7 @@ public class IosIssueSummaryDto {
 
     private IssueStatusDto status;
 
-    private UserDto writer;
+    private IosWriterDto writer;
 
     private LocalDateTime createdDateTime;
 
@@ -28,7 +27,7 @@ public class IosIssueSummaryDto {
 
     private IosLabelsDto labels;
 
-    public IosIssueSummaryDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels) {
+    public IosIssueSummaryDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, IosWriterDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -41,7 +40,7 @@ public class IosIssueSummaryDto {
     }
 
     public static IosIssueSummaryDto from(Issue issue) {
-        return new IosIssueSummaryDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()));
+        return new IosIssueSummaryDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), IosWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()));
     }
 
     public Long getIssueId() {
@@ -64,7 +63,7 @@ public class IosIssueSummaryDto {
         return status.toString();
     }
 
-    public UserDto getWriter() {
+    public IosWriterDto getWriter() {
         return writer;
     }
 

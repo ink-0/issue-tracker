@@ -44,9 +44,20 @@ CREATE TABLE `pyrodb`.`issue`
     `writerId`    VARCHAR(300) NOT NULL,
     `statusId`    VARCHAR(50)  NOT NULL,
     `milestoneId` INT,
+    `createdDate`     TIMESTAMP,
     FOREIGN KEY (`writerId`) REFERENCES `pyrodb`.`user` (`id`),
     FOREIGN KEY (`statusId`) REFERENCES `pyrodb`.`status` (`id`),
     FOREIGN KEY (`milestoneId`) REFERENCES `pyrodb`.`milestone` (`id`)
+);
+
+DROP TABLE IF EXISTS `pyrodb`.`assignee`;
+CREATE TABLE `pyrodb`.`assignee`
+(
+    `issueId` INT NOT NULL,
+    `userId` VARCHAR(50) NOT NULL,
+    FOREIGN KEY (`issueId`) REFERENCES `pyrodb`.`issue` (`id`),
+    FOREIGN KEY (`userId`) REFERENCES `pyrodb`.`user` (`id`),
+    PRIMARY KEY (`issueId`, `userId`)
 );
 
 DROP TABLE IF EXISTS `pyrodb`.`comment`;
@@ -74,8 +85,8 @@ CREATE TABLE `pyrodb`.`label`
 DROP TABLE IF EXISTS `pyrodb`.`issueLabel`;
 CREATE TABLE `pyrodb`.`issueLabel`
 (
-    `issueId` INT,
-    `labelId` INT,
+    `issueId` INT NOT NULL,
+    `labelId` INT NOT NULL,
     FOREIGN KEY (`issueId`) REFERENCES `pyrodb`.`issue` (`id`),
     FOREIGN KEY (`labelId`) REFERENCES `pyrodb`.`label` (`id`),
     PRIMARY KEY (`issueId`, `labelId`)

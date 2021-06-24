@@ -10,4 +10,8 @@ public enum IssueStatusDto {
     public static IssueStatusDto from(IssueStatus status) {
         return valueOf(status.name().toUpperCase());
     }
+
+    public IssueStatus toIssueStatus() {
+        return IssueStatus.from(name());
+    }
 }

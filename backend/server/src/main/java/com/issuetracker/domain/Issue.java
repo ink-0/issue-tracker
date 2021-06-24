@@ -1,6 +1,5 @@
 package com.issuetracker.domain;
 
-import com.issuetracker.domain.auth.User;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
@@ -18,7 +17,7 @@ public class Issue {
 
     private final IssueStatus status;
 
-    private final User writer;
+    private final Writer writer;
 
     private final LocalDateTime createdDateTime;
 
@@ -26,7 +25,7 @@ public class Issue {
 
     private final Labels labels;
 
-    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatus status, User writer, LocalDateTime createdDateTime, Assignees assignees, Labels labels) {
+    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatus status, Writer writer, LocalDateTime createdDateTime, Assignees assignees, Labels labels) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -54,7 +53,7 @@ public class Issue {
         return status;
     }
 
-    public User getWriter() {
+    public Writer getWriter() {
         return writer;
     }
 
