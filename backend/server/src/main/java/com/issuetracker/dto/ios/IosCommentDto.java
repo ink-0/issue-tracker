@@ -1,7 +1,7 @@
 package com.issuetracker.dto.ios;
 
 import com.issuetracker.domain.Comment;
-import com.issuetracker.domain.auth.User;
+import com.issuetracker.domain.Writer;
 
 import java.time.LocalDateTime;
 
@@ -9,21 +9,21 @@ public class IosCommentDto {
 
     private Long id;
 
-    private User write;
+    private Writer writer;
 
     private String content;
 
     private LocalDateTime dateTime;
 
-    public IosCommentDto(Long id, User write, String content, LocalDateTime dateTime) {
+    public IosCommentDto(Long id, Writer writer, String content, LocalDateTime dateTime) {
         this.id = id;
-        this.write = write;
+        this.writer = writer;
         this.content = content;
         this.dateTime = dateTime;
     }
 
     public static IosCommentDto from(Comment comment) {
-        return new IosCommentDto(comment.getId(), comment.getWrite(), comment.getContent(), comment.getDateTime());
+        return new IosCommentDto(comment.getId(), comment.getWriter(), comment.getContent(), comment.getDateTime());
     }
 
 
@@ -31,24 +31,12 @@ public class IosCommentDto {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getWrite() {
-        return write;
-    }
-
-    public void setWrite(User write) {
-        this.write = write;
+    public Writer getWriter() {
+        return writer;
     }
 
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public LocalDateTime getDateTime() {

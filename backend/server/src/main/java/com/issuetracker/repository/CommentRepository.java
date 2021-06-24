@@ -2,23 +2,41 @@ package com.issuetracker.repository;
 
 import com.issuetracker.domain.Comment;
 import com.issuetracker.domain.Comments;
-import com.issuetracker.domain.auth.User;
+import com.issuetracker.domain.Writer;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CommentRepository {
+    private final NamedParameterJdbcTemplate jdbc;
+
+    public CommentRepository(NamedParameterJdbcTemplate jdbc) {
+        this.jdbc = jdbc;
+    }
+
     public Comments findByIssueId(Long issueId) {
-        User writer = new User("test1", "테스터1", "http://testProfile.image.url", Arrays.asList("a@test1.com", "b@test1.com"));
-        User writer2 = new User("test2", "테스터2", "http://testProfile.image.url", Arrays.asList("a@test2.com", "b@test2.com"));
-        Comments comments = new Comments();
+        String sql = "SELECT comment.id, comment.issueId, dateTime, comment.writerId, comment.content, user.name, user.profileImageUrl "
+                + "FROM comment "
+                + "INNER JOIN user ON comment.writerId = user.id "
+                + "INNER JOIN issue ON comment.issueId = issue.id "
+                + "WHERE comment.issueId = :issueId";
 
-        comments.add(new Comment(1L, 1L, writer, "댓글내용1", LocalDateTime.now()));
-        comments.add(new Comment(2L, 1L, writer2, "댓글내용3", LocalDateTime.now()));
-        comments.add(new Comment(3L, 1L, writer2, "댓글내용4", LocalDateTime.now()));
+        Map<String, Long> params = Collections.singletonMap("issueId", issueId);
 
-        return comments;
+        List<Comment> commentList = jdbc.query(sql, params, (rs, rowNum) -> {
+            Writer writer = new Writer(rs.getString("name"), rs.getString("profileImageUrl"));
+
+            return new Comment(rs.getLong("id"),
+                    rs.getLong("issueId"),
+                    writer,
+                    rs.getString("content"),
+                    rs.getTimestamp("datetime").toLocalDateTime());
+        });
+
+        return new Comments(commentList);
     }
 }
