@@ -32,7 +32,9 @@ CREATE TABLE `pyrodb`.`milestone`
     `id`          INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `title`       VARCHAR(50) NOT NULL,
     `description` VARCHAR(300),
-    `dueDate`     TIMESTAMP
+    `statusId`    VARCHAR(50)  NOT NULL,
+    `dueDate`     TIMESTAMP,
+    FOREIGN KEY (`statusId`) REFERENCES `pyrodb`.`status` (`id`)
 );
 
 DROP TABLE IF EXISTS `pyrodb`.`issue`;

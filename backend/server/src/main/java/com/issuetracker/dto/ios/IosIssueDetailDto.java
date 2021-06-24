@@ -3,7 +3,6 @@ package com.issuetracker.dto.ios;
 import com.issuetracker.domain.Comments;
 import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
-import com.issuetracker.dto.IssueStatusDto;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ public class IosIssueDetailDto {
 
     private String content;
 
-    private IssueStatusDto status;
+    private String status;
 
     private IosWriterDto writer;
 
@@ -29,7 +28,7 @@ public class IosIssueDetailDto {
 
     private IosCommentsDto comments;
 
-    public IosIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, IosWriterDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels, IosCommentsDto comments) {
+    public IosIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, String status, IosWriterDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels, IosCommentsDto comments) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -43,7 +42,7 @@ public class IosIssueDetailDto {
     }
 
     public static IosIssueDetailDto from(Issue issue, Comments comments) {
-        return new IosIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), IosWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()), IosCommentsDto.from(comments));
+        return new IosIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), issue.getStatus().name(), IosWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()), IosCommentsDto.from(comments));
     }
 
     public Long getIssueId() {
@@ -62,7 +61,7 @@ public class IosIssueDetailDto {
         return content;
     }
 
-    public IssueStatusDto getStatus() {
+    public String getStatus() {
         return status;
     }
 

@@ -17,7 +17,7 @@ public class IssueRepository {
 
     private static final String ISSUE_SQL = "SELECT issue.id, issue.title, issue.content, issue.statusId, issue.createdDate, "
             + "user.name, user.profileImageUrl, "
-            + "milestone.title AS milestoneTitle, milestone.description AS milestoneDescription, milestone.dueDate AS milestoneDueDate "
+            + "milestone.title AS milestoneTitle, milestone.description AS milestoneDescription, milestone.statusId AS milestoneStatus, milestone.dueDate AS milestoneDueDate "
             + "FROM issue "
             + "INNER JOIN user ON issue.writerId = user.id "
             + "LEFT JOIN milestone ON issue.milestoneId = milestone.id ";
@@ -28,8 +28,8 @@ public class IssueRepository {
         this.jdbc = jdbc;
     }
 
-    public Issues getIssues(User _, IssueStatus status) {
-        if (status == IssueStatus.ALL) {
+    public Issues getIssues(User _, Status status) {
+        if (status == Status.ALL) {
             return getAllIssues();
         }
 
@@ -53,6 +53,7 @@ public class IssueRepository {
         MilestoneInfo milestoneInfo = milestoneTitle != null ? new MilestoneInfo(
                 milestoneTitle,
                 rs.getString("milestoneDescription"),
+                Status.from(rs.getString("milestoneStatus")),
                 rs.getTimestamp("milestoneDueDate").toLocalDateTime()
         ) : null;
 
@@ -63,7 +64,7 @@ public class IssueRepository {
                 milestoneInfo,
                 rs.getString("title"),
                 rs.getString("content"),
-                IssueStatus.from(rs.getString("statusId")),
+                Status.from(rs.getString("statusId")),
                 writer,
                 rs.getTimestamp("createdDate").toLocalDateTime(),
                 assignees,
@@ -123,10 +124,10 @@ public class IssueRepository {
         labels.add(new Label(2L, "라벨 타이틀5", "라벨 설명2", "#FF0000", "#000000"));
         labels.add(new Label(3L, "라벨 타이틀6", "라벨 설명3", "#FF0000", "#000000"));
 
-        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", LocalDateTime.now());
+        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", Status.OPEN, LocalDateTime.now());
         Issues issues = new Issues();
-        issues.add(new Issue(2L, milestoneInfo, "열린 이슈 타이틀1", "열린 이슈 설명1", IssueStatus.OPEN, writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(3L, milestoneInfo, "열린 이슈 타이틀2", "열린 이슈 설명2", IssueStatus.OPEN, writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(2L, milestoneInfo, "열린 이슈 타이틀1", "열린 이슈 설명1", Status.OPEN, writer, LocalDateTime.now(), assignees, labels));
+        issues.add(new Issue(3L, milestoneInfo, "열린 이슈 타이틀2", "열린 이슈 설명2", Status.OPEN, writer, LocalDateTime.now(), assignees, labels));
 
 
         Milestones milestones = new Milestones();
@@ -158,9 +159,9 @@ public class IssueRepository {
         issuesId.add(2L);
         issuesId.add(3L);
 
-        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", LocalDateTime.now());
+        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", Status.OPEN, LocalDateTime.now());
 
-        Issue issue = new Issue(issueId, milestoneInfo, "검색한 이슈 타이틀1", "닫힌 이슈 설명1", IssueStatus.CLOSED, writer, LocalDateTime.now(), assignees, labels);
+        Issue issue = new Issue(issueId, milestoneInfo, "검색한 이슈 타이틀1", "닫힌 이슈 설명1", Status.CLOSE, writer, LocalDateTime.now(), assignees, labels);
 
         return issue;
     }

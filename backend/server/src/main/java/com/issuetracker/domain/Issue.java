@@ -15,7 +15,7 @@ public class Issue {
 
     private final String content;
 
-    private final IssueStatus status;
+    private final Status status;
 
     private final Writer writer;
 
@@ -25,7 +25,7 @@ public class Issue {
 
     private final Labels labels;
 
-    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatus status, Writer writer, LocalDateTime createdDateTime, Assignees assignees, Labels labels) {
+    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, Status status, Writer writer, LocalDateTime createdDateTime, Assignees assignees, Labels labels) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -49,7 +49,7 @@ public class Issue {
         return content;
     }
 
-    public IssueStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 

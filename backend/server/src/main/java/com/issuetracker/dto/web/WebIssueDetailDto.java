@@ -3,7 +3,6 @@ package com.issuetracker.dto.web;
 import com.issuetracker.domain.Comments;
 import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
-import com.issuetracker.dto.IssueStatusDto;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ public class WebIssueDetailDto {
 
     private String content;
 
-    private IssueStatusDto status;
+    private String status;
 
     private WebWriterDto writer;
 
@@ -30,10 +29,10 @@ public class WebIssueDetailDto {
     private WebCommentsDto comments;
 
     public static WebIssueDetailDto from(Issue issue, Comments comments) {
-        return new WebIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), WebWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), WebAssigneesDto.from(issue.getAssignees()), WebLabelsDto.from(issue.getLabels()), WebCommentsDto.from(comments));
+        return new WebIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), issue.getStatus().name(), WebWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), WebAssigneesDto.from(issue.getAssignees()), WebLabelsDto.from(issue.getLabels()), WebCommentsDto.from(comments));
     }
 
-    public WebIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, WebWriterDto writer, LocalDateTime createdDateTime, WebAssigneesDto assignees, WebLabelsDto labels, WebCommentsDto comments) {
+    public WebIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, String status, WebWriterDto writer, LocalDateTime createdDateTime, WebAssigneesDto assignees, WebLabelsDto labels, WebCommentsDto comments) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -62,7 +61,7 @@ public class WebIssueDetailDto {
         return content;
     }
 
-    public IssueStatusDto getStatus() {
+    public String getStatus() {
         return status;
     }
 

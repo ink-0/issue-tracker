@@ -20,15 +20,16 @@ VALUES ('68936@naver.com', 'san'),
 INSERT INTO `pyrodb`.`status` (`id`)
 VALUES ('OPEN'),
        ('CLOSE'),
-       ('ALL');
+       ('ALL'),
+       ('EXPIRED');
 
-INSERT INTO `pyrodb`.`milestone`(title, description, dueDate)
-VALUES ('마일스톤1', '마일스톤1 설명', NOW()),
-       ('마일스톤2', '마일스톤2 설명', NOW());
+INSERT INTO `pyrodb`.`milestone`(title, description, statusId,dueDate)
+VALUES ('마일스톤1', '마일스톤1 설명', 'OPEN', NOW()),
+       ('마일스톤2', '마일스톤2 설명', 'CLOSE', NOW());
 
 INSERT INTO `pyrodb`.`issue`(title, content, writerId, statusId, createdDate)
 VALUES ('이슈제목1', '이슈내용1', 'san', 'OPEN', NOW()),
-       ('이슈제목2', '이슈내용2', 'san', 'OPEN', NOW());
+       ('이슈제목2', '이슈내용2', 'san', 'CLOSE', NOW());
 
 INSERT INTO `pyrodb`.`assignee`(issueId, userId)
 VALUES (1, 'san'),
