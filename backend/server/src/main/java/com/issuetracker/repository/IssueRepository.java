@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static com.issuetracker.repository.sql.AssigneeQueriesKt.FIND_ALL_ASSIGNEE_BY_USER_ID;
+import static com.issuetracker.repository.sql.LabelQueriesKt.FIND_ALL_LABEL;
+import static com.issuetracker.repository.sql.LabelQueriesKt.FIND_ALL_LABEL_BY_ISSUE_ID;
+import static com.issuetracker.repository.sql.MilestoneQueriesKt.FIND_ALL_MILESTONE;
+import static com.issuetracker.repository.sql.UserQueriesKt.FIND_ALL_USER;
+
 @Repository
 public class IssueRepository {
     private static final Logger logger = LoggerFactory.getLogger(IssueRepository.class.getName());
@@ -73,14 +79,9 @@ public class IssueRepository {
     };
 
     private Assignees getAssignees(Long issueId) {
-        String sql = "SELECT user.id, user.name, user.profileImageUrl "
-                + "FROM user "
-                + "INNER JOIN assignee ON assignee.userId = user.id "
-                + "WHERE assignee.issueId = :issueId";
-
         Map<String, Long> params = Collections.singletonMap("issueId", issueId);
 
-        return new Assignees(jdbc.query(sql, params, (rs, rowNum) -> {
+        return new Assignees(jdbc.query(FIND_ALL_ASSIGNEE_BY_USER_ID, params, (rs, rowNum) -> {
             String id = rs.getString("id");
             String name = rs.getString("name");
             String profileImageUrl = rs.getString("profileImageUrl");
@@ -89,14 +90,10 @@ public class IssueRepository {
     }
 
     private Labels getLabels(Long issueId) {
-        String sql = "SELECT label.id, label.title, label.description, label.backgroundColor, label.textColor "
-                + "FROM label "
-                + "INNER JOIN issueLabel ON issueLabel.labelId = label.id "
-                + "WHERE issueLabel.issueId = :issueId";
 
         Map<String, Long> params = Collections.singletonMap("issueId", issueId);
 
-        return new Labels(jdbc.query(sql, params, (rs, rowNum) -> {
+        return new Labels(jdbc.query(FIND_ALL_LABEL_BY_ISSUE_ID, params, (rs, rowNum) -> {
             Long id = rs.getLong("id");
             String title = rs.getString("title");
             String description = rs.getString("description");
@@ -112,26 +109,42 @@ public class IssueRepository {
     }
 
     public IssueOption findIssueOption() {
-        Writer writer = new Writer("네오", "http://testProfile.image.url");
 
-        Assignees assignees = new Assignees(Arrays.asList(
-                new Assignee("noel", "노을", "http://testProfile.image.url"),
-                new Assignee("pyro", "파이로", "http://testProfile.image.url")
+        //INFO. 궁금한 점. IssueRepository인데 Assignee이나 Label 등의 정보를 가져와도 되는지?
+
+        List<Assignee> assigneeList = jdbc.query(FIND_ALL_USER, Collections.emptyMap(), (rs, rowNum) -> new Assignee(
+                rs.getString("userId"),
+                rs.getString("name"),
+                rs.getString("profileImageUrl")));
+
+        Assignees assignees = new Assignees(assigneeList);
+
+
+        List<Label> labelList = jdbc.query(FIND_ALL_LABEL, Collections.emptyMap(), (rs, rowNum) -> new Label(
+                rs.getLong("id"),
+                rs.getString("title"),
+                rs.getString("description"),
+                rs.getString("backgroundColor"),
+                rs.getString("textColor")
         ));
 
-        Labels labels = new Labels();
-        labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));
-        labels.add(new Label(2L, "라벨 타이틀5", "라벨 설명2", "#FF0000", "#000000"));
-        labels.add(new Label(3L, "라벨 타이틀6", "라벨 설명3", "#FF0000", "#000000"));
+        Labels labels = new Labels(labelList);
 
-        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", Status.OPEN, LocalDateTime.now());
-        Issues issues = new Issues();
-        issues.add(new Issue(2L, milestoneInfo, "열린 이슈 타이틀1", "열린 이슈 설명1", Status.OPEN, writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(3L, milestoneInfo, "열린 이슈 타이틀2", "열린 이슈 설명2", Status.OPEN, writer, LocalDateTime.now(), assignees, labels));
+        List<MilestoneInfo> milestoneInfoList = jdbc.query(FIND_ALL_MILESTONE, Collections.emptyMap(), (rs, rowNum) -> new MilestoneInfo(
+                rs.getString("title"),
+                rs.getString("description"),
+                Status.from(rs.getString("statusId")),
+                rs.getTimestamp("dueDate").toLocalDateTime()
+        ));
 
 
-        Milestones milestones = new Milestones();
-        milestones.add(new Milestone(1L, issues, milestoneInfo));
+        //TODO. 마일스톤 id,와 issue를 또 한번 마일스톤을 돌아서 구할지?
+        long cnt = 0L;
+
+        Milestones milestones = new Milestones(new ArrayList<>());
+        for (MilestoneInfo milestoneInfo : milestoneInfoList) {
+            milestones.add(new Milestone(++cnt, new Issues(new ArrayList<>()), milestoneInfo));
+        }
 
         return new IssueOption(assignees, labels, milestones);
     }
