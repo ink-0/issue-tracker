@@ -12,7 +12,9 @@ const IssueAdd = (): JSX.Element => {
       <S.TableLine />
       <IssueAddBox />
       <S.TableLine />
-      <IssueAddButton />
+      <React.Suspense fallback={null}>
+        <IssueAddButton />
+      </React.Suspense>
     </IssueAddStyle>
   );
 };

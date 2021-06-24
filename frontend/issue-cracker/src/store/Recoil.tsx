@@ -96,7 +96,6 @@ export const issueAddState = atom<IssueAddStateProps>({
 
 export const issueAddData = selector({
   key: 'issueAddData',
-  //iisse
   get: ({ get }) => {
     const inputData = get(issueAddState);
     const dropData = get(dropCheckState);
@@ -111,9 +110,30 @@ export const issueAddData = selector({
       labelsId: labelsIdList,
       milestoneId: milestonesIdList,
     };
-    return inputData;
   },
 });
+//GET :DATA
+//POST :DATA
+// POST IssueAdd POST
+
+// export const issueAddPostData = selector({
+//   key: 'issueAddPostData',
+//   get: async ({ get }) => {
+//     const userToken = get(token);
+//     const userIssueAddData = get(issueAddData);
+//     return await fetch(U.ISSUES, {
+//       method: 'POST',
+//       body: JSON.stringify(userIssueAddData),
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${userToken}`,
+//       },
+//     })
+//       .then((res) => res.json())
+//       .then((response) => console.log('Success:', JSON.stringify(response)))
+//       .catch((error) => console.error('Error:', error));
+//   },
+// });
 
 // interface issuePostProps {
 //   title: string;
