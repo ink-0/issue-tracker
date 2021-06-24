@@ -42,64 +42,86 @@ const IssueCell = ({ issues }: { issues: IssueDataProps[] }): JSX.Element => {
     return '몇 년 전';
   };
 
-  // console.log(getElapsedTime(issues[0].createdDateTime));
   const openIssue = getIssue(issues, 'OPEN');
   const closedIssue = getIssue(issues, 'CLOSED');
-
+  console.log(issues);
   return (
     <>
-      {openIssue.map((issue) => (
-        <S.IssueCell key={uuidv4()}>
-          <>
-            <LeftBox>
-              <CheckBoxes />
-              <IssueCellContent>
-                <Link
-                  to={{
-                    pathname: '/main/issue-detail/1',
-                    state: {
-                      issueNumber: `${issue.issueId}`,
-                      title: `${issue.title}`,
-                      content: `${issue.content}`,
-                      isOpen: `${issue.content}`,
-                      writer: `${issue.writer.id}`,
-                      date: `${issue.createdDateTime}`,
-                    },
-                  }}
-                >
-                  <IssueUpper>
-                    <IssueOpenIcon
-                      color="#3f51b5"
-                      style={{ width: 24, height: 24 }}
+      {openIssue.map((issue) => {
+        const {
+          assignees,
+          content,
+          createdDateTime,
+          issueId,
+          labels,
+          milestoneInfo,
+          status,
+          title,
+          writer,
+        } = issue;
+        const elapsedTime = getElapsedTime(createdDateTime);
+        console.log(assignees);
+        return (
+          <S.IssueCell key={uuidv4()}>
+            <>
+              <LeftBox>
+                <CheckBoxes />
+                <IssueCellContent>
+                  <Link
+                    to={{
+                      pathname: `/main/issue-detail/${issueId}`,
+                      state: {
+                        issueId: issueId,
+                        title: title,
+                        content: content,
+                        isOpen: status,
+                        writer: writer.id,
+                        elapsedTime: elapsedTime,
+                        assignees: assignees,
+                      },
+                    }}
+                  >
+                    <IssueUpper>
+                      <IssueOpenIcon
+                        color="#3f51b5"
+                        style={{ width: 24, height: 24 }}
+                      />
+                      <IssueTitle>{title}</IssueTitle>
+                      {labels.map((label) => (
+                        <LabelSmallGroup
+                          color={label.textColorHexa}
+                          backgroundColor={label.backgroundColorHexa}
+                          label={label.title}
+                          key={uuidv4()}
+                        ></LabelSmallGroup>
+                      ))}
+                    </IssueUpper>
+                  </Link>
+                  <T.TextSmall color="#6E7191">
+                    <IssueLower>
+                      <IssueID>#{issueId}</IssueID>
+                      <IssueContent>
+                        이 이슈가 {elapsedTime}, ink-0님에 의해 작성되었습니다.
+                      </IssueContent>
+                      <IssueMileStone>{milestoneInfo.title}</IssueMileStone>
+                    </IssueLower>
+                  </T.TextSmall>
+                </IssueCellContent>
+              </LeftBox>
+              <RightBox>
+                {assignees.map((assignee) => {
+                  return (
+                    <P.ProfileImgSmall
+                      src={assignee.profileImageUrl}
+                      key={uuidv4()}
                     />
-                    <IssueTitle>{issue.title}</IssueTitle>
-                    {issue.labels.map((label) => {
-                      <LabelSmallGroup
-                        color={label.textColorHexa}
-                        backgroundColor={label.backgroundColorHexa}
-                        label={label.title}
-                      ></LabelSmallGroup>;
-                    })}
-                  </IssueUpper>
-                </Link>
-                <T.TextSmall color="#6E7191">
-                  <IssueLower>
-                    <IssueID>#{issue.issueId}</IssueID>
-                    <IssueContent>
-                      이 이슈가 {getElapsedTime(issue.createdDateTime)},
-                      ink-0님에 의해 작성되었습니다.
-                    </IssueContent>
-                    <IssueMileStone>{issue.milestoneInfo.title}</IssueMileStone>
-                  </IssueLower>
-                </T.TextSmall>
-              </IssueCellContent>
-            </LeftBox>
-            <RightBox>
-              {profileURL && <P.ProfileImgSmall src={profileURL} />}
-            </RightBox>
-          </>
-        </S.IssueCell>
-      ))}
+                  );
+                })}
+              </RightBox>
+            </>
+          </S.IssueCell>
+        );
+      })}
     </>
   );
 };

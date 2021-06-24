@@ -10,14 +10,14 @@ import { TYPE as T, TEXT as TT } from '../../../utils/const';
 const IssueDetailTitle = ({
   title,
   isOpen,
+  elapsedTime,
 }: {
   title: string;
   isOpen: boolean;
+  elapsedTime: string;
 }): JSX.Element => {
   const [issueState, setIssueState] = useState(isOpen);
   const handleClickIssueButton = () => setIssueState(false);
-
-  console.log(title, isOpen);
 
   return (
     <IssueDetailTitleStyle>
@@ -60,13 +60,13 @@ const IssueDetailTitle = ({
           {issueState ? (
             <TextGroup
               type={T.SMALL}
-              content={`이 이슈가 date분 전에 writer님에 의해 열렸습니다 ∙ 코멘트 1개`}
+              content={`이 이슈가 ${elapsedTime}에 writer님에 의해 열렸습니다 ∙ 코멘트 1개`}
               color="#6E7191"
             />
           ) : (
             <TextGroup
               type={T.SMALL}
-              content={`이 이슈가 date분 전에 writer님에 의해 닫혔습니다 ∙ 코멘트 1개`}
+              content={`이 이슈가 ${elapsedTime}에 writer님에 의해 닫혔습니다 ∙ 코멘트 1개`}
               color="#6E7191"
             />
           )}
