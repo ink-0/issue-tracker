@@ -7,7 +7,7 @@ import {
 } from '../../../../utils/const';
 import ButtonGroup from '../../../common/group/ButtonGroup';
 import IssueFilter from './IssueFilter';
-import TapGroup from '../../../common/group/TabGroup';
+import TabGroup from '../../../common/group/TabGroup';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import { Box } from '@material-ui/core';
@@ -21,7 +21,9 @@ const IssueNav: FC = () => {
         </SelectBox>
         <AnotherBox>
           <TabBox>
-            <TapGroup />
+            <React.Suspense fallback={null}>
+              <TabGroup />
+            </React.Suspense>
           </TabBox>
           <Link to={P.ISSUE_ADD}>
             <Box>
