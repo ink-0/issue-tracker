@@ -21,7 +21,7 @@ const IssueCell = ({ issues }: { issues: IssueDataProps[] }): JSX.Element => {
 
   const openIssue = getIssue(issues, 'OPEN');
   const closedIssue = getIssue(issues, 'CLOSED');
-  console.log(issues);
+
   return (
     <>
       {openIssue.map((issue) => {
@@ -37,7 +37,7 @@ const IssueCell = ({ issues }: { issues: IssueDataProps[] }): JSX.Element => {
           writer,
         } = issue;
         const elapsedTime = getElapsedTime(createdDateTime);
-        console.log(assignees);
+
         return (
           <S.IssueCell key={uuidv4()}>
             <>

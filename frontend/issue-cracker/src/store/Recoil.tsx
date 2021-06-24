@@ -79,3 +79,58 @@ export const milestoneListData = selector({
     return data;
   },
 });
+
+// //IssueAdd
+interface IssueAddStateProps {
+  title: string;
+  comment: string;
+}
+
+export const issueAddState = atom<IssueAddStateProps>({
+  key: 'issueAddState',
+  default: {
+    title: '',
+    comment: '',
+  },
+});
+
+export const issueAddData = selector({
+  key: 'issueAddData',
+  //iisse
+  get: ({ get }) => {
+    const inputData = get(issueAddState);
+    const dropData = get(dropCheckState);
+
+    const assigneesIdList = dropData.assignee.map((ele) => ele.id);
+    const labelsIdList = dropData.label.map((ele) => ele.id);
+    const milestonesIdList = dropData.milestone.map((ele) => ele.id);
+    return {
+      title: inputData.title,
+      comment: inputData.comment,
+      assigneesId: assigneesIdList,
+      labelsId: labelsIdList,
+      milestoneId: milestonesIdList,
+    };
+    return inputData;
+  },
+});
+
+// interface issuePostProps {
+//   title: string;
+//   comment: string;
+//   assigneesId: string[];
+//   labelsId: number[];
+//   milestoneId: number;
+// }
+
+// export const issuePost = atom<issuePostProps>({
+//   key: 'issuePost',
+//   default: {
+//     title: '',
+//     comment: '',
+//     assigneesId: [],
+//     labelsId: [],
+//     milestoneId: 0,
+//   },
+// });
+//
