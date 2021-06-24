@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Issue as S } from '../../../styles/CommonStyles';
 import CheckBoxes from '../../../common/CheckBoxes';
 import OpenIconGroup from '../../../common/group/OpenIconGroup';
@@ -13,9 +14,17 @@ import TextGroup from '../../../common/group/TextGroup';
 import CountGroup from '../../../common/group/CountGroup';
 import IssueHeaderButton from '../../../common/IssueHeaderButton';
 import FilterMenu from '../../../common/FilterMenu';
-import { v4 as uuidv4 } from 'uuid';
+import { IssueDataProps } from '../../../../utils/types/IssueDataType';
+import { getIssueCount } from '../../../../utils/util';
 
-const IssueTableHeader = (): JSX.Element => {
+const IssueTableHeader = ({
+  issues,
+}: {
+  issues: IssueDataProps[];
+}): JSX.Element => {
+  const openIssue = getIssueCount(issues, 'OPEN');
+  const closedIssue = getIssueCount(issues, 'CLOSED');
+
   return (
     <S.IssueTableHeader>
       <S.IssueTableHeaderLeft>
@@ -25,7 +34,7 @@ const IssueTableHeader = (): JSX.Element => {
           text={
             <TextGroup type={T.SMALL} content={TT.OPEN_ISSUE} color="#222" />
           }
-          count={<CountGroup count={0} color="#222" />}
+          count={<CountGroup count={openIssue} color="#222" />}
         />
         <IssueHeaderButton
           icon={<ClosedIconGroup type={'disabled'} />}
@@ -36,7 +45,7 @@ const IssueTableHeader = (): JSX.Element => {
               color="#6E7191"
             />
           }
-          count={<CountGroup count={0} color="#6E7191" />}
+          count={<CountGroup count={closedIssue} color="#6E7191" />}
         />
       </S.IssueTableHeaderLeft>
       <S.IssueTableHeaderRight>

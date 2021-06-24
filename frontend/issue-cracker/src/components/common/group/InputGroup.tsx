@@ -1,12 +1,14 @@
-import React, { FC } from 'react';
+import React, { ChangeEventHandler, FC } from 'react';
 import useInputStyles from '../../styles/InputStyles';
 import TextField from '@material-ui/core/TextField';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
 
-interface Prop {
+interface InputGroupProps {
   type: string;
   name: string;
   variant: 'filled' | 'outlined';
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 type IInputType = ClassNameMap<
   'InputLarge' | 'InputMedium' | 'InputSmall' | 'InputText'
@@ -16,37 +18,69 @@ interface IInput {
   classes: IInputType;
   name: string;
   variant: 'filled' | 'outlined';
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 
-const InputGroup: FC<Prop> = ({ type, name, variant }: Prop) => {
+const InputGroup: FC<InputGroupProps> = ({
+  type,
+  name,
+  variant,
+  value,
+  onChange,
+}: InputGroupProps) => {
   const classes = useInputStyles();
   return {
-    large: <InputLarge {...{ classes, name, variant }} />,
-    medium: <InputMedium {...{ classes, name, variant }} />,
-    small: <InputSmall {...{ classes, name, variant }} />,
-    text: <InputText {...{ classes, name, variant }} />,
+    large: <InputLarge {...{ classes, name, variant, value, onChange }} />,
+    medium: <InputMedium {...{ classes, name, variant, value, onChange }} />,
+    small: <InputSmall {...{ classes, name, variant, value, onChange }} />,
+    text: <InputText {...{ classes, name, variant, value, onChange }} />,
   }[type] as JSX.Element;
 };
 
 export default InputGroup;
 
-function InputLarge({ classes, name, variant }: IInput): React.ReactElement {
+function InputLarge({ classes, name, variant, value, onChange }: IInput) {
   return (
-    <TextField label={name} variant={variant} className={classes.InputLarge} />
+    <TextField
+      label={name}
+      variant={variant}
+      className={classes.InputLarge}
+      value={value}
+      onChange={onChange}
+    />
   );
 }
-function InputMedium({ classes, name, variant }: IInput) {
+function InputMedium({ classes, name, variant, value, onChange }: IInput) {
   return (
-    <TextField label={name} variant={variant} className={classes.InputMedium} />
+    <TextField
+      label={name}
+      variant={variant}
+      className={classes.InputMedium}
+      value={value}
+      onChange={onChange}
+    />
   );
 }
-function InputSmall({ classes, name, variant }: IInput) {
+function InputSmall({ classes, name, variant, value, onChange }: IInput) {
   return (
-    <TextField label={name} variant={variant} className={classes.InputSmall} />
+    <TextField
+      label={name}
+      variant={variant}
+      className={classes.InputSmall}
+      value={value}
+      onChange={onChange}
+    />
   );
 }
-function InputText({ classes, name, variant }: IInput) {
+function InputText({ classes, name, variant, value, onChange }: IInput) {
   return (
-    <TextField label={name} variant={variant} className={classes.InputText} />
+    <TextField
+      label={name}
+      variant={variant}
+      className={classes.InputText}
+      value={value}
+      onChange={onChange}
+    />
   );
 }

@@ -1,18 +1,55 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import TextGroup from '../../common/group/TextGroup';
 import ButtonGroup from '../../common/group/ButtonGroup';
 import CloseIcon from '@material-ui/icons/Close';
-import { BUTTON_SIZE as BS, TYPE as T } from '../../../utils/const';
+import {
+  BUTTON_SIZE as BS,
+  TYPE as T,
+  PATH as P,
+  BUTTON_NAME as BN,
+  URL as U,
+} from '../../../utils/const';
+import { issueAddData, token } from '../../../store/Recoil';
+import { useRecoilValue } from 'recoil';
 
 const IssueAddButton = (): JSX.Element => {
+  const issueAdd = useRecoilValue(issueAddData);
+  // const userToken = useRecoilValue(token);
+  const userToken = localStorage.getItem('token');
+
+  const handleClickCompleteButton = async () => {
+    return await fetch(U.ISSUES, {
+      method: 'POST',
+      body: JSON.stringify(issueAdd),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((response) => console.log('Success:', JSON.stringify(response)))
+      .catch((error) => console.error('Error:', error));
+  };
   return (
     <IssueAddButtonStyle>
-      <CancelButton>
-        <WriteCancelButton />
-        <TextGroup type={T.SMALL} content="작성 취소" color="#6E7191" />
-      </CancelButton>
-      <ButtonGroup type={BS.MEDIUM} name="완료" color="#fff" />
+      <Link to={P.ISSUE_LIST}>
+        <CancelButton>
+          <WriteCancelButton />
+          <TextGroup
+            type={T.SMALL}
+            content={BN.WRITING_CANCEL}
+            color="#6E7191"
+          />
+        </CancelButton>
+      </Link>
+      <ButtonGroup
+        type={BS.MEDIUM}
+        name={BN.COMPLETE}
+        onClick={handleClickCompleteButton}
+        color="#fff"
+      />
     </IssueAddButtonStyle>
   );
 };
@@ -31,6 +68,7 @@ const CancelButton = styled.button`
   background: none;
   padding: 10px 20px;
   margin: 10px;
+  cursor: pointer;
 `;
 
 const WriteCancelButton = styled(CloseIcon)`

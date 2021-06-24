@@ -1,10 +1,15 @@
 // Logo
 export const LOGO_TITLE = 'Issue Cracker..🍪';
+
 //url
 export const URL = {
   AUTH: 'http://localhost:8080/api/web/auth',
+  // AUTH: 'http://issue-tracker.pyro-squad.com/api/web/auth',
   LOGIN:
     'https://github.com/login/oauth/authorize?client_id=2a42dd1b1e2aad1238e9&scope=read:user,user:email&redirect_uri=http://localhost:3000/authentication',
+  FORM: 'http://issue-tracker.pyro-squad.com/api/web/issues/form',
+  ISSUES: 'http://issue-tracker.pyro-squad.com/api/web/issues',
+  MILESTONE: 'http://issue-tracker.pyro-squad.com/api/web/milestones',
 };
 //path
 export const PATH = {
@@ -32,7 +37,10 @@ export const BUTTON_NAME = {
   ADD: '추가',
   DELETE: '삭제',
   COMPLETE: '완료',
+  CLOSE: '닫기',
+  EDIT: '편집',
   WRITING_ISSUE: '이슈작성',
+  WRITING_CANCEL: '작성 취소',
 };
 
 // ButtonSize
@@ -56,9 +64,11 @@ export const TEXT = {
   WRITER: '작성자',
   OPEN_MILESTONE: '열린 마일스톤',
   CLOSED_MILESTONE: '닫힌 마일스톤',
+  EDIT_TITLE: '제목 편집',
+  CLOSE_ISSUE: '이슈 닫기',
 };
 export const SIDEBAR_TYPE = {
-  ASIGNEE: '담당자',
+  ASSIGNEE: '담당자',
   LABEL: '레이블',
   MILESTONE: '마일스톤',
 };
@@ -86,10 +96,12 @@ export const LABEL = {
 };
 
 export const MILESTONE = {
+  TITLE: '마일스톤 제목',
   ADD: '새로운 마일스톤 추가',
   NAME: '마일스톤 이름',
   DESC: '설명(선택)',
   DUE: '완료일(선택) ex. YYYY-MM-DD',
+  COMPLETE: '완료일 일정',
 };
 
 export const TYPE = {
@@ -97,7 +109,11 @@ export const TYPE = {
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
+  OPEN: 'open',
+  CLOSED: 'closed',
 };
+
+export const TOKEN = 'token';
 
 // temp
 export const FILTER_DROPDOWN = ['Tami', 'Raccoon', 'Noel', 'Neo', 'Pyro'];

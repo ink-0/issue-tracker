@@ -1,16 +1,16 @@
 export interface AssigneeProps {
-  id: string;
-  name: string;
-  profile_image_url: string;
-  emails: string[];
+  id: string | null;
+  name: string | null;
+  profileImageUrl: string;
+  emails: string[] | null;
 }
 
 export interface LabelProps {
   id: number;
   title: string;
   description: string;
-  background_color_hexa: string;
-  text_color_hexa: string;
+  backgroundColorHexa: string;
+  textColorHexa: string;
 }
 export interface MilestoneProps {
   id: number;

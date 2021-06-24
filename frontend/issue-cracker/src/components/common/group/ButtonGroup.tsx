@@ -9,6 +9,7 @@ interface Prop {
   name: string;
   color?: string;
   icon?: JSX.Element;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 type IButtonType = ClassNameMap<
   | 'buttonLarge'
@@ -24,24 +25,35 @@ interface IButton {
   name: string;
   color?: string;
   icon?: JSX.Element | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const ButtonGroup: FC<Prop> = ({ type, name, color = 'white', icon }: Prop) => {
+const ButtonGroup: FC<Prop> = ({
+  type,
+  name,
+  onClick,
+  color = 'white',
+  icon,
+}: Prop) => {
   const classes = useButtonStyles();
 
   return {
-    large: <ButtonLarge {...{ classes, name, color }} />,
-    medium: <ButtonMedium {...{ classes, name, color }} />,
-    smallFill: <ButtonSmallFill {...{ classes, name, color, icon }} />,
-    smallBorder: <ButtonSmallBorder {...{ classes, name, color, icon }} />,
-    mediumText: <ButtonMediumText {...{ classes, name, color, icon }} />,
-    smallText: <ButtonSmallText {...{ classes, name, color, icon }} />,
+    large: <ButtonLarge {...{ classes, name, onClick, color }} />,
+    medium: <ButtonMedium {...{ classes, name, onClick, color }} />,
+    smallFill: <ButtonSmallFill {...{ classes, name, onClick, color, icon }} />,
+    smallBorder: (
+      <ButtonSmallBorder {...{ classes, name, onClick, color, icon }} />
+    ),
+    mediumText: (
+      <ButtonMediumText {...{ classes, name, onClick, color, icon }} />
+    ),
+    smallText: <ButtonSmallText {...{ classes, name, onClick, color, icon }} />,
   }[type] as JSX.Element;
 };
 
 export default ButtonGroup;
 
-function ButtonLarge({ classes, name, color }: IButton) {
+function ButtonLarge({ classes, name, onClick, color }: IButton) {
   return (
     <Button
       variant="contained"
@@ -50,13 +62,14 @@ function ButtonLarge({ classes, name, color }: IButton) {
         backgroundColor: `${color}`,
         color: `${color === 'white' ? '#222' : '#fff'}`,
       }}
+      onClick={onClick}
     >
       {name}
     </Button>
   );
 }
 
-function ButtonMedium({ classes, name, color }: IButton) {
+function ButtonMedium({ classes, name, onClick, color }: IButton) {
   return (
     <Button
       variant="contained"
@@ -64,13 +77,14 @@ function ButtonMedium({ classes, name, color }: IButton) {
       style={{
         backgroundColor: `${color}`,
       }}
+      onClick={onClick}
     >
       {name}
     </Button>
   );
 }
 
-function ButtonSmallFill({ classes, name, color, icon }: IButton) {
+function ButtonSmallFill({ classes, name, onClick, color, icon }: IButton) {
   return (
     <CustomButton
       variant="contained"
@@ -80,13 +94,14 @@ function ButtonSmallFill({ classes, name, color, icon }: IButton) {
         backgroundColor: `${color}`,
         color: `${color === 'white' ? '#222' : '#fff'}`,
       }}
+      onClick={onClick}
     >
       {name}
     </CustomButton>
   );
 }
 
-function ButtonSmallBorder({ classes, name, color, icon }: IButton) {
+function ButtonSmallBorder({ classes, name, onClick, color, icon }: IButton) {
   return (
     <Button
       variant="outlined"
@@ -95,27 +110,34 @@ function ButtonSmallBorder({ classes, name, color, icon }: IButton) {
       style={{
         border: `1px solid ${color}`,
       }}
+      onClick={onClick}
     >
       {name}
     </Button>
   );
 }
 
-function ButtonMediumText({ classes, name, icon }: IButton) {
+function ButtonMediumText({ classes, name, onClick, icon }: IButton) {
   return (
     <Button
       variant="text"
       startIcon={icon}
       className={classes.buttonMediumText}
+      onClick={onClick}
     >
       {name}
     </Button>
   );
 }
 
-function ButtonSmallText({ classes, name, icon }: IButton) {
+function ButtonSmallText({ classes, name, icon, onClick }: IButton) {
   return (
-    <Button variant="text" startIcon={icon} className={classes.buttonSmallText}>
+    <Button
+      variant="text"
+      startIcon={icon}
+      onClick={onClick}
+      className={classes.buttonSmallText}
+    >
       {name}
     </Button>
   );

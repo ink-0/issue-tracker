@@ -23,6 +23,7 @@ const LabelSmallGroup = ({
         width: 'fit-content',
         height: '28px',
         border: `1px solid ${color}`,
+        margin: `4px 4px`,
       }}
     />
   );

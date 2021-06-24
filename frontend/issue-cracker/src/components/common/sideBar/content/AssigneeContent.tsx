@@ -11,7 +11,7 @@ const AssigneeContent = ({
     <>
       {checkedAssignee?.map((assignee) => (
         <div key={uuidv4()}>
-          <P.ProfileImgLarge src={assignee.profile_image_url} />
+          <P.ProfileImgLarge src={assignee.profileImageUrl} />
           <AccountName>{assignee.name}</AccountName>
         </div>
       ))}

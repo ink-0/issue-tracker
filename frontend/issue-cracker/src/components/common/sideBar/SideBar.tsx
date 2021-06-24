@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Issue as S } from '../../styles/CommonStyles';
-import { TYPE as T } from '../../../utils/const';
+import { TYPE as T, SIDEBAR_TYPE as ST, TOKEN } from '../../../utils/const';
 
 import TextGroup from '../group/TextGroup';
 import AddIcon from '@material-ui/icons/Add';
@@ -23,13 +23,14 @@ import AssigneeContent from './content/AssigneeContent';
 import LabelContent from './content/LabelContent';
 import MilestoneContent from './content/MilestoneContent';
 import { issueForm } from '../../../store/Recoil';
+
 interface TokenProps {
   name: string;
   profileImageUrl: string;
 }
 
 const SideBar = (): JSX.Element => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(TOKEN);
   const decoded = token && jwtDecode<TokenProps>(token);
   const setDecodedToken = useSetRecoilState(decodedToken);
   const [isDropAssignee, setIsDropAssignee] = useRecoilState(dropAssigneeState);
@@ -104,12 +105,12 @@ const SideBar = (): JSX.Element => {
     <SideBarStyle>
       <SideBarCell>
         <SideBarTitle>
-          <TextGroup type={T.SMALL} content={'담당자'} color="#6E7191" />
+          <TextGroup type={T.SMALL} content={ST.ASSIGNEE} color="#6E7191" />
           <CustomAddIcon onClick={() => dropAssigneeHandler()} />
           <SideBarDropDiv ref={dropAssigneeElement}>
             {isDropAssignee && (
               <SideBarDrop
-                type={'담당자'}
+                type={ST.ASSIGNEE}
                 dataComponent={<AssigneeData {...{ userData }} />}
               />
             )}
@@ -121,12 +122,12 @@ const SideBar = (): JSX.Element => {
       </SideBarCell>
       <SideBarCell>
         <SideBarTitle>
-          <TextGroup type={T.SMALL} content={'레이블'} color="#6E7191" />
+          <TextGroup type={T.SMALL} content={ST.LABEL} color="#6E7191" />
           <CustomAddIcon onClick={() => dropLabelHandler()} />
           <SideBarDropDiv ref={dropLabelElement}>
             {isDropLabel && (
               <SideBarDrop
-                type={'레이블'}
+                type={ST.LABEL}
                 dataComponent={<LabelData {...{ labelData }} />}
               />
             )}
@@ -139,12 +140,12 @@ const SideBar = (): JSX.Element => {
       </SideBarCell>
       <SideBarCell>
         <SideBarTitle>
-          <TextGroup type={T.SMALL} content={'마일스톤'} color="#6E7191" />
+          <TextGroup type={T.SMALL} content={ST.MILESTONE} color="#6E7191" />
           <CustomAddIcon onClick={() => dropMilestoneHandler()} />
           <SideBarDropDiv ref={dropMilestoneElement}>
             {isDropMilestone && (
               <SideBarDrop
-                type={'마일스톤'}
+                type={ST.MILESTONE}
                 dataComponent={<MilestoneData {...{ milestoneData }} />}
               />
             )}

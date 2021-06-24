@@ -47,6 +47,7 @@ const ProfileImg = {
     width: 20px;
     height: 20px;
     border-radius: 70%;
+    margin: 0px 4px;
   `,
 };
 

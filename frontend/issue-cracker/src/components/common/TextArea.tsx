@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import styled from 'styled-components';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import { issueAddState } from '../../store/Recoil';
+import { useRecoilState } from 'recoil';
 
 const TextArea = (): JSX.Element => {
+  const [issueAdd, setIssueAdd] = useRecoilState(issueAddState);
+
+  const handleChangeInputContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIssueAdd({
+      ...issueAdd,
+      comment: e.target.value,
+    });
+  };
+
   return (
     <TextAreaStyle>
       <DashedLine />
-      <TextAreaUI />
+      <TextAreaUI onChange={handleChangeInputContent} />
       <AddFileBox>
         <AttachFileBox>
           <div>
@@ -22,11 +33,16 @@ const TextArea = (): JSX.Element => {
 
 export default TextArea;
 
-const TextAreaUI = (): JSX.Element => {
+interface TextAreaUIProps {
+  onChange: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+}
+
+const TextAreaUI = ({ onChange }: TextAreaUIProps): JSX.Element => {
   return (
     <TextareaAutosize
       aria-label="empty textarea"
       placeholder="코멘트를 입력하세요"
+      onChange={onChange}
       style={{
         background: 'inherit',
         outline: 'none',
@@ -53,23 +69,6 @@ const TextAreaStyle = styled.div`
     background: #fff;
   }
 `;
-
-// const TextAreaBox = styled.textarea`
-//   background: inherit;
-//   min-width: 340px;
-//   min-height: 100px;
-//   max-height: 200px;
-//   outline: none;
-//   border: none;
-//   font-size: 16px;
-//   line-height: 28px;
-//   border-top-left-radius: 16px;
-//   border-top-right-radius: 16px;
-//   font-family: inherit;
-//   ::placeholder {
-//     color: #a0a3bd;
-//   }
-// `;
 
 const DashedLine = styled.div`
   position: absolute;
