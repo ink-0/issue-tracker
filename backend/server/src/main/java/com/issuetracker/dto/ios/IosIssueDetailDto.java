@@ -4,7 +4,6 @@ import com.issuetracker.domain.Comments;
 import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
 import com.issuetracker.dto.IssueStatusDto;
-import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
 
@@ -20,7 +19,7 @@ public class IosIssueDetailDto {
 
     private IssueStatusDto status;
 
-    private UserDto writer;
+    private IosIssueWriterDto writer;
 
     private LocalDateTime createdDateTime;
 
@@ -30,7 +29,7 @@ public class IosIssueDetailDto {
 
     private IosCommentsDto comments;
 
-    public IosIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels, IosCommentsDto comments) {
+    public IosIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, IosIssueWriterDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels, IosCommentsDto comments) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -44,7 +43,7 @@ public class IosIssueDetailDto {
     }
 
     public static IosIssueDetailDto from(Issue issue, Comments comments) {
-        return new IosIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()), IosCommentsDto.from(comments));
+        return new IosIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), IosIssueWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()), IosCommentsDto.from(comments));
     }
 
     public Long getIssueId() {
@@ -67,7 +66,7 @@ public class IosIssueDetailDto {
         return status;
     }
 
-    public UserDto getWriter() {
+    public IosIssueWriterDto getWriter() {
         return writer;
     }
 

@@ -1,23 +1,28 @@
 package com.issuetracker.service.ios;
 
 import com.issuetracker.dto.IssueStatusDto;
-import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.dto.ios.*;
 import com.issuetracker.repository.CommentRepository;
 import com.issuetracker.repository.IssueRepository;
+import com.issuetracker.repository.LabelRepository;
+import com.issuetracker.repository.MilestoneRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class IosIssueService {
     private final IssueRepository issueRepository;
     private final CommentRepository commentRepository;
+    private final LabelRepository labelRepository;
+    private final MilestoneRepository milestoneRepository;
 
-    public IosIssueService(IssueRepository issueRepository, CommentRepository commentRepository) {
+    public IosIssueService(IssueRepository issueRepository, CommentRepository commentRepository, LabelRepository labelRepository, MilestoneRepository milestoneRepository) {
         this.issueRepository = issueRepository;
         this.commentRepository = commentRepository;
+        this.labelRepository = labelRepository;
+        this.milestoneRepository = milestoneRepository;
     }
 
-    public IosIssuesDto getIssues(UserDto userDto, String issueStatus) {
+    public IosIssuesDto getIssues(String issueStatus) {
 
         if (issueStatus == null) {
             issueStatus = IssueStatusDto.ALL.name();
@@ -26,13 +31,17 @@ public class IosIssueService {
 
         IssueStatusDto status = IssueStatusDto.valueOf(issueStatus);
 
+        // 레포지토리에서 비즈니스 처리할 게 아니라 여기서 했어야함.
+
+
         switch (status) {
             case CLOSED:
-                return IosIssuesDto.from(issueRepository.getClosedIssues(userDto.toUser()));
+                
+                return IosIssuesDto.from(issueRepository.getClosedIssues());
             case OPEN:
-                return IosIssuesDto.from(issueRepository.getOpenIssues(userDto.toUser()));
+                return IosIssuesDto.from(issueRepository.getOpenIssues());
             default:
-                return IosIssuesDto.from(issueRepository.getAllIssues(userDto.toUser()));
+                return IosIssuesDto.from(issueRepository.getAllIssues());
         }
 
     }

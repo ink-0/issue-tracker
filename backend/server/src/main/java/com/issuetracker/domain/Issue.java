@@ -1,10 +1,9 @@
 package com.issuetracker.domain;
 
-import com.issuetracker.domain.auth.User;
-import com.issuetracker.domain.auth.Users;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Issue {
 
@@ -19,15 +18,16 @@ public class Issue {
 
     private final IssueStatus status;
 
-    private final User writer;
+    private final IssueWriter writer;
 
     private final LocalDateTime createdDateTime;
 
-    private final Users assignees;
+    //TODO. 추후 일급컬렉션으로 변경
+    private final List<Assignee> assignees;
 
     private final Labels labels;
 
-    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatus status, User writer, LocalDateTime createdDateTime, Users assignees, Labels labels) {
+    public Issue(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatus status, IssueWriter writer, LocalDateTime createdDateTime, List<Assignee> assignees, Labels labels) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -55,11 +55,11 @@ public class Issue {
         return status;
     }
 
-    public User getWriter() {
+    public IssueWriter getWriter() {
         return writer;
     }
 
-    public Users getAssignees() {
+    public List<Assignee> getAssignees() {
         return assignees;
     }
 

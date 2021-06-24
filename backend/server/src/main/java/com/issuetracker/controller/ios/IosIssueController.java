@@ -1,6 +1,5 @@
 package com.issuetracker.controller.ios;
 
-import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.dto.ios.*;
 import com.issuetracker.service.AuthService;
 import com.issuetracker.service.ios.IosIssueService;
@@ -19,8 +18,8 @@ public class IosIssueController {
     }
 
     @GetMapping("/issues")
-    public IosIssuesDto getIssues(UserDto user, @RequestParam(value = "status", required = false) String issueStatus, @RequestParam(required = false) String milestone, @RequestParam(required = false) String writer, @RequestParam(required = false) String created) {
-        return iosIssueService.getIssues(user, issueStatus);
+    public IosIssuesDto getIssues(@RequestParam(value = "status", required = false) String issueStatus, @RequestParam(required = false) String milestone, @RequestParam(required = false) String writer, @RequestParam(required = false) String created) {
+        return iosIssueService.getIssues(issueStatus);
     }
 
 

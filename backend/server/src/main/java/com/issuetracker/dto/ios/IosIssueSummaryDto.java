@@ -20,7 +20,7 @@ public class IosIssueSummaryDto {
 
     private IssueStatusDto status;
 
-    private UserDto writer;
+    private IosIssueWriterDto writer;
 
     private LocalDateTime createdDateTime;
 
@@ -28,7 +28,7 @@ public class IosIssueSummaryDto {
 
     private IosLabelsDto labels;
 
-    public IosIssueSummaryDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, UserDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels) {
+    public IosIssueSummaryDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, IosIssueWriterDto writer, LocalDateTime createdDateTime, IosAssigneesDto assignees, IosLabelsDto labels) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -41,7 +41,7 @@ public class IosIssueSummaryDto {
     }
 
     public static IosIssueSummaryDto from(Issue issue) {
-        return new IosIssueSummaryDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()));
+        return new IosIssueSummaryDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), IosIssueWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), IosAssigneesDto.from(issue.getAssignees()), IosLabelsDto.from(issue.getLabels()));
     }
 
     public Long getIssueId() {
@@ -64,7 +64,7 @@ public class IosIssueSummaryDto {
         return status.toString();
     }
 
-    public UserDto getWriter() {
+    public IosIssueWriterDto getWriter() {
         return writer;
     }
 

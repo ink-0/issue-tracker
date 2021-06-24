@@ -28,14 +28,14 @@ public class WebIssueService {
 
         switch (status) {
             case CLOSED:
-                return WebIssuesDto.from(issueRepository.getClosedIssues(userDto.toUser()));
+                return WebIssuesDto.from(issueRepository.getClosedIssues());
             case OPEN:
-                return WebIssuesDto.from(issueRepository.getOpenIssues(userDto.toUser()));
+                return WebIssuesDto.from(issueRepository.getOpenIssues());
             default:
-                return WebIssuesDto.from(issueRepository.getAllIssues(userDto.toUser()));
+                return WebIssuesDto.from(issueRepository.getAllIssues());
         }
     }
-
+    
     //INFO.  "issueNumbers": [1, 2, 3] 이 들어오면, 해당 번호의 이슈의 상태를 반전
     //INFO. 아직 repository 완성되지 않음.
     public void toggleIssue(WebIssuesNumbersDto issueNumber) {

@@ -4,7 +4,6 @@ import com.issuetracker.domain.Comments;
 import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
 import com.issuetracker.dto.IssueStatusDto;
-import com.issuetracker.dto.auth.UserDto;
 
 import java.time.LocalDateTime;
 
@@ -20,7 +19,7 @@ public class WebIssueDetailDto {
 
     private IssueStatusDto status;
 
-    private UserDto writer;
+    private WebIssueWriterDto writer;
 
     private LocalDateTime createdDateTime;
 
@@ -31,10 +30,10 @@ public class WebIssueDetailDto {
     private WebCommentsDto comments;
 
     public static WebIssueDetailDto from(Issue issue, Comments comments) {
-        return new WebIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), UserDto.from(issue.getWriter()), issue.getCreatedDateTime(), WebAssigneesDto.from(issue.getAssignees()), WebLabelsDto.from(issue.getLabels()), WebCommentsDto.from(comments));
+        return new WebIssueDetailDto(issue.getIssueId(), issue.getMilestoneInfo(), issue.getTitle(), issue.getContent(), IssueStatusDto.from(issue.getStatus()), WebIssueWriterDto.from(issue.getWriter()), issue.getCreatedDateTime(), WebAssigneesDto.from(issue.getAssignees()), WebLabelsDto.from(issue.getLabels()), WebCommentsDto.from(comments));
     }
 
-    public WebIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, UserDto writer, LocalDateTime createdDateTime, WebAssigneesDto assignees, WebLabelsDto labels, WebCommentsDto comments) {
+    public WebIssueDetailDto(Long issueId, MilestoneInfo milestoneInfo, String title, String content, IssueStatusDto status, WebIssueWriterDto writer, LocalDateTime createdDateTime, WebAssigneesDto assignees, WebLabelsDto labels, WebCommentsDto comments) {
         this.issueId = issueId;
         this.milestoneInfo = milestoneInfo;
         this.title = title;
@@ -67,7 +66,7 @@ public class WebIssueDetailDto {
         return status;
     }
 
-    public UserDto getWriter() {
+    public WebIssueWriterDto getWriter() {
         return writer;
     }
 

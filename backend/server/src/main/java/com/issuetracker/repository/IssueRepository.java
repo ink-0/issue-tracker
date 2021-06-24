@@ -17,7 +17,8 @@ public class IssueRepository {
 
     Logger logger = LoggerFactory.getLogger(IssueRepository.class.getName());
 
-    public Issues getOpenIssues(User writer) {
+    public Issues getOpenIssues() {
+
         Users assignees = new Users();
         assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
         assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
@@ -36,52 +37,7 @@ public class IssueRepository {
 
         return issues;
     }
-
-    public Issues getClosedIssues(User writer) {
-        Users assignees = new Users();
-        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
-        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
-
-        Labels labels = new Labels();
-        labels.add(new Label(1L, "라벨 타이틀1", "라벨 설명1", "#FF0000", "#000000"));
-        labels.add(new Label(2L, "라벨 타이틀2", "라벨 설명2", "#FF0000", "#000000"));
-        labels.add(new Label(3L, "라벨 타이틀3", "라벨 설명3", "#FF0000", "#000000"));
-
-
-        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", LocalDateTime.now());
-
-        Issues issues = new Issues();
-        issues.add(new Issue(1L, milestoneInfo, "닫힌 이슈 타이틀1", "닫힌 이슈 설명1", IssueStatus.from("closed"), writer, LocalDateTime.now(), assignees, labels));
-
-        Milestone milestone = new Milestone(1L, issues, milestoneInfo);
-
-        return issues;
-    }
-
-    public Issues getAllIssues(User writer) {
-        Users assignees = new Users();
-        assignees.add(new User("noel", "노을", "http://testProfile.image.url", Arrays.asList("a@neol.com", "b@neol.com")));
-        assignees.add(new User("pyro", "파이로", "http://testProfile.image.url", Arrays.asList("a@pyro.com", "b@pyro.com")));
-
-        Labels labels = new Labels();
-        labels.add(new Label(1L, "라벨 타이틀4", "라벨 설명1", "#FF0000", "#000000"));
-        labels.add(new Label(2L, "라벨 타이틀5", "라벨 설명2", "#FF0000", "#000000"));
-        labels.add(new Label(3L, "라벨 타이틀6", "라벨 설명3", "#FF0000", "#000000"));
-
-        MilestoneInfo milestoneInfo = new MilestoneInfo("마일스톤 제목1", "마일스톤 내용1", LocalDateTime.now());
-        MilestoneInfo milestoneInfo2 = new MilestoneInfo("마일스톤 제목2", "마일스톤 내용2", LocalDateTime.now());
-
-        Issues issues = new Issues();
-        issues.add(new Issue(2L, milestoneInfo, "열린 이슈 타이틀1", "열린 이슈 설명1", IssueStatus.from("open"), writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(3L, milestoneInfo2, "열린 이슈 타이틀2", "열린 이슈 설명2", IssueStatus.from("open"), writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(4L, milestoneInfo2, "닫힌 이슈 타이틀1", "닫힌 이슈 설명", IssueStatus.from("closed"), writer, LocalDateTime.now(), assignees, labels));
-        issues.add(new Issue(5L, milestoneInfo2, "닫힌 이슈 타이틀2", "닫힌 이슈 설명", IssueStatus.from("closed"), writer, LocalDateTime.now(), assignees, labels));
-
-        return issues;
-
-    }
-
-
+    
     // 이슈의 status를 토글하는 기능을 만들고자 했음. on/off
     // DTO 나중에 없애기
     public void toggle(IssuesNumbers issueNumbers) {
