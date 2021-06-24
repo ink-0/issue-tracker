@@ -42,7 +42,6 @@ const ProfileImg = {
     width: 30px;
     height: 30px;
     border-radius: 70%;
-    margin: 0px 4px;
   `,
   ProfileImgSmall: styled.img`
     width: 20px;

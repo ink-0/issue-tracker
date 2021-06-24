@@ -15,15 +15,13 @@ import CountGroup from '../../../common/group/CountGroup';
 import IssueHeaderButton from '../../../common/IssueHeaderButton';
 import FilterMenu from '../../../common/FilterMenu';
 import { IssueDataProps } from '../../../../utils/types/IssueDataType';
+import { getIssueCount } from '../../../../utils/util';
 
 const IssueTableHeader = ({
   issues,
 }: {
   issues: IssueDataProps[];
 }): JSX.Element => {
-  const getIssueCount = (list: IssueDataProps[], str: string): number =>
-    list.filter((el) => el.status === str).length;
-
   const openIssue = getIssueCount(issues, 'OPEN');
   const closedIssue = getIssueCount(issues, 'CLOSED');
 
