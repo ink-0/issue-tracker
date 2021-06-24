@@ -1,5 +1,6 @@
 package com.issuetracker.dto.ios;
 
+import com.issuetracker.domain.Assignee;
 import com.issuetracker.domain.auth.Users;
 import com.issuetracker.dto.auth.UserDto;
 
@@ -14,10 +15,8 @@ public class IosAssigneesDto {
         this.users = users;
     }
 
-    public static IosAssigneesDto from(Users users) {
-        return new IosAssigneesDto(users.toList().stream()
-                .map(UserDto::from)
-                .collect(Collectors.toList()));
+    public static IosAssigneeDto from(Assignee assignee) {
+        return new IosAssigneeDto(assignee.getId(), assignee.getName(), assignee.getProfileImageUrl());
     }
 
     public List<UserDto> toList() {
