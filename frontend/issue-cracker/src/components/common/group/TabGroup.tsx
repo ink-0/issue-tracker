@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import FlagIcon from '@material-ui/icons/Flag';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import { TEXT as TT, TYPE as T } from '../../../utils/const';
+import { milestoneListData } from '../../../store/Recoil';
 import TextGroup from '../group/TextGroup';
 import CountGroup from '../group/CountGroup';
-import { Link } from 'react-router-dom';
+import { TEXT as TT, TYPE as T, PATH as P } from '../../../utils/const';
+import { useRecoilValue } from 'recoil';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const TabGroup = (): JSX.Element => {
   const classes = useStyles();
+  const milestoneData = useRecoilValue(milestoneListData);
+  const milestones = milestoneData.milestones;
+  const milestoneCount = milestones.length;
 
   return (
     <div className={classes.root}>
@@ -40,28 +45,25 @@ const TabGroup = (): JSX.Element => {
         color="primary"
         aria-label="large outlined primary button group"
       >
-        {/* <Link to="/main/label-list"> */}
         <Button
           className={classes.button}
           startIcon={<LocalOfferIcon />}
           component={Link}
-          to="/main/label-list"
+          to={P.ISSUE_LABELLIST}
         >
           <TextGroup type={T.SMALL} content={TT.LABEL} color="#6E7191" />
           <CountGroup count={0} color="#6E7191" />
         </Button>
-        {/* </Link> */}
-        {/* <Link to="/main/milestone"> */}
+
         <Button
           className={classes.button}
           startIcon={<FlagIcon />}
           component={Link}
-          to="/main/milestone"
+          to={P.ISSUE_MILESTONE}
         >
           <TextGroup type={T.SMALL} content={TT.MILESTONE} color="#6E7191" />
-          <CountGroup count={0} color="#6E7191" />
+          <CountGroup count={milestoneCount} color="#6E7191" />
         </Button>
-        {/* </Link> */}
       </CustomTabGroup>
     </div>
   );

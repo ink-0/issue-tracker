@@ -1,5 +1,6 @@
 // Logo
 export const LOGO_TITLE = 'Issue Cracker..🍪';
+
 //url
 export const URL = {
   AUTH: 'http://localhost:8080/api/web/auth',
@@ -7,6 +8,7 @@ export const URL = {
     'https://github.com/login/oauth/authorize?client_id=2a42dd1b1e2aad1238e9&scope=read:user,user:email&redirect_uri=http://localhost:3000/authentication',
   FORM: 'http://issue-tracker.pyro-squad.com/api/web/issues/form',
   ISSUES: 'http://issue-tracker.pyro-squad.com/api/web/issues',
+  MILESTONE: 'http://issue-tracker.pyro-squad.com/api/web/milestones',
 };
 //path
 export const PATH = {

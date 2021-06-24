@@ -68,3 +68,14 @@ export const issueListData = selector({
     return data;
   },
 });
+
+// MilestoneList
+
+export const milestoneListData = selector({
+  key: 'milestoneListData',
+  get: async () => {
+    const response = await fetch(U.MILESTONE);
+    const data = await response.json();
+    return data;
+  },
+});

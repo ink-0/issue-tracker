@@ -8,14 +8,14 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { useRecoilState } from 'recoil';
 import { addState } from '../../../../store/Recoil';
 
-const LabelNav: FC = () => {
+const MilestoneNav: FC = () => {
   const [issueAddState, setIssueAddState] = useRecoilState(addState);
 
   const handleClickbutton = () => setIssueAddState((prev) => !prev);
 
   return (
-    <LabelNavDiv>
-      <LabelNavContainer>
+    <MilestoneNavDiv>
+      <MilestoneNavContainer>
         <TabBox>
           <TapGroup />
         </TabBox>
@@ -36,18 +36,18 @@ const LabelNav: FC = () => {
             />
           </ButtonBox>
         )}
-      </LabelNavContainer>
-    </LabelNavDiv>
+      </MilestoneNavContainer>
+    </MilestoneNavDiv>
   );
 };
 
-export default LabelNav;
+export default MilestoneNav;
 
-const LabelNavDiv = styled.div`
+const MilestoneNavDiv = styled.div`
   margin-bottom: 20px;
 `;
 
-const LabelNavContainer = styled.div`
+const MilestoneNavContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
