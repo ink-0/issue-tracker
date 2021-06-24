@@ -87,14 +87,19 @@ const IssueCell = ({ issues }: { issues: IssueDataProps[] }): JSX.Element => {
                         style={{ width: 24, height: 24 }}
                       />
                       <IssueTitle>{title}</IssueTitle>
-                      {labels.map((label) => (
-                        <LabelSmallGroup
-                          color={label.textColorHexa}
-                          backgroundColor={label.backgroundColorHexa}
-                          label={label.title}
-                          key={uuidv4()}
-                        ></LabelSmallGroup>
-                      ))}
+                      {labels.map((label) => {
+                        const { textColorHexa, backgroundColorHexa, title } =
+                          label;
+
+                        return (
+                          <LabelSmallGroup
+                            color={textColorHexa}
+                            backgroundColor={backgroundColorHexa}
+                            label={title}
+                            key={uuidv4()}
+                          />
+                        );
+                      })}
                     </IssueUpper>
                   </Link>
                   <T.TextSmall color="#6E7191">
