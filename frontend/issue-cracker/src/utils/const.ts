@@ -62,6 +62,8 @@ export const TEXT = {
   WRITER: '작성자',
   OPEN_MILESTONE: '열린 마일스톤',
   CLOSED_MILESTONE: '닫힌 마일스톤',
+  EDIT_TITLE: '제목 편집',
+  CLOSE_ISSUE: '이슈 닫기',
 };
 export const SIDEBAR_TYPE = {
   ASSIGNEE: '담당자',
@@ -105,6 +107,8 @@ export const TYPE = {
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
+  OPEN: 'open',
+  CLOSED: 'closed',
 };
 
 export const TOKEN = 'token';

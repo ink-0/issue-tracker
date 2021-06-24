@@ -5,7 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import IssueClosedIcon from '../../styles/svg/IssueClosedIcon';
 import TextGroup from '../../common/group/TextGroup';
 import LabelLargeGroup from '../../common/group/LabelLargeGroup';
-import { TYPE as T } from '../../../utils/const';
+import { TYPE as T, TEXT as TT } from '../../../utils/const';
 
 const IssueDetailTitle = ({
   title,
@@ -17,6 +17,8 @@ const IssueDetailTitle = ({
   const [issueState, setIssueState] = useState(isOpen);
   const handleClickIssueButton = () => setIssueState(false);
 
+  console.log(title, isOpen);
+
   return (
     <IssueDetailTitleStyle>
       <TitleUpperBox>
@@ -26,7 +28,7 @@ const IssueDetailTitle = ({
         </TextBox>
         <ButtonBox>
           <TitleEditButton startIcon={<TitleEditIcon />} color="primary">
-            <TextGroup type={T.SMALL} content={'제목 편집'} color="#007AFF" />
+            <TextGroup type={T.SMALL} content={TT.EDIT_TITLE} color="#007AFF" />
           </TitleEditButton>
           <TitleEditButton
             onClick={handleClickIssueButton}
@@ -38,28 +40,32 @@ const IssueDetailTitle = ({
             }
             color="primary"
           >
-            <TextGroup type={T.SMALL} content={'이슈 닫기'} color="#007AFF" />
+            <TextGroup
+              type={T.SMALL}
+              content={TT.CLOSED_ISSUE}
+              color="#007AFF"
+            />
           </TitleEditButton>
         </ButtonBox>
       </TitleUpperBox>
       <TitleLowerBox>
         <ButtonBox>
           {issueState ? (
-            <LabelLargeGroup type="open" />
+            <LabelLargeGroup type={T.OPEN} />
           ) : (
-            <LabelLargeGroup type="closed" />
+            <LabelLargeGroup type={T.CLOSED} />
           )}
         </ButtonBox>
         <TextBox>
           {issueState ? (
             <TextGroup
-              type="small"
+              type={T.SMALL}
               content={`이 이슈가 date분 전에 writer님에 의해 열렸습니다 ∙ 코멘트 1개`}
               color="#6E7191"
             />
           ) : (
             <TextGroup
-              type="small"
+              type={T.SMALL}
               content={`이 이슈가 date분 전에 writer님에 의해 닫혔습니다 ∙ 코멘트 1개`}
               color="#6E7191"
             />

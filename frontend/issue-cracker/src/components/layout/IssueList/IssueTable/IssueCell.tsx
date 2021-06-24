@@ -1,4 +1,8 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import {
   Issue as S,
   Text as T,
@@ -6,19 +10,13 @@ import {
 } from '../../../styles/CommonStyles';
 import CheckBoxes from '../../../common/CheckBoxes';
 import IssueOpenIcon from '../../../styles/svg/IssueOpenIcon';
-import styled from 'styled-components';
 import LabelSmallGroup from '../../../common/group/LabelSmallGroup';
-import { Link } from 'react-router-dom';
 import { decodedToken } from '../../../../store/Recoil';
-import { useRecoilValue } from 'recoil';
 import { IssueDataProps } from '../../../../utils/types/IssueDataType';
-import IssueDetail from '../../IssueDetail';
-import { v4 as uuidv4 } from 'uuid';
 
 const IssueCell = ({ issues }: { issues: IssueDataProps[] }): JSX.Element => {
   const decoded = decodedToken && useRecoilValue(decodedToken);
   const profileURL = decoded && decoded.profileImageUrl;
-  console.log('이슈셀데이터', issues);
 
   const getIssue = (list: IssueDataProps[], str: string): IssueDataProps[] =>
     list.filter((el) => el.status === str);
