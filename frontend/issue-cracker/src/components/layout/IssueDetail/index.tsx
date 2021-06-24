@@ -4,28 +4,17 @@ import styled from 'styled-components';
 import IssueDetailTitle from './IssueDetailTitle';
 import { Line as S } from '../../styles/CommonStyles';
 import IssueDetailBox from './IssueDetailBox';
-import { AssigneeProps } from '../../../utils/types/sideBarType';
-
-interface LocationStateProps {
-  issueId: number;
-  title: string;
-  content: string;
-  isOpen: boolean;
-  writer: string | null;
-  elapsedTime: string;
-  assignees: AssigneeProps[];
-}
+import { IssueDataProps } from '../../../utils/types/IssueDataType';
 
 const IssueDetail = (): JSX.Element => {
-  const { state } = useLocation<LocationStateProps>();
-  const { title, isOpen, elapsedTime, assignees } = state;
+  const { state } = useLocation<IssueDataProps>();
 
   return (
     <>
       <IssueDetailStyle>
-        <IssueDetailTitle {...{ title, isOpen, elapsedTime }} />
+        <IssueDetailTitle {...{ state }} />
         <S.TableLine />
-        <IssueDetailBox />
+        <IssueDetailBox {...{ state }} />
       </IssueDetailStyle>
     </>
   );

@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Issue as S } from '../../../../styles/CommonStyles';
-import { SIDEBAR_MENU } from '../../../../../utils/const';
 import { v4 as uuidv4 } from 'uuid';
 import TextGroup from '../../../../common/group/TextGroup';
 import AddIcon from '@material-ui/icons/Add';
-import { TYPE as T } from '../../../../../utils/const';
-const IssueDetailSidebar = (): JSX.Element => {
+import { TYPE as T, SIDEBAR_MENU } from '../../../../../utils/const';
+import { IssueDataProps } from '../../../../../utils/types/IssueDataType';
+
+const IssueDetailSidebar = ({
+  state,
+}: {
+  state: IssueDataProps;
+}): JSX.Element => {
+  const {} = state;
+
   return (
     <IssueDetailSidebarStyle>
       {SIDEBAR_MENU.map((menu) => (

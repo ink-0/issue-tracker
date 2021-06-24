@@ -11,7 +11,7 @@ import {
   BUTTON_NAME as BN,
   URL as U,
 } from '../../../utils/const';
-import { issueAddData, token } from '../../../store/Recoil';
+import { issueAddData } from '../../../store/Recoil';
 import { useRecoilValue } from 'recoil';
 
 const IssueAddButton = (): JSX.Element => {
