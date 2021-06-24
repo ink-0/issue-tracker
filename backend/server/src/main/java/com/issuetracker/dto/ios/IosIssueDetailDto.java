@@ -5,6 +5,7 @@ import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class IosIssueDetailDto {
 
@@ -73,12 +74,12 @@ public class IosIssueDetailDto {
         return createdDateTime;
     }
 
-    public IosAssigneesDto getAssignees() {
-        return assignees;
+    public List<IosAssigneeDto> getAssignees() {
+        return assignees.toList();
     }
 
-    public IosLabelsDto getLabels() {
-        return labels;
+    public List<IosLabelDto> getLabels() {
+        return labels.toList();
     }
 
     public IosCommentsDto getComments() {

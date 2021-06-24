@@ -1,6 +1,5 @@
 package com.issuetracker.dto.web;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.issuetracker.domain.Assignees;
 
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.stream.Collectors;
 
 public class WebAssigneesDto {
 
-    @JsonProperty
     private final List<WebAssigneeDto> assignees;
 
     public WebAssigneesDto(List<WebAssigneeDto> assignees) {

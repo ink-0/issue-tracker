@@ -1,10 +1,13 @@
 package com.issuetracker.controller.web;
 
+import com.issuetracker.annotation.LoginRequired;
 import com.issuetracker.dto.auth.UserDto;
 import com.issuetracker.dto.web.*;
 import com.issuetracker.service.AuthService;
 import com.issuetracker.service.web.WebIssueService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/web")
@@ -37,8 +40,11 @@ public class WebIssueController {
     }
 
     @PostMapping("/issues")
-    public void createIssue(@RequestBody WebNewIssueDto issue) {
-        webIssueService.save(issue); // console print
+    @LoginRequired
+    public void createIssue(HttpServletRequest request, @RequestBody WebNewIssueDto issue) {
+        String userId = (String) request.getAttribute("userId");
+        UserDto loginUser = authService.getUser(userId);
+        webIssueService.save(loginUser, issue);
     }
 
     @GetMapping("/issues/{issueId}")

@@ -3,6 +3,7 @@ package com.issuetracker.dto.ios;
 import com.issuetracker.domain.NewIssue;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class IosNewIssueDto {
 
@@ -16,16 +17,19 @@ public class IosNewIssueDto {
 
     private Long milestoneId;
 
-    public IosNewIssueDto(String title, String comment, IosAssigneesDto assignees, IosLabelsDto labels, Long milestoneId) {
+    public IosNewIssueDto(String title, String comment, List<IosAssigneeDto> assignees, List<IosLabelDto> labels, Long milestoneId) {
         this.title = title;
         this.comment = comment;
-        this.assignees = assignees;
-        this.labels = labels;
+        this.assignees = new IosAssigneesDto(assignees);
+        this.labels = new IosLabelsDto(labels);
         this.milestoneId = milestoneId;
     }
 
     public static IosNewIssueDto from(NewIssue newIssue) {
-        return new IosNewIssueDto(newIssue.getTitle(), newIssue.getComment(), IosAssigneesDto.from(newIssue.getAssignees()), IosLabelsDto.from(newIssue.getLabels()), newIssue.getMilestoneId());
+        List<IosAssigneeDto> assignees = newIssue.getAssignees().toList().stream().map(IosAssigneeDto::from).collect(Collectors.toList());
+        List<IosLabelDto> labels = newIssue.getLabels().toList().stream().map(IosLabelDto::from).collect(Collectors.toList());
+
+        return new IosNewIssueDto(newIssue.getTitle(), newIssue.getComment(), assignees, labels, newIssue.getMilestoneId());
     }
 
     public NewIssue toNewIssue() {

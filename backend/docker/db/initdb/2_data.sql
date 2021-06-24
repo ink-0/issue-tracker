@@ -51,8 +51,9 @@ VALUES ('아슈 아이디1의 댓글 내용1', NOW(), 'san', 1),
        ('이슈 아이디3의 댓글 내용3', NOW(), 'tami', 3);
 
 INSERT INTO `pyrodb`.`label`(title, description, backgroundColor, textColor)
-VALUES ('라벨1 제목', '라벨1 설명', '#FFFFF', '#FFFFF'),
-       ('라벨2 제목', '라벨2 설명', '#FFFFF', '#FFFFF');
+VALUES ('라벨1 제목', '라벨1 설명', '#815854', '#FFFFF'),
+       ('라벨2 제목', '라벨2 설명', '#1E4174', '#FFFFF'),
+       ('라벨3 제목', '라벨3 설명', '#DDA94B', '#DDA94B');
 
 INSERT INTO `pyrodb`.`issueLabel`(issueId, labelId)
 VALUES (1, 1);

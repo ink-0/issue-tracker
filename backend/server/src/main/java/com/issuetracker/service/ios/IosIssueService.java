@@ -33,8 +33,8 @@ public class IosIssueService {
         return IosIssueOptionDto.from(issueRepository.findIssueOption());
     }
 
-    public void save(IosNewIssueDto issueDto) {
-        issueRepository.save(issueDto.toNewIssue());
+    public void save(UserDto userDto, IosNewIssueDto issueDto) {
+        issueRepository.save(userDto.toUser(), issueDto.toNewIssue());
     }
 
     public IosIssueDetailDto findDetailedIssueId(Long issueId) {

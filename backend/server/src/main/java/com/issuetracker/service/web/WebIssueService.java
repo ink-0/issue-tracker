@@ -33,8 +33,8 @@ public class WebIssueService {
         return WebIssueOptionDto.from(issueRepository.findIssueOption());
     }
 
-    public void save(WebNewIssueDto issueDto) {
-        issueRepository.save(issueDto.toNewIssue());
+    public void save(UserDto userDto, WebNewIssueDto issueDto) {
+        issueRepository.save(userDto.toUser(), issueDto.toNewIssue());
     }
 
     public WebIssueDetailDto findDetailedIssueId(Long issueId) {

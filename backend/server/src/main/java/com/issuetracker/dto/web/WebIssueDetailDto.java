@@ -5,6 +5,7 @@ import com.issuetracker.domain.Issue;
 import com.issuetracker.domain.MilestoneInfo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class WebIssueDetailDto {
 
@@ -73,12 +74,12 @@ public class WebIssueDetailDto {
         return createdDateTime;
     }
 
-    public WebAssigneesDto getAssignees() {
-        return assignees;
+    public List<WebAssigneeDto> getAssignees() {
+        return assignees.toList();
     }
 
-    public WebLabelsDto getLabels() {
-        return labels;
+    public List<WebLabelDto> getLabels() {
+        return labels.toList();
     }
 
     public WebCommentsDto getComments() {
