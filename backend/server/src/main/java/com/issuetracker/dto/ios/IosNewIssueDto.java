@@ -1,7 +1,6 @@
 package com.issuetracker.dto.ios;
 
 import com.issuetracker.domain.NewIssue;
-import com.issuetracker.dto.auth.UserDto;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class IosNewIssueDto {
     }
 
     public NewIssue toNewIssue() {
-        return new NewIssue(title, comment, assignees.toUsers(), labels.toLabels(), milestoneId);
+        return new NewIssue(title, comment, assignees.toAssignees(), labels.toLabels(), milestoneId);
     }
 
     public String getTitle() {
@@ -41,7 +40,7 @@ public class IosNewIssueDto {
         return comment;
     }
 
-    public List<UserDto> getAssignees() {
+    public List<IosAssigneeDto> getAssignees() {
         return assignees.toList();
     }
 

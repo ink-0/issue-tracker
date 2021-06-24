@@ -1,7 +1,5 @@
 package com.issuetracker.domain;
 
-import com.issuetracker.domain.auth.User;
-
 import java.time.LocalDateTime;
 
 public class Comment {
@@ -10,16 +8,16 @@ public class Comment {
 
     private final Long issueId;
 
-    private final User write;
+    private final Writer writer;
 
     private final String content;
 
     private final LocalDateTime dateTime;
 
-    public Comment(Long id, Long issueId, User write, String content, LocalDateTime dateTime) {
+    public Comment(Long id, Long issueId, Writer writer, String content, LocalDateTime dateTime) {
         this.id = id;
         this.issueId = issueId;
-        this.write = write;
+        this.writer = writer;
         this.content = content;
         this.dateTime = dateTime;
     }
@@ -28,8 +26,8 @@ public class Comment {
         return id;
     }
 
-    public User getWrite() {
-        return write;
+    public Writer getWriter() {
+        return writer;
     }
 
     public String getContent() {

@@ -20,19 +20,26 @@ VALUES ('68936@naver.com', 'san'),
 INSERT INTO `pyrodb`.`status` (`id`)
 VALUES ('OPEN'),
        ('CLOSE'),
-       ('ALL');
+       ('ALL'),
+       ('EXPIRED');
 
-INSERT INTO `pyrodb`.`milestone`(title, description, dueDate)
-VALUES ('마일스톤1', '마일스톤1 설명', NOW()),
-       ('마일스톤2', '마일스톤2 설명', NOW());
+INSERT INTO `pyrodb`.`milestone`(title, description, statusId,dueDate)
+VALUES ('마일스톤1', '마일스톤1 설명', 'OPEN', NOW()),
+       ('마일스톤2', '마일스톤2 설명', 'CLOSE', NOW());
 
-INSERT INTO `pyrodb`.`issue`(title, content, writerId, statusId)
-VALUES ('이슈제목1', '이슈내용1', 'san', 'OPEN'),
-       ('이슈제목2', '이슈내용2', 'san', 'OPEN');
+INSERT INTO `pyrodb`.`issue`(title, content, writerId, statusId, createdDate)
+VALUES ('이슈제목1', '이슈내용1', 'san', 'OPEN', NOW()),
+       ('이슈제목2', '이슈내용2', 'san', 'CLOSE', NOW());
 
-INSERT INTO `pyrodb`.`issue`(title, content, writerId, statusId, milestoneId)
-VALUES ('이슈제목3-마일스톤1', '이슈내용1', 'san', 'OPEN', 1),
-       ('이슈제목4-마일스톤1', '이슈내용2', 'san', 'OPEN', 1);
+INSERT INTO `pyrodb`.`assignee`(issueId, userId)
+VALUES (1, 'san'),
+       (1, 'pyro'),
+       (2, 'tami'),
+       (2, 'racoon');
+
+INSERT INTO `pyrodb`.`issue`(title, content, writerId, statusId, milestoneId, createdDate)
+VALUES ('이슈제목3-마일스톤1', '이슈내용1', 'san', 'OPEN', 1, NOW()),
+       ('이슈제목4-마일스톤1', '이슈내용2', 'san', 'OPEN', 1, NOW());
 
 INSERT INTO `pyrodb`.`comment`(content, dateTime, writerId, issueId)
 VALUES ('아슈 아이디1의 댓글 내용1', NOW(), 'san', 1),

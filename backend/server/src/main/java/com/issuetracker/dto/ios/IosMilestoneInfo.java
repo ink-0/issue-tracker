@@ -10,16 +10,19 @@ public class IosMilestoneInfo {
 
     private String description;
 
+    private String status;
+
     private LocalDateTime dueDate;
 
-    public IosMilestoneInfo(String title, String description, LocalDateTime dueDate) {
+    public IosMilestoneInfo(String title, String description, String status, LocalDateTime dueDate) {
         this.title = title;
         this.description = description;
+        this.status = status;
         this.dueDate = dueDate;
     }
 
-    public static IosMilestoneInfo from(MilestoneInfo milestoneInfo){
-        return new IosMilestoneInfo(milestoneInfo.getTitle(),milestoneInfo.getDescription(),milestoneInfo.getDueDate());
+    public static IosMilestoneInfo from(MilestoneInfo milestoneInfo) {
+        return new IosMilestoneInfo(milestoneInfo.getTitle(), milestoneInfo.getDescription(), milestoneInfo.getStatus().name(), milestoneInfo.getDueDate());
     }
 
     public String getTitle() {
@@ -28,6 +31,10 @@ public class IosMilestoneInfo {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public LocalDateTime getDueDate() {

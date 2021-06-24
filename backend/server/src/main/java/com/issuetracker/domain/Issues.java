@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Issues {
-    private final List<Issue> issues = new ArrayList<>();
+    private final List<Issue> issues;
+
+    public Issues() {
+        this.issues = new ArrayList<>();
+    }
+
+    public Issues(List<Issue> issues) {
+        this.issues = issues;
+    }
 
     public void add(Issue issue) {
         issues.add(issue);
@@ -13,5 +21,5 @@ public class Issues {
     public List<Issue> toList() {
         return issues;
     }
-    
+
 }

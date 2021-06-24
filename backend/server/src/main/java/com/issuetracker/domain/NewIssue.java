@@ -1,20 +1,18 @@
 package com.issuetracker.domain;
 
-import com.issuetracker.domain.auth.Users;
-
 public class NewIssue {
 
     private final String title;
 
     private final String comment;
 
-    private final Users assignees;
+    private final Assignees assignees;
 
     private final Labels labels;
 
     private final Long milestoneId;
 
-    public NewIssue(String title, String comment, Users assignees, Labels labels, Long milestoneId) {
+    public NewIssue(String title, String comment, Assignees assignees, Labels labels, Long milestoneId) {
         this.title = title;
         this.comment = comment;
         this.assignees = assignees;
@@ -30,7 +28,7 @@ public class NewIssue {
         return comment;
     }
 
-    public Users getAssignees() {
+    public Assignees getAssignees() {
         return assignees;
     }
 
