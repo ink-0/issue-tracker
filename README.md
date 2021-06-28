@@ -1,5 +1,6 @@
 # Issue Tracker 
-GitHub의 이슈를 관리하는 서비스로 GiuHub로그인 후에 `이슈`,`마일스톤`,`프로젝트`를 관리할 수 있는 웹 서비스 입니다.  
+GitHub의 이슈를 관리하는 서비스로 GiuHub로그인 후에 `이슈`,`마일스톤`,`프로젝트`를 관리할 수 있는 웹 서비스 입니다.    
+[TypeScript ,Recoil ,SpringBoot, MySQL]
 ## 📌프로젝트 구현
 
 ## 📌프로젝트 정보
@@ -32,7 +33,9 @@ GitHub의 이슈를 관리하는 서비스로 GiuHub로그인 후에 `이슈`,`�
 ||Tami|Noeul|
   
 ## 📌파일 구조
-[🔗 component 다이어그램](https://drive.google.com/file/d/1d5YJRCsRzQx0HZrN-AcuEdZPTpJe6vlz/view?usp=sharing)
+[🔗 component 다이어그램](https://drive.google.com/file/d/1d5YJRCsRzQx0HZrN-AcuEdZPTpJe6vlz/view?usp=sharing)  
+![Team13-issue-tracker diagram](https://user-images.githubusercontent.com/71919983/123673325-4aa77e80-d87b-11eb-9760-f447d0ba3391.png)
+
 <details>
 <summary>파일구조 이미지</summary>
 <div markdown="1">
