@@ -2,6 +2,7 @@
 GitHub의 이슈를 관리하는 서비스로 GiuHub로그인 후에 `이슈`,`마일스톤`,`프로젝트`를 관리할 수 있는 웹 서비스 입니다.    
 [TypeScript ,Recoil ,SpringBoot, MySQL]
 ## 📌프로젝트 구현
+![화면 기록 2021-07-01 오후 11 53 05 mov](https://user-images.githubusercontent.com/71919983/124317554-531cf380-dbb2-11eb-80a6-7f9fd20d1a2d.gif)
 
 ## 📌프로젝트 정보
 ### 프로젝트 진행 과정 블로그 정리
